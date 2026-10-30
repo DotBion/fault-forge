@@ -225,8 +225,7 @@ CMA-ES, 2 by random) ending in attitude_loss, where v1's earlier isolation happe
 v3 (swap) is worse on full runs: 177 regressions against 151 fixes, net 523 violating vs v1's 497 (v2: 458).
 All 177 are multi-fault. 83 are two heavy friction faults (46 from Muse runs, 19 CMA-ES, 12 Muse-blind, 4 random,
 plus 2 with one heavy one), 53 have two dead wheels (out of scope), and 40 pair a dead wheel with heavy friction.
-Swapping hands a recovering wheel back to the controller after the mode change, which costs attitude when both
-faults are severe. On the minimized cases v3 looks better than v2 (98 % vs 96 %); on full runs it is not. So
+Our untested guess is that re-enabling the milder wheel hurts when both faults are severe; we have not traced it. On the minimized cases v3 looks better than v2 (98 % vs 96 %); on full runs it is not. So
 **v2 is the better candidate**, and v3 is kept only as a negative result. No fresh Muse search was run against v3
 (call budget), and the v3 random/CMA-ES re-search and paired replay were not run either.
 
