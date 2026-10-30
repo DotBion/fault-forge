@@ -9,3 +9,7 @@ bsk_src/
 basilisk/
 dist/
 build/
+
+demo/build/
+demo/build.log
+demo/__pycache__/

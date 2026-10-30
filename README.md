@@ -245,3 +245,9 @@ what motivated round 2 (swap).
 Plots: `plots/repair_before_after.png`, `plots/repair_replay_v2.png` (headline case 0805e05f39e4e419:
 rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses attitude, v2 isolates rw2 and holds
 ~9 deg).
+
+## Demo video
+
+`demo/faultforge_demo_v1.mp4` (2:49, 1080p30, captions only) is rendered entirely from repo data by
+`demo/make_video.py`; attitude traces for the headline case come from `demo/replay_attitude.py`
+(re-runs `data/repair/headline_v2.json` as v1, v1 with policy disabled, and v2). Stills: `demo/still_*.png`.

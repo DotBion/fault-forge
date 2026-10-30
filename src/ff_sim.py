@@ -233,7 +233,7 @@ def _angle_deg(sigma):
     return math.degrees(4.0 * math.atan(np.linalg.norm(sigma)))
 
 
-def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=True):
+def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=True, log_attitude=False):
     """Run one simulation. Returns dict with violations, summary metrics and (optionally) telemetry."""
     t_wall0 = time.perf_counter()
     h = build(params, cfg)
@@ -262,6 +262,7 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
               safe_since=None, iso_res=[0.0] * nRW)
     log = []           # policy actions
     tel = []
+    att_log = []       # optional: [t, sigma_BR(3), sigma_BN(3)] for visualisation (log_attitude=True)
     prev_Om = [rw.Omega for rw in rws]
     sat_s = [0.0] * nRW
     att_bad_run = 0.0
@@ -384,6 +385,9 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
             tel.append([t, soc, h["panel"].nodePowerOutMsg.read().netPower, bat.currentNetPower, err_deg,
                         1 if st["mode"] == "SAFE" else 0, h["ecl"].eclipseOutMsgs[0].read().shadowFactor]
                        + [o * 60 / (2 * math.pi) for o in Om] + [1 if a else 0 for a in st["avail"]])
+        if log_attitude and (int(round(t)) % 10 == 0):
+            sBN = list(h["sc"].scStateOutMsg.read().sigma_BN)
+            att_log.append([t] + list(guid.sigma_BR) + sBN)
         # min SoC tracking + near-miss margins (tracked before the early exit so they are always complete)
         st["min_soc"] = min(st.get("min_soc", 1.0), soc)
         st["max_err_late"] = max(st.get("max_err_late", 0.0), err_deg if t > cfg["att_grace_s"] else 0.0)
@@ -411,6 +415,9 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
         out["telemetry_cols"] = (["t_s", "soc", "panel_W", "net_W", "att_err_deg", "safe_mode", "sunlit"]
                                  + [f"rw{i}_rpm" for i in range(nRW)] + [f"rw{i}_avail" for i in range(nRW)])
         out["telemetry"] = tel
+    if log_attitude:
+        out["attitude_cols"] = ["t_s", "sBR1", "sBR2", "sBR3", "sBN1", "sBN2", "sBN3"]
+        out["attitude"] = att_log
     return out
 
 

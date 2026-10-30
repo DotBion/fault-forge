@@ -2,6 +2,7 @@
 
   python src/replay.py data/random_seed0.jsonl 17          # run id 17 of that search
   python src/replay.py data/minimal_random_seed0_17.json    # a minimized counterexample
+  python src/replay.py data/repair/headline_v2.json --policy v2   # headline case under the repaired policy
   python src/replay.py --nominal                             # no faults, default orbit
 
 Writes data/replay_<tag>.csv and plots/replay_<tag>.png and checks the violations match the record.
@@ -64,6 +65,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("path", nargs="?"); ap.add_argument("id", nargs="?", type=int)
     ap.add_argument("--nominal", action="store_true"); ap.add_argument("--no-policy", action="store_true")
+    ap.add_argument("--policy", default=os.environ.get("FF_POLICY", "v1"), help="v1 (default) | v2 | v3 | policy json")
     a = ap.parse_args()
     if a.nominal:
         params, rec, tag = ff_sim.default_params(), {}, "nominal"
@@ -71,8 +73,10 @@ def main():
         params, rec, tag = load(a.path, a.id)
     if a.no_policy:
         tag += "_nopolicy"
+    elif a.policy not in ("", "v1"):
+        tag += f"_{os.path.basename(a.policy).replace('.json', '')}"
     print("params:", json.dumps(params))
-    res = ff_sim.run_scenario(params, policy_enabled=not a.no_policy)
+    res = ff_sim.run_scenario(params, policy=ff_sim.get_policy(a.policy), policy_enabled=not a.no_policy)
     for t, msg in res["policy_log"]:
         print(f"  t={t:7.0f}s  {msg}")
     print("violations:", res["violations"], "| min SoC %.3f" % res["min_soc"], "| wall %.2fs" % res["wall_s"])
