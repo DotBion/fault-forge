@@ -1,0 +1,20 @@
+random: 300 runs
+  25/300 done, 11s
+  50/300 done, 21s
+  75/300 done, 32s
+  100/300 done, 43s
+  125/300 done, 53s
+  150/300 done, 64s
+  175/300 done, 74s
+  200/300 done, 85s
+  225/300 done, 95s
+  250/300 done, 105s
+  275/300 done, 116s
+  300/300 done, 126s
+wrote /workspace/faultforge/data/random_seed1.jsonl (300 runs, wall 126.3s with 5 workers)
+/workspace/faultforge/data/random_seed1.jsonl: 300 runs, 2 violating (0.7%)
+  wall time per run (single process, inside worker): mean 2.10s, median 2.09s, max 2.31s; sim time per run 11355s
+  violation types: {'attitude_loss': 2}
+  by #faults injected: 0 faults: 0/31, 1 faults: 0/90, 2 faults: 0/115, 3 faults: 2/57, 4 faults: 0/7
+  violating runs by injected-fault signature: {'leak,rw_friction,rw_friction': 1, 'heater,rw_friction,rw_torque_derate': 1}
+  violating ids: [14, 218]

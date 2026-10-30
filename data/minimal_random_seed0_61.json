@@ -1,0 +1,35 @@
+{
+ "source": "data/random_seed0.jsonl#61",
+ "target_violation": "wheel_saturation",
+ "params": {
+  "orbit": {
+   "beta_deg": 26.21,
+   "f0_deg": 277.9
+  },
+  "rw_faults": [
+   {
+    "wheel": 2,
+    "onset_s": 3939.8,
+    "type": "friction",
+    "severity": 0.2
+   }
+  ],
+  "heater": null,
+  "torque_leak": {
+   "onset_s": 5205.8,
+   "mag_Nm": 1.062e-06,
+   "axis": [
+    -0.3173,
+    -0.189,
+    0.9293
+   ]
+  }
+ },
+ "violations": {
+  "wheel_saturation": 11260.0
+ },
+ "n_faults_before": 2,
+ "n_faults_after": 2,
+ "minimization_sims": 10,
+ "replay": "python src/replay.py data/minimal_random_seed0_61.json"
+}

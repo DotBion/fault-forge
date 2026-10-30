@@ -1,0 +1,11 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.cache/
+# Basilisk source/build must never be vendored
+bsk_src/
+basilisk/
+dist/
+build/

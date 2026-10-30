@@ -1,0 +1,33 @@
+{
+ "source": "data/random_seed1.jsonl#218",
+ "target_violation": "attitude_loss",
+ "params": {
+  "orbit": {
+   "beta_deg": 59.21,
+   "f0_deg": 25.81
+  },
+  "rw_faults": [
+   {
+    "wheel": 0,
+    "onset_s": 1878.2,
+    "type": "friction",
+    "severity": 0.2
+   },
+   {
+    "wheel": 2,
+    "onset_s": 6800.6,
+    "type": "torque_derate",
+    "severity": 0.993
+   }
+  ],
+  "heater": null,
+  "torque_leak": null
+ },
+ "violations": {
+  "attitude_loss": 8050.0
+ },
+ "n_faults_before": 3,
+ "n_faults_after": 2,
+ "minimization_sims": 13,
+ "replay": "python src/replay.py data/minimal_random_seed1_218.json"
+}
