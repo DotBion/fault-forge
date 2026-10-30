@@ -212,15 +212,23 @@ Replaying all 460 minimized counterexamples from the v1 searches (target fixed /
 
 Regressions (v1 had no violation, new policy does):
 
-| set | n | v1 violating | v2 violating | v2 regressions | v2 fixed |
-|---|---|---|---|---|---|
-| single-fault grid + nominal | 576 | 8 | 8 | **0** | 0 |
-| nominal only | 9 | 0 | 0 | 0 | 0 |
-| every stored (unminimized) search run, all arms | 2932 | 497 | 458 | **24** | 63 |
+| set | n | v1 violating | v2 violating | v2 regressions | v2 fixed | v3 violating | v3 regressions | v3 fixed |
+|---|---|---|---|---|---|---|---|---|
+| single-fault grid + nominal | 576 | 8 | 8 | **0** | 0 | 8 | **0** | 0 |
+| nominal only | 9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| every stored (unminimized) search run, all arms | 2932 | 497 | 458 | **24** | 63 | 523 | **177** | 151 |
 
 v2's 24 regressions are all multi-fault runs. 13 are two heavy friction faults (severity 0.3-1.0; 11 found by
 CMA-ES, 2 by random) ending in attitude_loss, where v1's earlier isolation happened to help. 7 have two dead wheels
 (out of scope). 4 pair one dead wheel (severity 1.0) with heavy friction and/or the 1.5 uNm leak. So v2 keeps every single-fault and nominal case but does **not** survive everything v1 survived.
+
+v3 (swap) is worse on full runs: 177 regressions against 151 fixes, net 523 violating vs v1's 497 (v2: 458).
+All 177 are multi-fault. 83 are two heavy friction faults (46 from Muse runs, 19 CMA-ES, 12 Muse-blind, 4 random,
+plus 2 with one heavy one), 53 have two dead wheels (out of scope), and 40 pair a dead wheel with heavy friction.
+Swapping hands a recovering wheel back to the controller after the mode change, which costs attitude when both
+faults are severe. On the minimized cases v3 looks better than v2 (98 % vs 96 %); on full runs it is not. So
+**v2 is the better candidate**, and v3 is kept only as a negative result. No fresh Muse search was run against v3
+(call budget), and the v3 random/CMA-ES re-search and paired replay were not run either.
 
 Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed):
 
