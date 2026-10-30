@@ -1,0 +1,20 @@
+random: 300 runs
+  25/300 done, 28s
+  50/300 done, 56s
+  75/300 done, 83s
+  100/300 done, 109s
+  125/300 done, 134s
+  150/300 done, 161s
+  175/300 done, 188s
+  200/300 done, 214s
+  225/300 done, 241s
+  250/300 done, 268s
+  275/300 done, 294s
+  300/300 done, 320s
+wrote data/cmp/random_seed1.jsonl (300 runs, wall 320.2s with 2 workers)
+data/cmp/random_seed1.jsonl: 300 runs, 2 violating (0.7%)
+  wall time per run (single process, inside worker): mean 2.13s, median 2.11s, max 3.19s; sim time per run 11355s
+  violation types: {'attitude_loss': 2}
+  by #faults injected: 0 faults: 0/31, 1 faults: 0/90, 2 faults: 0/115, 3 faults: 2/57, 4 faults: 0/7
+  violating runs by injected-fault signature: {'leak,rw_friction,rw_friction': 1, 'heater,rw_friction,rw_torque_derate': 1}
+  violating ids: [14, 218]

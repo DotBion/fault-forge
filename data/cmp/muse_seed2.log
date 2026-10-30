@@ -1,0 +1,54 @@
+seed 2 round 0: 8/300 sims, 0 violations, llm 27.9s tok 6011, fallback 0, err 0, 37s
+seed 2 round 1: 16/300 sims, 3 violations, llm 42.8s tok 9292, fallback 0, err 0, 88s
+seed 2 round 2: 24/300 sims, 6 violations, llm 34.6s tok 10108, fallback 0, err 0, 132s
+seed 2 round 3: 32/300 sims, 11 violations, llm 16.9s tok 9472, fallback 0, err 0, 158s
+seed 2 round 4: 40/300 sims, 15 violations, llm 31.0s tok 12779, fallback 0, err 0, 198s
+seed 2 round 5: 48/300 sims, 20 violations, llm 43.1s tok 16523, fallback 0, err 0, 250s
+seed 2 round 6: 56/300 sims, 22 violations, llm 40.3s tok 15823, fallback 0, err 0, 300s
+seed 2 round 7: 64/300 sims, 22 violations, llm 25.4s tok 13651, fallback 0, err 0, 334s
+seed 2 round 8: 72/300 sims, 25 violations, llm 30.0s tok 14141, fallback 0, err 0, 374s
+seed 2 round 9: 80/300 sims, 28 violations, llm 34.6s tok 15889, fallback 0, err 0, 418s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 2): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 3): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 4): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 5): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 6): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 10: 88/300 sims, 28 violations, llm 0.0s tok None, fallback 8, err HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}, 671s
+seed 2 round 11: 96/300 sims, 29 violations, llm 38.7s tok 17338, fallback 0, err 0, 720s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 2 round 12: 104/300 sims, 35 violations, llm 48.6s tok 18352, fallback 0, err 0, 1019s
+seed 2 round 13: 112/300 sims, 37 violations, llm 31.3s tok 15432, fallback 0, err 0, 1059s
+seed 2 round 14: 120/300 sims, 42 violations, llm 21.6s tok 13368, fallback 0, err 0, 1089s
+seed 2 round 15: 128/300 sims, 44 violations, llm 26.3s tok 14708, fallback 0, err 0, 1124s
+seed 2 round 16: 136/300 sims, 45 violations, llm 36.2s tok 18354, fallback 0, err 0, 1178s
+seed 2 round 17: 144/300 sims, 47 violations, llm 20.3s tok 14036, fallback 0, err 0, 1207s
+seed 2 round 18: 152/300 sims, 48 violations, llm 23.7s tok 13478, fallback 0, err 0, 1239s
+seed 2 round 19: 160/300 sims, 50 violations, llm 27.1s tok 15623, fallback 0, err 0, 1275s
+seed 2 round 20: 168/300 sims, 52 violations, llm 35.6s tok 18459, fallback 0, err 0, 1319s
+seed 2 round 21: 176/300 sims, 53 violations, llm 17.7s tok 15059, fallback 0, err 0, 1345s
+seed 2 round 22: 184/300 sims, 53 violations, llm 28.6s tok 17127, fallback 0, err 0, 1382s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 23: 192/300 sims, 54 violations, llm 28.8s tok 17093, fallback 0, err 0, 1443s
+seed 2 round 24: 200/300 sims, 59 violations, llm 15.0s tok 13538, fallback 0, err 0, 1466s
+seed 2 round 25: 208/300 sims, 62 violations, llm 40.2s tok 18132, fallback 0, err 0, 1515s
+seed 2 round 26: 216/300 sims, 63 violations, llm 33.1s tok 17370, fallback 0, err 0, 1557s
+seed 2 round 27: 224/300 sims, 66 violations, llm 25.8s tok 15002, fallback 0, err 0, 1591s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 2): TimeoutError: The read operation timed out
+  LLM call failed (attempt 3): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 4): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 28: 232/300 sims, 68 violations, llm 30.5s tok 17339, fallback 0, err 0, 1979s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 2): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 3): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 29: 240/300 sims, 71 violations, llm 31.7s tok 17615, fallback 0, err 0, 2136s
+seed 2 round 30: 248/300 sims, 75 violations, llm 27.5s tok 16453, fallback 0, err 0, 2173s
+seed 2 round 31: 256/300 sims, 79 violations, llm 24.4s tok 15545, fallback 0, err 0, 2207s
+seed 2 round 32: 264/300 sims, 84 violations, llm 36.8s tok 18314, fallback 0, err 0, 2253s
+seed 2 round 33: 272/300 sims, 86 violations, llm 28.0s tok 16734, fallback 0, err 0, 2289s
+seed 2 round 34: 280/300 sims, 89 violations, llm 27.2s tok 16602, fallback 0, err 0, 2326s
+seed 2 round 35: 288/300 sims, 90 violations, llm 33.7s tok 17933, fallback 0, err 0, 2368s
+seed 2 round 36: 296/300 sims, 93 violations, llm 32.1s tok 17557, fallback 0, err 0, 2410s
+seed 2 round 37: 300/300 sims, 94 violations, llm 35.0s tok 19055, fallback 0, err 0, 2449s
+wrote /workspace/faultforge/data/cmp/muse_seed2.jsonl

@@ -1,0 +1,212 @@
+"""Equal-budget comparison of search arms (Muse-guided vs random), with minimization + dedupe.
+
+  python src/compare.py --workers 8
+reads   data/cmp/{random,muse}_seed{0,1,2}.jsonl
+writes  data/cmp/minimized.jsonl (cache: one minimized counterexample per violating run, + no-policy check)
+        data/cmp/summary.json, plots/muse_vs_random.png
+
+Pattern of a minimized counterexample:
+  coarse = target violation <- sorted fault kinds (rw_torque_derate / rw_friction / heater / leak)
+  fine   = target violation <- sorted faults with wheel index / dominant leak axis (+X, -Z, ...)
+"""
+import argparse
+import glob
+import hashlib
+import json
+import os
+import sys
+from multiprocessing import Pool
+
+import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ff_sim  # noqa: E402
+import minimize as M  # noqa: E402
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CMP = os.path.join(ROOT, "data", "cmp")
+
+
+def phash(p):
+    return hashlib.sha1(json.dumps(p, sort_keys=True).encode()).hexdigest()[:16]
+
+
+def leak_axis(ax):
+    i = int(np.argmax(np.abs(ax)))
+    return ("+" if ax[i] > 0 else "-") + "XYZ"[i]
+
+
+def patterns(target, p):
+    kinds, fine = [], []
+    for f in p["rw_faults"]:
+        kinds.append(f"rw_{f['type']}"); fine.append(f"rw{f['wheel']}_{f['type']}")
+    if p["heater"]:
+        kinds.append("heater"); fine.append("heater")
+    if p["torque_leak"]:
+        kinds.append("leak"); fine.append("leak" + leak_axis(p["torque_leak"]["axis"]))
+    return target + " <- " + "+".join(sorted(kinds)), target + " <- " + "+".join(sorted(fine))
+
+
+def _minimize(job):
+    key, params, viol = job
+    target = min(viol, key=viol.get)
+    n0 = M.N_SIMS[0]
+    m = M.minimize(params, target, log=lambda *a: None)
+    r = ff_sim.run_scenario(m, telemetry=False)
+    r_np = ff_sim.run_scenario(m, telemetry=False, policy_enabled=False)
+    co, fi = patterns(target, m)
+    return {"key": key, "target": target, "minimized": m, "violations": r["violations"],
+            "reproduces": target in r["violations"], "policy_induced": target not in r_np["violations"],
+            "violations_no_policy": r_np["violations"], "n_faults_before": len(M.components(params)),
+            "n_faults_after": len(M.components(m)), "minimization_sims": M.N_SIMS[0] - n0 + 2,
+            "pattern_coarse": co, "pattern_fine": fi}
+
+
+def load_runs():
+    arms = {}
+    for path in sorted(glob.glob(os.path.join(CMP, "*_seed*.jsonl"))):
+        if path.endswith("_calls.jsonl"):
+            continue
+        name = os.path.basename(path)[:-6]
+        arm, seed = name.split("_seed")
+        rows = sorted((json.loads(l) for l in open(path)), key=lambda r: r["id"])
+        arms.setdefault(arm, {})[int(seed)] = rows
+    # equal budget per seed: truncate every arm to the shortest arm for that seed (random runs are i.i.d. per id,
+    # so the first N random runs are a valid N-sim random search)
+    for s in set().union(*[set(v) for v in arms.values()]):
+        n = min(len(arms[a][s]) for a in arms if s in arms[a])
+        for a in arms:
+            if s in arms[a]:
+                arms[a][s] = arms[a][s][:n]
+    return arms
+
+
+def llm_stats(seed):
+    p = os.path.join(CMP, f"muse_seed{seed}_calls.jsonl")
+    if not os.path.exists(p):
+        return None
+    c = [json.loads(l) for l in open(p)]
+    lat = [x["latency_s"] for x in c if x["latency_s"]]
+    u = [x["usage"] for x in c]
+    return {"calls": len(c), "failed_calls": sum(1 for x in c if x["error"]),
+            "fallback_scenarios": sum(x["fallback"] for x in c), "repairs": sum(x["repairs"] for x in c),
+            "prompt_tokens": sum(x.get("prompt_tokens", 0) for x in u),
+            "completion_tokens": sum(x.get("completion_tokens", 0) for x in u),
+            "reasoning_tokens": sum((x.get("completion_tokens_details") or {}).get("reasoning_tokens", 0) for x in u),
+            "latency_mean_s": float(np.mean(lat)) if lat else None, "latency_p95_s": float(np.percentile(lat, 95)) if lat else None,
+            "latency_total_s": float(np.sum(lat))}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--workers", type=int, default=8)
+    a = ap.parse_args()
+    arms = load_runs()
+    cache_p = os.path.join(CMP, "minimized.jsonl")
+    cache = {}
+    if os.path.exists(cache_p):
+        for l in open(cache_p):
+            d = json.loads(l); cache[d["key"]] = d
+    jobs = {}
+    for arm, seeds in arms.items():
+        for s, rows in seeds.items():
+            for r in rows:
+                if r["violated"]:
+                    k = phash(r["params"])
+                    if k not in cache:
+                        jobs[k] = (k, r["params"], r["violations"])
+    print(f"minimizing {len(jobs)} violating runs ({len(cache)} cached)", flush=True)
+    with open(cache_p, "a") as f, Pool(a.workers) as pool:
+        for i, d in enumerate(pool.imap_unordered(_minimize, list(jobs.values()))):
+            cache[d["key"]] = d; f.write(json.dumps(d) + "\n"); f.flush()
+            if (i + 1) % 10 == 0:
+                print(f"  {i+1}/{len(jobs)}", flush=True)
+
+    summary = {"arms": {}, "patterns": {}}
+    curves = {}
+    allpat = {}
+    for arm, seeds in sorted(arms.items()):
+        per = {}
+        for s, rows in sorted(seeds.items()):
+            v = [r for r in rows if r["violated"]]
+            first = next((i + 1 for i, r in enumerate(rows) if r["violated"]), None)
+            seen_c, seen_f, seen_pi, cv, cu, cpi = set(), set(), set(), [], [], []
+            n_v = 0
+            for r in rows:
+                if r["violated"]:
+                    n_v += 1
+                    m = cache[phash(r["params"])]
+                    if m["reproduces"]:
+                        seen_c.add(m["pattern_coarse"]); seen_f.add(m["pattern_fine"])
+                        if m["policy_induced"]:
+                            seen_pi.add(m["pattern_fine"])
+                        allpat.setdefault(m["pattern_fine"], {}).setdefault(arm, []).append(
+                            {"seed": s, "id": r["id"], "key": m["key"], "policy_induced": m["policy_induced"]})
+                cv.append(n_v); cu.append(len(seen_f)); cpi.append(len(seen_pi))
+            curves.setdefault(arm, {})[s] = (cv, cu, cpi)
+            types = {}
+            for r in v:
+                for t in r["violations"]:
+                    types[t] = types.get(t, 0) + 1
+            mins = [cache[phash(r["params"])] for r in v]
+            per[s] = {"sims": len(rows), "violations": len(v), "violations_per_sim": len(v) / len(rows),
+                      "sims_to_first_violation": first, "unique_patterns_coarse": len(seen_c),
+                      "unique_patterns_fine": len(seen_f), "unique_patterns_policy_induced": len(seen_pi),
+                      "patterns_policy_induced": sorted(seen_pi), "violation_types": types,
+                      "policy_induced_minimized": sum(m["policy_induced"] for m in mins),
+                      "minimized_non_reproducing": sum(not m["reproduces"] for m in mins),
+                      "minimization_sims": sum(m["minimization_sims"] for m in mins),
+                      "patterns_fine": sorted(seen_f)}
+            if arm == "muse":
+                per[s]["llm"] = llm_stats(s)
+        keys = ["violations_per_sim", "sims_to_first_violation", "unique_patterns_coarse", "unique_patterns_fine",
+                "unique_patterns_policy_induced"]
+        mean = {k: float(np.mean([p[k] if p[k] is not None else np.nan for p in per.values()])) for k in keys}
+        union_f = sorted(set().union(*[set(p["patterns_fine"]) for p in per.values()]))
+        union_pi = sorted(set().union(*[set(p["patterns_policy_induced"]) for p in per.values()]))
+        summary["arms"][arm] = {"per_seed": per, "mean": mean, "union_patterns_fine": union_f,
+                                "union_patterns_policy_induced": union_pi}
+    summary["patterns"] = allpat
+    if "muse" in summary["arms"] and "random" in summary["arms"]:
+        mu, ra = set(summary["arms"]["muse"]["union_patterns_fine"]), set(summary["arms"]["random"]["union_patterns_fine"])
+        summary["muse_only_patterns"] = sorted(mu - ra); summary["random_only_patterns"] = sorted(ra - mu)
+        summary["shared_patterns"] = sorted(mu & ra)
+        mp, rp = set(summary["arms"]["muse"]["union_patterns_policy_induced"]), set(summary["arms"]["random"]["union_patterns_policy_induced"])
+        summary["muse_only_policy_induced"] = sorted(mp - rp); summary["random_only_policy_induced"] = sorted(rp - mp)
+    json.dump(summary, open(os.path.join(CMP, "summary.json"), "w"), indent=1)
+
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(1, 3, figsize=(16, 4.6))
+    col = {"muse": "tab:blue", "random": "tab:gray"}
+    for arm, seeds in curves.items():
+        for j, (s, (cv, cu, cpi)) in enumerate(sorted(seeds.items())):
+            x = np.arange(1, len(cv) + 1)
+            ax[0].plot(x, cv, color=col.get(arm), alpha=0.8, lw=1.4, label=arm if j == 0 else None)
+            ax[1].plot(x, cu, color=col.get(arm), alpha=0.8, lw=1.4, label=f"{arm}: all" if j == 0 else None)
+            ax[1].plot(x, cpi, color=col.get(arm), alpha=0.8, lw=1.2, ls="--",
+                       label=f"{arm}: policy-induced" if j == 0 else None)
+    ax[0].set(title="Cumulative violating sims (3 seeds each)", xlabel="simulations", ylabel="violations")
+    ax[1].set(title="Unique minimized failure patterns (dashed: policy-induced)", xlabel="simulations", ylabel="patterns")
+    names = sorted(summary["arms"])
+    m1 = [summary["arms"][n]["mean"]["violations_per_sim"] for n in names]
+    m2 = [summary["arms"][n]["mean"]["unique_patterns_policy_induced"] for n in names]
+    xx = np.arange(len(names))
+    ax[2].bar(xx - 0.2, m1, 0.4, color="tab:orange", label="violations / sim")
+    a2 = ax[2].twinx(); a2.bar(xx + 0.2, m2, 0.4, color="tab:green", label="unique policy-induced patterns")
+    ax[2].set_xticks(xx, names); ax[2].set_ylabel("violations / sim"); a2.set_ylabel("unique policy-induced patterns")
+    ax[2].set_title("Mean over seeds (equal budget)")
+    ax[2].legend(loc="upper left"); a2.legend(loc="upper right")
+    for x_ in ax[:2]:
+        x_.legend(); x_.grid(alpha=0.3)
+    fig.tight_layout()
+    out = os.path.join(ROOT, "plots", "muse_vs_random.png"); fig.savefig(out, dpi=130)
+    print("wrote", out)
+    for n in names:
+        print(n, json.dumps(summary["arms"][n]["mean"]))
+    for k in ("muse_only_patterns", "random_only_patterns", "shared_patterns", "muse_only_policy_induced",
+              "random_only_policy_induced"):
+        print(k, summary.get(k))
+
+
+if __name__ == "__main__":
+    main()

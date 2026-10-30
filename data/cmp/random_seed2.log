@@ -1,0 +1,20 @@
+random: 300 runs
+  25/300 done, 28s
+  50/300 done, 55s
+  75/300 done, 84s
+  100/300 done, 110s
+  125/300 done, 136s
+  150/300 done, 163s
+  175/300 done, 189s
+  200/300 done, 216s
+  225/300 done, 242s
+  250/300 done, 269s
+  275/300 done, 295s
+  300/300 done, 321s
+wrote data/cmp/random_seed2.jsonl (300 runs, wall 321.3s with 2 workers)
+data/cmp/random_seed2.jsonl: 300 runs, 1 violating (0.3%)
+  wall time per run (single process, inside worker): mean 2.14s, median 2.11s, max 2.98s; sim time per run 11355s
+  violation types: {'wheel_saturation': 1}
+  by #faults injected: 0 faults: 0/31, 1 faults: 0/87, 2 faults: 1/126, 3 faults: 0/46, 4 faults: 0/10
+  violating runs by injected-fault signature: {'leak,rw_friction': 1}
+  violating ids: [165]

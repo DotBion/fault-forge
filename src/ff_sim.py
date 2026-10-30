@@ -342,17 +342,29 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
             tel.append([t, soc, h["panel"].nodePowerOutMsg.read().netPower, bat.currentNetPower, err_deg,
                         1 if st["mode"] == "SAFE" else 0, h["ecl"].eclipseOutMsgs[0].read().shadowFactor]
                        + [o * 60 / (2 * math.pi) for o in Om] + [1 if a else 0 for a in st["avail"]])
-        if not telemetry and len(viol) == 3:
-            break
-        # min SoC tracking
+        # min SoC tracking + near-miss margins (tracked before the early exit so they are always complete)
         st["min_soc"] = min(st.get("min_soc", 1.0), soc)
         st["max_err_late"] = max(st.get("max_err_late", 0.0), err_deg if t > cfg["att_grace_s"] else 0.0)
+        st["max_att_run"] = max(st.get("max_att_run", 0.0), att_bad_run)
+        st["max_wheel_ratio"] = max([st.get("max_wheel_ratio", 0.0)] + [abs(Om[i]) / Om_max[i] for i in range(nRW)
+                                                                        if st["avail"][i]])
+        st["max_sat_run"] = max([st.get("max_sat_run", 0.0)] + sat_s)
+        if not telemetry and len(viol) == 3:
+            break
 
     wall = time.perf_counter() - t_wall0
     out = dict(params=params, violations=viol, violated=bool(viol), min_soc=st["min_soc"],
                max_att_err_after_grace_deg=st["max_err_late"], final_mode=st["mode"],
                isolated_wheels=[i for i, a in enumerate(st["avail"]) if not a], sim_time_s=t,
-               wall_s=wall, policy_log=log)
+               wall_s=wall, policy_log=log,
+               # near-miss margins: <0 / >=1 means the constraint was crossed (see CFG for thresholds)
+               margins=dict(
+                   battery_margin=round(st["min_soc"] - cfg["soc_floor"], 5),              # SoC above floor
+                   att_err_ratio=round(st["max_err_late"] / cfg["att_err_bound_deg"], 5),  # peak err / bound
+                   att_dur_ratio=round(st["max_att_run"] / cfg["att_err_max_dur_s"], 5),   # out-of-bound run / limit
+                   wheel_speed_ratio=round(st["max_wheel_ratio"] / cfg["sat_frac"], 5),    # peak |Omega| / sat thr
+                   sat_dur_ratio=round(st["max_sat_run"] / cfg["sat_max_dur_s"], 5)),
+               n_policy_actions=sum(1 for _, m in log if m.startswith("POLICY")))
     if telemetry:
         out["telemetry_cols"] = (["t_s", "soc", "panel_W", "net_W", "att_err_deg", "safe_mode", "sunlit"]
                                  + [f"rw{i}_rpm" for i in range(nRW)] + [f"rw{i}_avail" for i in range(nRW)])
