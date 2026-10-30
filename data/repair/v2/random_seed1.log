@@ -1,2 +1,16 @@
 random: 200 runs
   25/200 done, 11s
+  50/200 done, 21s
+  75/200 done, 32s
+  100/200 done, 43s
+  125/200 done, 53s
+  150/200 done, 64s
+  175/200 done, 75s
+  200/200 done, 86s
+wrote data/repair/v2/random_seed1.jsonl (200 runs, wall 85.5s with 5 workers)
+data/repair/v2/random_seed1.jsonl: 200 runs, 2 violating (1.0%)
+  wall time per run (single process, inside worker): mean 2.12s, median 2.11s, max 2.30s; sim time per run 11355s
+  violation types: {'attitude_loss': 2}
+  by #faults injected: 0 faults: 0/26, 1 faults: 0/58, 2 faults: 0/77, 3 faults: 2/33, 4 faults: 0/6
+  violating runs by injected-fault signature: {'heater,rw_friction,rw_friction': 2}
+  violating ids: [50, 122]

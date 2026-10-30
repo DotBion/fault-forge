@@ -1,0 +1,21 @@
+seed 1 restart 0 gen 0: 10/200 sims, 0 viol, best f 0.167, 4s
+seed 1 restart 0 gen 1: 20/200 sims, 0 viol, best f 0.167, 9s
+seed 1 restart 0 gen 2: 30/200 sims, 0 viol, best f 0.251, 13s
+seed 1 restart 0 gen 3: 40/200 sims, 0 viol, best f 0.333, 17s
+seed 1 restart 0 gen 4: 50/200 sims, 0 viol, best f 0.112, 22s
+seed 1 restart 0 gen 5: 60/200 sims, 0 viol, best f 0.213, 26s
+seed 1 restart 0 gen 6: 70/200 sims, 0 viol, best f 0.140, 30s
+seed 1 restart 0 gen 7: 80/200 sims, 0 viol, best f 0.172, 34s
+seed 1 restart 0 gen 8: 90/200 sims, 0 viol, best f 0.162, 39s
+seed 1 restart 0 gen 9: 100/200 sims, 0 viol, best f 0.131, 43s
+seed 1 restart 0 gen 10: 110/200 sims, 0 viol, best f 0.092, 48s
+seed 1 restart 0 gen 11: 120/200 sims, 0 viol, best f 0.066, 52s
+seed 1 restart 0 gen 12: 130/200 sims, 0 viol, best f 0.118, 56s
+seed 1 restart 0 gen 13: 140/200 sims, 0 viol, best f 0.060, 60s
+seed 1 restart 0 gen 14: 150/200 sims, 0 viol, best f 0.058, 65s
+seed 1 restart 0 gen 15: 160/200 sims, 0 viol, best f 0.122, 69s
+seed 1 restart 0 gen 16: 170/200 sims, 0 viol, best f 0.083, 73s
+seed 1 restart 0 gen 17: 180/200 sims, 0 viol, best f 0.125, 77s
+seed 1 restart 0 gen 18: 190/200 sims, 0 viol, best f 0.061, 81s
+seed 1 restart 0 gen 19: 200/200 sims, 0 viol, best f 0.215, 86s
+wrote data/repair/v2/cmaes_seed1.jsonl

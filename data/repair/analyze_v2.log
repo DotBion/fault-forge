@@ -1,0 +1,199 @@
+minimizing 97 v2 violations (0 cached)
+{
+ "policy": "v2",
+ "change": {
+  "fdir_abs_Nm": 0.0006
+ },
+ "base": "v1",
+ "search": {
+  "cmaes": {
+   "v1": {
+    "sims": 200,
+    "violations": 2,
+    "violations_per_sim": 0.01,
+    "sims_to_first_violation": 154,
+    "unique_patterns_fine": 2,
+    "unique_patterns_coarse": 2,
+    "unique_patterns_policy_induced": 2,
+    "unique_patterns_policy_induced_in_scope": 2,
+    "violating_runs_policy_induced_in_scope": 2,
+    "out_of_scope_share": 0.0,
+    "patterns_policy_induced_in_scope": [
+     "attitude_loss <- rw0_friction+rw2_friction",
+     "wheel_saturation <- rw0_friction+rw1_friction"
+    ]
+   },
+   "v2": {
+    "sims": 200,
+    "violations": 0,
+    "violations_per_sim": 0.0,
+    "sims_to_first_violation": null,
+    "unique_patterns_fine": 0,
+    "unique_patterns_coarse": 0,
+    "unique_patterns_policy_induced": 0,
+    "unique_patterns_policy_induced_in_scope": 0,
+    "violating_runs_policy_induced_in_scope": 0,
+    "out_of_scope_share": null,
+    "patterns_policy_induced_in_scope": []
+   }
+  },
+  "muse": {
+   "v1": {
+    "sims": 200,
+    "violations": 66,
+    "violations_per_sim": 0.33,
+    "sims_to_first_violation": 3,
+    "unique_patterns_fine": 34,
+    "unique_patterns_coarse": 18,
+    "unique_patterns_policy_induced": 26,
+    "unique_patterns_policy_induced_in_scope": 15,
+    "violating_runs_policy_induced_in_scope": 29,
+    "out_of_scope_share": 0.30303030303030304,
+    "patterns_policy_induced_in_scope": [
+     "attitude_loss <- heater+leak+X+rw3_torque_derate",
+     "attitude_loss <- heater+leak+Z+rw2_friction",
+     "attitude_loss <- heater+rw1_torque_derate",
+     "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+     "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+     "attitude_loss <- rw0_friction+rw1_friction",
+     "attitude_loss <- rw0_friction+rw1_torque_derate",
+     "attitude_loss <- rw0_friction+rw2_friction",
+     "attitude_loss <- rw1_friction+rw2_friction",
+     "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+     "wheel_saturation <- heater+leak-Y+rw1_friction",
+     "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+     "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+     "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+     "wheel_saturation <- rw1_friction+rw3_friction"
+    ]
+   },
+   "v2": {
+    "sims": 200,
+    "violations": 95,
+    "violations_per_sim": 0.475,
+    "sims_to_first_violation": 5,
+    "unique_patterns_fine": 42,
+    "unique_patterns_coarse": 19,
+    "unique_patterns_policy_induced": 31,
+    "unique_patterns_policy_induced_in_scope": 18,
+    "violating_runs_policy_induced_in_scope": 31,
+    "out_of_scope_share": 0.30526315789473685,
+    "patterns_policy_induced_in_scope": [
+     "attitude_loss <- heater+leak+X+rw0_friction+rw3_torque_derate",
+     "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+     "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+     "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+     "attitude_loss <- leak+Z+rw2_friction",
+     "attitude_loss <- leak+Z+rw3_friction",
+     "attitude_loss <- rw0_friction+rw1_friction",
+     "attitude_loss <- rw0_friction+rw2_friction",
+     "attitude_loss <- rw0_friction+rw2_torque_derate",
+     "attitude_loss <- rw1_friction+rw2_friction",
+     "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_torque_derate",
+     "wheel_saturation <- heater+leak+Y+rw2_friction+rw3_friction",
+     "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+     "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+     "wheel_saturation <- leak+X+rw2_friction+rw3_torque_derate",
+     "wheel_saturation <- leak+Y+rw0_friction+rw3_friction",
+     "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+     "wheel_saturation <- rw0_friction+rw1_friction"
+    ]
+   }
+  },
+  "random": {
+   "v1": {
+    "sims": 200,
+    "violations": 1,
+    "violations_per_sim": 0.005,
+    "sims_to_first_violation": 15,
+    "unique_patterns_fine": 1,
+    "unique_patterns_coarse": 1,
+    "unique_patterns_policy_induced": 1,
+    "unique_patterns_policy_induced_in_scope": 1,
+    "violating_runs_policy_induced_in_scope": 1,
+    "out_of_scope_share": 0.0,
+    "patterns_policy_induced_in_scope": [
+     "attitude_loss <- leak-X+rw1_friction+rw2_friction"
+    ]
+   },
+   "v2": {
+    "sims": 200,
+    "violations": 2,
+    "violations_per_sim": 0.01,
+    "sims_to_first_violation": 51,
+    "unique_patterns_fine": 2,
+    "unique_patterns_coarse": 1,
+    "unique_patterns_policy_induced": 1,
+    "unique_patterns_policy_induced_in_scope": 1,
+    "violating_runs_policy_induced_in_scope": 1,
+    "out_of_scope_share": 0.0,
+    "patterns_policy_induced_in_scope": [
+     "attitude_loss <- rw0_friction+rw1_friction"
+    ]
+   },
+   "paired": {
+    "both": 0,
+    "v1_only": 1,
+    "v2_only": 2
+   }
+  }
+ },
+ "fixes": {
+  "in_scope_policy_induced": {
+   "n": 207,
+   "target_fixed": 199,
+   "clean": 193,
+   "new_violation_type": 6,
+   "patterns": 44,
+   "patterns_all_clean": 35
+  },
+  "out_of_scope": {
+   "n": 107,
+   "target_fixed": 34,
+   "clean": 27,
+   "new_violation_type": 7,
+   "patterns": 24,
+   "patterns_all_clean": 6
+  },
+  "not_policy_induced": {
+   "n": 146,
+   "target_fixed": 13,
+   "clean": 7,
+   "new_violation_type": 6,
+   "patterns": 19,
+   "patterns_all_clean": 0
+  },
+  "all": {
+   "n": 460,
+   "target_fixed": 246,
+   "clean": 227,
+   "new_violation_type": 19,
+   "patterns": 86,
+   "patterns_all_clean": 40
+  }
+ },
+ "regressions": {
+  "grid_single_fault_plus_nominal": {
+   "n": 576,
+   "v1_violating": 8,
+   "v2_violating": 8,
+   "regressions": 0,
+   "fixed": 0
+  },
+  "nominal_only": {
+   "n": 9,
+   "v1_violating": 0,
+   "v2_violating": 0,
+   "regressions": 0,
+   "fixed": 0
+  },
+  "all_stored_v1_search_runs": {
+   "n": 2932,
+   "v1_violating": 497,
+   "v2_violating": 458,
+   "regressions": 24,
+   "fixed": 63
+  },
+  "n_regression_ids": 24
+ }
+}

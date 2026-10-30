@@ -153,6 +153,15 @@ def cmd_propose(a):
         context = ("\nResults of the previous round (policy " + base_name + "): " +
                    json.dumps({k: prev[k] for k in ("change", "fixes", "regressions", "search") if k in prev}) +
                    "\nThe cases below are fresh failures FOUND AGAINST " + base_name + ".\n")
+        rp = os.path.join(REP, f"regress_{base_name}.jsonl")
+        if os.path.exists(rp):   # also show in-scope regressions (v1 survived, base_name fails), with traces
+            regs = [json.loads(l) for l in open(rp)]
+            regs = [r for r in regs if r["regression"] and not out_of_scope(r["params"])]
+            regs = sorted(regs, key=lambda r: r["id"])[:: max(1, len(regs) // 4)][:4]
+            context += ("REGRESSIONS of " + base_name + " vs v1 (v1 had no violation; the original v1 policy is the base "
+                        "before all changes): " + json.dumps([{"faults": {k: r["params"][k] for k in
+                        ("orbit", "rw_faults", "heater", "torque_leak")}, "with_" + base_name: trace(r["params"], P),
+                        "with_v1_violations": r["v1"]} for r in regs], separators=(',', ':')) + "\n")
     stats = {}
     for d in cases:
         stats[d["pattern_coarse"]] = stats.get(d["pattern_coarse"], 0) + 1

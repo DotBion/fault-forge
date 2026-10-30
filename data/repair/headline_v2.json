@@ -1,0 +1,58 @@
+{
+ "key": "0805e05f39e4e419",
+ "params": {
+  "orbit": {
+   "beta_deg": 11.57,
+   "f0_deg": 59.81
+  },
+  "rw_faults": [
+   {
+    "wheel": 1,
+    "onset_s": 6749.5,
+    "type": "friction",
+    "severity": 0.2
+   },
+   {
+    "wheel": 2,
+    "onset_s": 3832.3,
+    "type": "friction",
+    "severity": 0.6887
+   }
+  ],
+  "heater": null,
+  "torque_leak": null
+ },
+ "v1": {
+  "violations": {
+   "attitude_loss": 8490.0
+  },
+  "policy_log": [
+   "t=3835s FAULT rw1 applied {\"wheel\": 2, \"onset_s\": 3832.3, \"type\": \"friction\", \"severity\": 0.6887}",
+   "t=6750s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 6749.5, \"type\": \"friction\", \"severity\": 0.2}",
+   "t=6765s POLICY FDIR: wheel 1 isolated (residual 5.07e-04 Nm)",
+   "t=6885s POLICY -> SAFE (sun-point, payload off): attitude error 30.3 deg > 15.0 for 120s"
+  ],
+  "margins": {
+   "battery_margin": 0.30036,
+   "att_err_ratio": 2.74316,
+   "att_dur_ratio": 3.39167,
+   "wheel_speed_ratio": 0.3068,
+   "sat_dur_ratio": 0.0
+  }
+ },
+ "v2": {
+  "violations": {},
+  "policy_log": [
+   "t=3835s FAULT rw1 applied {\"wheel\": 2, \"onset_s\": 3832.3, \"type\": \"friction\", \"severity\": 0.6887}",
+   "t=6750s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 6749.5, \"type\": \"friction\", \"severity\": 0.2}",
+   "t=6775s POLICY FDIR: wheel 2 isolated (residual 7.90e-04 Nm)"
+  ],
+  "margins": {
+   "battery_margin": 0.30036,
+   "att_err_ratio": 0.49312,
+   "att_dur_ratio": 0.0,
+   "wheel_speed_ratio": 0.33585,
+   "sat_dur_ratio": 0.0
+  }
+ }
+}
