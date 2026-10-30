@@ -21,9 +21,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 N_SIMS = [0]
 
 
+def _policy():
+    # policy under test: env FF_POLICY (v1 default | v2 | policy json path), same convention as search._run
+    return ff_sim.get_policy(os.environ.get("FF_POLICY", "v1"))
+
+
 def fails(p, target):
     N_SIMS[0] += 1
-    r = ff_sim.run_scenario(p, telemetry=False)
+    r = ff_sim.run_scenario(p, telemetry=False, policy=_policy())
     return target in r["violations"], r["violations"]
 
 
@@ -88,7 +93,7 @@ def main():
     first = min(rec, key=rec.get)
     print(f"original violations {rec}; minimizing w.r.t. '{first}'")
     m = minimize(params, first)
-    r = ff_sim.run_scenario(m, telemetry=False)
+    r = ff_sim.run_scenario(m, telemetry=False, policy=_policy())
     out = {"source": f"{path}#{rid}", "target_violation": first, "params": m, "violations": r["violations"],
            "n_faults_before": len(components(params)), "n_faults_after": len(components(m)),
            "minimization_sims": N_SIMS[0] + 1,

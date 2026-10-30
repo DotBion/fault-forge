@@ -58,7 +58,8 @@ def n_faults(p):
 
 def _run(job):
     rid, seed, params = job
-    r = ff_sim.run_scenario(params, telemetry=False)
+    # policy under test: env FF_POLICY = v1 (default) | v2 | path to a policy json (inherited by Pool workers)
+    r = ff_sim.run_scenario(params, telemetry=False, policy=ff_sim.get_policy(os.environ.get("FF_POLICY", "v1")))
     r.pop("policy_log", None)
     return {"id": rid, "seed": seed, **r}
 

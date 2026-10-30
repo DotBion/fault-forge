@@ -70,6 +70,23 @@ POLICY = dict(
 
 FAULT_KEYS = ("rw_faults", "heater", "torque_leak")
 
+_POLICY_CACHE = {}
+
+
+def get_policy(name="v1"):
+    """'v1' -> POLICY (the original policy; default everywhere, so v1 replays are unchanged);
+    'v2' / 'v3' -> data/repair/policy_<name>.json; anything else -> path to a policy json.
+    A policy json holds {"name", "params": {...overrides of POLICY + rule keys...}}."""
+    if name in (None, "", "v1"):
+        return POLICY
+    if name not in _POLICY_CACHE:
+        import os
+        path = name if os.path.exists(name) else os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "repair", f"policy_{name}.json")
+        d = json.load(open(path))
+        _POLICY_CACHE[name] = {**POLICY, **d["params"], "name": d.get("name", name)}
+    return _POLICY_CACHE[name]
+
 
 # fault parameter ranges (shared by random search, grid search and minimization)
 RANGES = dict(beta_deg=(0.0, 70.0), f0_deg=(0.0, 360.0), onset_frac=(0.0, 0.8),
@@ -242,7 +259,7 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
     applied = set()
 
     st = dict(mode="NOMINAL", payload=True, avail=[True] * nRW, res_cnt=[0] * nRW, att_bad_s=0.0,
-              safe_since=None)
+              safe_since=None, iso_res=[0.0] * nRW)
     log = []           # policy actions
     tel = []
     prev_Om = [rw.Omega for rw in rws]
@@ -298,12 +315,33 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
                     st["res_cnt"][i] += 1
                 else:
                     st["res_cnt"][i] = 0
-                if st["res_cnt"][i] >= policy["fdir_persist"] and sum(st["avail"]) > 3:
+                if st["res_cnt"][i] >= policy["fdir_persist"] and sum(st["avail"]) > policy.get("min_avail", 3):
                     st["avail"][i] = False
+                    st["iso_res"][i] = res
                     h["avail"].wheelAvailability = [messaging.AVAILABLE if a else messaging.UNAVAILABLE
                                                     for a in st["avail"]]
                     h["availMsg"].write(h["avail"])
                     log.append((t, f"POLICY FDIR: wheel {i} isolated (residual {res:.2e} Nm)"))
+                elif st["res_cnt"][i] >= policy["fdir_persist"] and policy.get("isolation_swap", False):
+                    # v2 rule: keep 3-wheel control with the healthiest wheels - if a new wheel is clearly worse
+                    # than an already-isolated one, re-enable the isolated (milder) wheel and isolate the new one
+                    iso = [k for k in range(nRW) if not st["avail"][k]]
+                    if iso:
+                        k = min(iso, key=lambda q: st["iso_res"][q])
+                        if res > policy.get("swap_ratio", 2.0) * st["iso_res"][k]:
+                            st["avail"][k], st["avail"][i] = True, False
+                            st["iso_res"][i] = res
+                            st["res_cnt"][k] = 0
+                            h["avail"].wheelAvailability = [messaging.AVAILABLE if a else messaging.UNAVAILABLE
+                                                            for a in st["avail"]]
+                            h["availMsg"].write(h["avail"])
+                            log.append((t, f"POLICY FDIR: swap - wheel {k} re-enabled, wheel {i} isolated "
+                                           f"(residual {res:.2e} > {policy.get('swap_ratio', 2.0)} x {st['iso_res'][k]:.2e} Nm)"))
+            # v2 rule (momentum guard): an in-use wheel above wheel_safe_frac of max speed for wheel_safe_s -> SAFE
+            wsf = policy.get("wheel_safe_frac")
+            if wsf:
+                hi = any(st["avail"][i] and abs(Om[i]) >= wsf * Om_max[i] for i in range(nRW))
+                st["wheel_hi_s"] = st.get("wheel_hi_s", 0.0) + chunk if hi else 0.0
             # attitude watchdog in nominal
             if st["mode"] == "NOMINAL":
                 st["att_bad_s"] = st["att_bad_s"] + chunk if err_deg > policy["att_safe_deg"] else 0.0
@@ -312,13 +350,17 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
                 go_safe = f"SoC {soc:.2f} < {policy['soc_shed']}"
             if st["mode"] == "NOMINAL" and st["att_bad_s"] >= policy["att_safe_dur_s"] and t > cfg["att_grace_s"]:
                 go_safe = f"attitude error {err_deg:.1f} deg > {policy['att_safe_deg']} for {st['att_bad_s']:.0f}s"
+            if (wsf and st["mode"] == "NOMINAL" and st.get("wheel_hi_s", 0.0) >= policy.get("wheel_safe_s", 30.0)
+                    and not go_safe):
+                go_safe = f"wheel speed >= {wsf:.0%} of max for {st['wheel_hi_s']:.0f}s"
             if go_safe:
                 st.update(mode="SAFE", payload=False, safe_since=t, att_bad_s=0.0)
                 h["sinks"]["payload"].nodePowerOut = 0.0
                 h["ctrl"].guidInMsg.subscribeTo(h["sun"].attGuidanceOutMsg)
                 log.append((t, f"POLICY -> SAFE (sun-point, payload off): {go_safe}"))
             elif (st["mode"] == "SAFE" and soc > policy["soc_resume"] and err_deg < policy["att_safe_deg"]
-                  and t - st["safe_since"] >= policy["resume_min_s"]):
+                  and t - st["safe_since"] >= policy["resume_min_s"]
+                  and not (wsf and st.get("wheel_hi_s", 0.0) > 0)):
                 st.update(mode="NOMINAL", payload=True, att_bad_s=0.0)
                 h["sinks"]["payload"].nodePowerOut = -cfg["payload_W"]
                 h["ctrl"].guidInMsg.subscribeTo(h["attErr"].attGuidOutMsg)

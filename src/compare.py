@@ -1,9 +1,12 @@
-"""Equal-budget comparison of search arms (Muse-guided vs random), with minimization + dedupe.
+"""Equal-budget comparison of search arms (Muse-guided, rules-blind Muse, CMA-ES, random), with minimization + dedupe.
 
   python src/compare.py --workers 8
-reads   data/cmp/{random,muse}_seed{0,1,2}.jsonl
+reads   data/cmp/<arm>_seed<s>.jsonl  (arms: muse, museblind, cmaes, random)
 writes  data/cmp/minimized.jsonl (cache: one minimized counterexample per violating run, + no-policy check)
-        data/cmp/summary.json, plots/muse_vs_random.png
+        data/cmp/summary.json, plots/arms_comparison.png
+
+Out-of-scope (for a single-fault-tolerant policy): the minimized case needs >= 2 nearly dead wheels
+(>= 2 torque_derate faults with severity >= 0.9). Reported per arm as a share of reproducing minimized cases.
 
 Pattern of a minimized counterexample:
   coarse = target violation <- sorted fault kinds (rw_torque_derate / rw_friction / heater / leak)
@@ -47,6 +50,10 @@ def patterns(target, p):
     return target + " <- " + "+".join(sorted(kinds)), target + " <- " + "+".join(sorted(fine))
 
 
+def out_of_scope(m):
+    return sum(1 for f in m["minimized"]["rw_faults"] if f["type"] == "torque_derate" and f["severity"] >= 0.9) >= 2
+
+
 def _minimize(job):
     key, params, viol = job
     target = min(viol, key=viol.get)
@@ -81,8 +88,8 @@ def load_runs():
     return arms
 
 
-def llm_stats(seed):
-    p = os.path.join(CMP, f"muse_seed{seed}_calls.jsonl")
+def llm_stats(seed, arm="muse"):
+    p = os.path.join(CMP, f"{arm}_seed{seed}_calls.jsonl")
     if not os.path.exists(p):
         return None
     c = [json.loads(l) for l in open(p)]
@@ -130,7 +137,7 @@ def main():
         for s, rows in sorted(seeds.items()):
             v = [r for r in rows if r["violated"]]
             first = next((i + 1 for i, r in enumerate(rows) if r["violated"]), None)
-            seen_c, seen_f, seen_pi, cv, cu, cpi = set(), set(), set(), [], [], []
+            seen_c, seen_f, seen_pi, seen_pis, cv, cu, cpi = set(), set(), set(), set(), [], [], []
             n_v = 0
             for r in rows:
                 if r["violated"]:
@@ -140,6 +147,8 @@ def main():
                         seen_c.add(m["pattern_coarse"]); seen_f.add(m["pattern_fine"])
                         if m["policy_induced"]:
                             seen_pi.add(m["pattern_fine"])
+                            if not out_of_scope(m):
+                                seen_pis.add(m["pattern_fine"])
                         allpat.setdefault(m["pattern_fine"], {}).setdefault(arm, []).append(
                             {"seed": s, "id": r["id"], "key": m["key"], "policy_induced": m["policy_induced"]})
                 cv.append(n_v); cu.append(len(seen_f)); cpi.append(len(seen_pi))
@@ -149,6 +158,8 @@ def main():
                 for t in r["violations"]:
                     types[t] = types.get(t, 0) + 1
             mins = [cache[phash(r["params"])] for r in v]
+            rep = [m for m in mins if m["reproduces"]]
+            n_oos = sum(out_of_scope(m) for m in rep)
             per[s] = {"sims": len(rows), "violations": len(v), "violations_per_sim": len(v) / len(rows),
                       "sims_to_first_violation": first, "unique_patterns_coarse": len(seen_c),
                       "unique_patterns_fine": len(seen_f), "unique_patterns_policy_induced": len(seen_pi),
@@ -156,28 +167,36 @@ def main():
                       "policy_induced_minimized": sum(m["policy_induced"] for m in mins),
                       "minimized_non_reproducing": sum(not m["reproduces"] for m in mins),
                       "minimization_sims": sum(m["minimization_sims"] for m in mins),
+                      "unique_patterns_policy_induced_in_scope": len(seen_pis),
+                      "out_of_scope_minimized": n_oos, "out_of_scope_share": n_oos / len(rep) if rep else None,
+                      "policy_induced_in_scope_minimized": sum(m["policy_induced"] and not out_of_scope(m) for m in rep),
                       "patterns_fine": sorted(seen_f)}
-            if arm == "muse":
-                per[s]["llm"] = llm_stats(s)
+            if arm.startswith("muse"):
+                per[s]["llm"] = llm_stats(s, arm)
         keys = ["violations_per_sim", "sims_to_first_violation", "unique_patterns_coarse", "unique_patterns_fine",
-                "unique_patterns_policy_induced"]
-        mean = {k: float(np.mean([p[k] if p[k] is not None else np.nan for p in per.values()])) for k in keys}
+                "unique_patterns_policy_induced", "unique_patterns_policy_induced_in_scope", "out_of_scope_share"]
+        mean = {k: float(np.nanmean([p[k] if p[k] is not None else np.nan for p in per.values()])) for k in keys}
+        mean["seeds"] = sorted(per)
         union_f = sorted(set().union(*[set(p["patterns_fine"]) for p in per.values()]))
         union_pi = sorted(set().union(*[set(p["patterns_policy_induced"]) for p in per.values()]))
         summary["arms"][arm] = {"per_seed": per, "mean": mean, "union_patterns_fine": union_f,
                                 "union_patterns_policy_induced": union_pi}
     summary["patterns"] = allpat
-    if "muse" in summary["arms"] and "random" in summary["arms"]:
-        mu, ra = set(summary["arms"]["muse"]["union_patterns_fine"]), set(summary["arms"]["random"]["union_patterns_fine"])
-        summary["muse_only_patterns"] = sorted(mu - ra); summary["random_only_patterns"] = sorted(ra - mu)
-        summary["shared_patterns"] = sorted(mu & ra)
-        mp, rp = set(summary["arms"]["muse"]["union_patterns_policy_induced"]), set(summary["arms"]["random"]["union_patterns_policy_induced"])
-        summary["muse_only_policy_induced"] = sorted(mp - rp); summary["random_only_policy_induced"] = sorted(rp - mp)
+    unions = {n: set(d["union_patterns_fine"]) for n, d in summary["arms"].items()}
+    unions_pi = {n: set(d["union_patterns_policy_induced"]) for n, d in summary["arms"].items()}
+    summary["only_in_arm"] = {n: sorted(u - set().union(*[v for m, v in unions.items() if m != n])) for n, u in unions.items()}
+    summary["only_in_arm_policy_induced"] = {n: sorted(u - set().union(*[v for m, v in unions_pi.items() if m != n]))
+                                             for n, u in unions_pi.items()}
+    # head-to-head on the seeds every arm ran (rules-blind Muse ran seed 1 only)
+    common = sorted(set.intersection(*[set(d["per_seed"]) for d in summary["arms"].values()]))
+    summary["common_seeds"] = common
+    summary["head_to_head"] = {n: {s: {k: d["per_seed"][s][k] for k in keys} for s in common}
+                               for n, d in summary["arms"].items()}
     json.dump(summary, open(os.path.join(CMP, "summary.json"), "w"), indent=1)
 
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(1, 3, figsize=(16, 4.6))
-    col = {"muse": "tab:blue", "random": "tab:gray"}
+    fig, ax = plt.subplots(1, 3, figsize=(17, 4.8))
+    col = {"muse": "tab:blue", "museblind": "tab:purple", "cmaes": "tab:red", "random": "tab:gray"}
     for arm, seeds in curves.items():
         for j, (s, (cv, cu, cpi)) in enumerate(sorted(seeds.items())):
             x = np.arange(1, len(cv) + 1)
@@ -185,27 +204,33 @@ def main():
             ax[1].plot(x, cu, color=col.get(arm), alpha=0.8, lw=1.4, label=f"{arm}: all" if j == 0 else None)
             ax[1].plot(x, cpi, color=col.get(arm), alpha=0.8, lw=1.2, ls="--",
                        label=f"{arm}: policy-induced" if j == 0 else None)
-    ax[0].set(title="Cumulative violating sims (3 seeds each)", xlabel="simulations", ylabel="violations")
+    ax[0].set(title="Cumulative violating sims (each line = one seed)", xlabel="simulations", ylabel="violations")
     ax[1].set(title="Unique minimized failure patterns (dashed: policy-induced)", xlabel="simulations", ylabel="patterns")
-    names = sorted(summary["arms"])
+    names = [n for n in ("muse", "museblind", "cmaes", "random") if n in summary["arms"]]
     m1 = [summary["arms"][n]["mean"]["violations_per_sim"] for n in names]
     m2 = [summary["arms"][n]["mean"]["unique_patterns_policy_induced"] for n in names]
+    m3 = [summary["arms"][n]["mean"]["unique_patterns_policy_induced_in_scope"] for n in names]
     xx = np.arange(len(names))
-    ax[2].bar(xx - 0.2, m1, 0.4, color="tab:orange", label="violations / sim")
-    a2 = ax[2].twinx(); a2.bar(xx + 0.2, m2, 0.4, color="tab:green", label="unique policy-induced patterns")
-    ax[2].set_xticks(xx, names); ax[2].set_ylabel("violations / sim"); a2.set_ylabel("unique policy-induced patterns")
-    ax[2].set_title("Mean over seeds (equal budget)")
+    ax[2].bar(xx - 0.27, m1, 0.27, color="tab:orange", label="violations / sim")
+    a2 = ax[2].twinx()
+    a2.bar(xx, m2, 0.27, color="tab:green", label="policy-induced patterns")
+    a2.bar(xx + 0.27, m3, 0.27, color="tab:olive", label="... in scope")
+    lab = [f"{n}\n({len(summary['arms'][n]['per_seed'])} seed{'s' if len(summary['arms'][n]['per_seed']) > 1 else ''})" for n in names]
+    ax[2].set_xticks(xx, lab); ax[2].set_ylabel("violations / sim"); a2.set_ylabel("unique patterns (mean per seed)")
+    ax[2].set_title("Mean over seeds (equal budget per seed)")
     ax[2].legend(loc="upper left"); a2.legend(loc="upper right")
     for x_ in ax[:2]:
-        x_.legend(); x_.grid(alpha=0.3)
+        x_.legend(fontsize=8); x_.grid(alpha=0.3)
     fig.tight_layout()
-    out = os.path.join(ROOT, "plots", "muse_vs_random.png"); fig.savefig(out, dpi=130)
+    out = os.path.join(ROOT, "plots", "arms_comparison.png"); fig.savefig(out, dpi=130)
     print("wrote", out)
     for n in names:
         print(n, json.dumps(summary["arms"][n]["mean"]))
-    for k in ("muse_only_patterns", "random_only_patterns", "shared_patterns", "muse_only_policy_induced",
-              "random_only_policy_induced"):
-        print(k, summary.get(k))
+    print("head_to_head seeds", common)
+    for n in names:
+        print(" ", n, json.dumps(summary["head_to_head"][n]))
+    for n in names:
+        print("only in", n, len(summary["only_in_arm"][n]), "policy-induced:", summary["only_in_arm_policy_induced"][n])
 
 
 if __name__ == "__main__":
