@@ -170,3 +170,71 @@ Caveats
 - CMA-ES uses a relaxed continuous encoding with a hand-made margin objective. A different encoding or objective
   (or BO) could do better; it is a reasonable, not a tuned, baseline.
 - Same simplifications as above (static Sun, 5 s policy steps, no momentum dumping, no thermal/sensor faults).
+
+## Repair loop: Muse proposes a policy change, verified in sim (`src/repair.py`)
+
+```bash
+python src/repair.py propose --round 1        # -> data/repair/round1_{prompt.txt,response.json}, policy_v2.json
+python src/repair.py fixes --policy v2        # re-run every minimized counterexample (v1 searches) on v2
+python src/repair.py regress --policy v2 --all  # single-fault grid + nominal on v1/v2, + every stored search run
+python src/llm_search.py --seed 1 --policy v2 --budget 200 --out data/repair/v2/muse_seed1.jsonl
+FF_POLICY=v2 python src/search.py random data/repair/v2/random_seed1.jsonl --n 200 --seed 1
+python src/cmaes_search.py --seed 1 --budget 200 --policy v2 --out data/repair/v2/cmaes_seed1.jsonl
+python src/repair.py analyze --policy v2 && python src/repair.py headline --policy v2 && python src/repair.py plot --policies v2,v3
+```
+
+The policy is selected with `FF_POLICY` (`v1` default, `v2`, `v3`, or a json path; `data/repair/policy_v*.json`).
+v1 replay is unchanged: the new rule hooks (`min_avail`, `isolation_swap`/`swap_ratio`, `wheel_safe_frac`) default
+to v1 behaviour, and stored v1 runs reproduce exactly. Muse may only change keys from a whitelist with bounds
+(`repair.WHITELIST`, at most 3 keys; anything else is rejected). Each round it gets the policy logic and params,
+the count of in-scope policy-induced minimized failures by pattern, and 8 representative counterexamples
+(round-robin over patterns) with policy-action traces and margins. Round 2 also gets the v2 results and 4 in-scope
+v2 regressions.
+
+**Round 1 -> v2: `fdir_abs_Nm` 3e-4 -> 6e-4 Nm.** Muse diagnosis (verbatim, `data/repair/round1_response.json`):
+"FDIR absolute threshold 0.0003 Nm is below mild friction residual ~0.0004 Nm (severity 0.2). It isolates the first
+mildly-degraded wheel to trip, exhausting the one-isolation budget (min_avail=3). System is left on 3 wheels with
+the worse fault still present, losing control authority and momentum capacity, causing attitude_loss and
+wheel_saturation that 4 degraded wheels avoid."
+
+**Round 2 -> v3: v2 + `isolation_swap` (swap_ratio 1.5).** Muse diagnosis: v2 still isolates the first mild
+(severity 0.25-0.4) friction wheel; min_avail=3 then blocks isolating the later severe/dead wheel. The swap
+re-enables the milder isolated wheel and isolates the worse one when its residual is >1.5x larger.
+
+Replaying all 460 minimized counterexamples from the v1 searches (target fixed / fully clean):
+
+| group | n | v2 target fixed | v2 clean | v3 target fixed | v3 clean |
+|---|---|---|---|---|---|
+| in-scope, policy-induced (repair input) | 207 | **199 (96 %)** | 193 | **203 (98 %)** | 196 |
+| out of scope (2 near-dead wheels) | 107 | 34 | 27 | 85 | 56 |
+| not policy-induced | 146 | 13 | 7 | 12 | 4 |
+| all | 460 | 246 | 227 | 300 | 256 |
+
+Regressions (v1 had no violation, new policy does):
+
+| set | n | v1 violating | v2 violating | v2 regressions | v2 fixed |
+|---|---|---|---|---|---|
+| single-fault grid + nominal | 576 | 8 | 8 | **0** | 0 |
+| nominal only | 9 | 0 | 0 | 0 | 0 |
+| every stored (unminimized) search run, all arms | 2932 | 497 | 458 | **24** | 63 |
+
+v2's 24 regressions are multi-fault runs: 16 are two heavy friction faults (severity 0.3-1.0, mostly found by
+CMA-ES) ending in attitude_loss, where v1's earlier isolation happened to help. The other 7-8 have two dead wheels
+(out of scope). So v2 keeps every single-fault and nominal case but does **not** survive everything v1 survived.
+
+Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed):
+
+| arm | v1 violations | v2 violations | v1 in-scope policy-induced patterns | v2 in-scope policy-induced patterns |
+|---|---|---|---|---|
+| Muse | 66 (0.33/sim) | **95 (0.475/sim)** | 15 | **18** |
+| CMA-ES | 2 | 0 | 2 | 0 |
+| random (paired, same scenarios) | 1 | 2 (both v2-only) | 1 | 1 |
+
+Reading: the round-1 change fixes almost every counterexample it was derived from and is clean on the single-fault
+grid. But a fresh Muse search finds *more* failures against v2 than against v1 (12 new in-scope policy-induced
+patterns). Most are the same root cause one level up: FDIR still commits its single isolation to the wrong
+(milder) wheel, now at higher residuals. Random and CMA-ES barely register a difference at this budget. That is
+what motivated round 2 (swap).
+Plots: `plots/repair_before_after.png`, `plots/repair_replay_v2.png` (headline case 0805e05f39e4e419:
+rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses attitude, v2 isolates rw2 and holds
+~9 deg).
