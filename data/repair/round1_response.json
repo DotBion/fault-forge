@@ -1,0 +1,485 @@
+{
+ "round": 1,
+ "model": "muse-spark-1.3",
+ "latency_s": 40.4884103910008,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 9017,
+  "prompt_tokens": 4617,
+  "total_tokens": 13634,
+  "completion_tokens_details": {
+   "reasoning_tokens": 8592
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "n_cases_in_scope": 207,
+ "pattern_counts": {
+  "attitude_loss <- rw_friction+rw_friction": 120,
+  "wheel_saturation <- leak+rw_friction+rw_torque_derate": 5,
+  "attitude_loss <- leak+rw_friction+rw_friction": 15,
+  "wheel_saturation <- heater+leak+rw_friction": 1,
+  "attitude_loss <- heater+leak+rw_torque_derate": 1,
+  "wheel_saturation <- rw_friction+rw_friction": 8,
+  "wheel_saturation <- heater+leak+rw_torque_derate": 2,
+  "attitude_loss <- heater+rw_torque_derate": 1,
+  "wheel_saturation <- leak+rw_friction+rw_friction": 12,
+  "attitude_loss <- leak+rw_friction+rw_torque_derate": 7,
+  "attitude_loss <- rw_friction+rw_torque_derate": 12,
+  "wheel_saturation <- heater+rw_friction+rw_torque_derate": 1,
+  "attitude_loss <- leak+rw_friction": 6,
+  "wheel_saturation <- rw_friction+rw_torque_derate": 9,
+  "wheel_saturation <- heater+leak+rw_torque_derate+rw_torque_derate": 1,
+  "attitude_loss <- heater+leak+rw_friction": 1,
+  "attitude_loss <- heater+rw_friction+rw_friction": 3,
+  "wheel_saturation <- heater+leak+rw_friction+rw_friction": 1,
+  "attitude_loss <- heater+leak+rw_friction+rw_torque_derate": 1
+ },
+ "representatives": [
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 11.57,
+     "f0_deg": 59.81
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 6749.5,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 2,
+      "onset_s": 3832.3,
+      "type": "friction",
+      "severity": 0.6887
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "with_policy": {
+    "violations": {
+     "attitude_loss": 8490.0
+    },
+    "margins": {
+     "battery_margin": 0.3,
+     "att_err_ratio": 2.743,
+     "att_dur_ratio": 3.392,
+     "wheel_speed_ratio": 0.307,
+     "sat_dur_ratio": 0.0
+    },
+    "policy_log": [
+     "t=3835s FAULT rw1 applied {\"wheel\": 2, \"onset_s\": 3832.3, \"type\": \"friction\", \"severity\": 0.6887}",
+     "t=6750s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 6749.5, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=6765s POLICY FDIR: wheel 1 isolated (residual 5.07e-04 Nm)",
+     "t=6885s POLICY -> SAFE (sun-point, payload off): attitude error 30.3 deg > 15.0 for 120s"
+    ],
+    "isolated_wheels": [
+     1
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 34.88,
+     "f0_deg": 223.54
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 3057.5,
+      "type": "friction",
+      "severity": 0.6775
+     },
+     {
+      "wheel": 2,
+      "onset_s": 1910.6,
+      "type": "friction",
+      "severity": 0.2
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 2270.7,
+     "mag_Nm": 3e-07,
+     "axis": [
+      -0.8977,
+      -0.4372,
+      0.0539
+     ]
+    }
+   },
+   "with_policy": {
+    "violations": {
+     "attitude_loss": 8805.0
+    },
+    "margins": {
+     "battery_margin": 0.45,
+     "att_err_ratio": 4.406,
+     "att_dur_ratio": 3.129,
+     "wheel_speed_ratio": 1.026,
+     "sat_dur_ratio": 0.083
+    },
+    "policy_log": [
+     "t=1915s FAULT rw1 applied {\"wheel\": 2, \"onset_s\": 1910.6, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=1930s POLICY FDIR: wheel 2 isolated (residual 4.55e-04 Nm)",
+     "t=2275s FAULT leak0 applied {\"onset_s\": 2270.7, \"mag_Nm\": 3e-07, \"axis\": [-0.8977, -0.4372, 0.0539]}",
+     "t=3060s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 3057.5, \"type\": \"friction\", \"severity\": 0.6775}",
+     "t=3210s POLICY -> SAFE (sun-point, payload off): attitude error 28.9 deg > 15.0 for 120s"
+    ],
+    "isolated_wheels": [
+     2
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 58.54,
+     "f0_deg": 17.3
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 858.2,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 1,
+      "onset_s": 6741.7,
+      "type": "torque_derate",
+      "severity": 0.995
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "with_policy": {
+    "violations": {
+     "attitude_loss": 8010.0
+    },
+    "margins": {
+     "battery_margin": 0.165,
+     "att_err_ratio": 3.503,
+     "att_dur_ratio": 3.792,
+     "wheel_speed_ratio": 0.537,
+     "sat_dur_ratio": 0.0
+    },
+    "policy_log": [
+     "t=860s FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 858.2, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=6580s POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4",
+     "t=6605s POLICY FDIR: wheel 0 isolated (residual 4.56e-04 Nm)",
+     "t=6745s FAULT rw1 applied {\"wheel\": 1, \"onset_s\": 6741.7, \"type\": \"torque_derate\", \"severity\": 0.995}"
+    ],
+    "isolated_wheels": [
+     0
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 8.0,
+     "f0_deg": 265.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 3,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 0.35
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.116e-06,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "with_policy": {
+    "violations": {
+     "wheel_saturation": 11060.0
+    },
+    "margins": {
+     "battery_margin": 0.412,
+     "att_err_ratio": 4.92,
+     "att_dur_ratio": 0.092,
+     "wheel_speed_ratio": 1.037,
+     "sat_dur_ratio": 2.083
+    },
+    "policy_log": [
+     "t=0s FAULT rw0 applied {\"wheel\": 2, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=0s FAULT rw1 applied {\"wheel\": 3, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 0.35}",
+     "t=0s FAULT leak0 applied {\"onset_s\": 0.0, \"mag_Nm\": 1.116e-06, \"axis\": [0.0, 1.0, 0.0]}",
+     "t=15s POLICY FDIR: wheel 2 isolated (residual 4.60e-04 Nm)",
+     "t=2390s POLICY -> SAFE (sun-point, payload off): attitude error 15.6 deg > 15.0 for 120s",
+     "t=4390s POLICY -> NOMINAL (SoC 0.70)",
+     "t=4510s POLICY -> SAFE (sun-point, payload off): attitude error 16.5 deg > 15.0 for 120s",
+     "t=5110s POLICY -> NOMINAL (SoC 0.83)"
+    ],
+    "isolated_wheels": [
+     2
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 12.0,
+     "f0_deg": 182.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 100.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     },
+     {
+      "wheel": 3,
+      "onset_s": 150.0,
+      "type": "friction",
+      "severity": 0.35
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "with_policy": {
+    "violations": {
+     "wheel_saturation": 8280.0
+    },
+    "margins": {
+     "battery_margin": 0.44,
+     "att_err_ratio": 4.913,
+     "att_dur_ratio": 0.025,
+     "wheel_speed_ratio": 1.047,
+     "sat_dur_ratio": 1.5
+    },
+    "policy_log": [
+     "t=100s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 100.0, \"type\": \"torque_derate\", \"severity\": 1.0}",
+     "t=125s POLICY FDIR: wheel 1 isolated (residual 5.21e-04 Nm)",
+     "t=150s FAULT rw1 applied {\"wheel\": 3, \"onset_s\": 150.0, \"type\": \"friction\", \"severity\": 0.35}",
+     "t=905s POLICY -> SAFE (sun-point, payload off): attitude error 15.9 deg > 15.0 for 705s",
+     "t=1505s POLICY -> NOMINAL (SoC 0.81)",
+     "t=1625s POLICY -> SAFE (sun-point, payload off): attitude error 15.4 deg > 15.0 for 120s",
+     "t=2225s POLICY -> NOMINAL (SoC 0.96)",
+     "t=2900s POLICY -> SAFE (sun-point, payload off): attitude error 15.2 deg > 15.0 for 120s"
+    ],
+    "isolated_wheels": [
+     1
+    ]
+   },
+   "without_policy_violations": {
+    "attitude_loss": 2105.0
+   }
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 9.0,
+     "f0_deg": 187.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 60.0,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 3,
+      "onset_s": 60.0,
+      "type": "friction",
+      "severity": 0.35
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "with_policy": {
+    "violations": {
+     "wheel_saturation": 8265.0
+    },
+    "margins": {
+     "battery_margin": 0.443,
+     "att_err_ratio": 4.914,
+     "att_dur_ratio": 0.025,
+     "wheel_speed_ratio": 1.043,
+     "sat_dur_ratio": 1.417
+    },
+    "policy_log": [
+     "t=60s FAULT rw0 applied {\"wheel\": 1, \"onset_s\": 60.0, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=60s FAULT rw1 applied {\"wheel\": 3, \"onset_s\": 60.0, \"type\": \"friction\", \"severity\": 0.35}",
+     "t=75s POLICY FDIR: wheel 1 isolated (residual 4.71e-04 Nm)",
+     "t=905s POLICY -> SAFE (sun-point, payload off): attitude error 15.9 deg > 15.0 for 785s",
+     "t=1505s POLICY -> NOMINAL (SoC 0.82)",
+     "t=1625s POLICY -> SAFE (sun-point, payload off): attitude error 15.4 deg > 15.0 for 120s",
+     "t=2225s POLICY -> NOMINAL (SoC 0.97)",
+     "t=2905s POLICY -> SAFE (sun-point, payload off): attitude error 15.2 deg > 15.0 for 120s"
+    ],
+    "isolated_wheels": [
+     1
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 5.0,
+     "f0_deg": 175.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 100.0,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 3,
+      "onset_s": 105.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 100.0,
+     "mag_Nm": 6.75e-07,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "with_policy": {
+    "violations": {
+     "attitude_loss": 11130.0
+    },
+    "margins": {
+     "battery_margin": 0.442,
+     "att_err_ratio": 5.529,
+     "att_dur_ratio": 1.192,
+     "wheel_speed_ratio": 1.04,
+     "sat_dur_ratio": 0.25
+    },
+    "policy_log": [
+     "t=100s FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 100.0, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=100s FAULT leak0 applied {\"onset_s\": 100.0, \"mag_Nm\": 6.75e-07, \"axis\": [1.0, 0.0, 0.0]}",
+     "t=105s FAULT rw1 applied {\"wheel\": 3, \"onset_s\": 105.0, \"type\": \"torque_derate\", \"severity\": 1.0}",
+     "t=115s POLICY FDIR: wheel 0 isolated (residual 4.56e-04 Nm)",
+     "t=1260s POLICY -> SAFE (sun-point, payload off): attitude error 22.8 deg > 15.0 for 120s",
+     "t=1860s POLICY -> NOMINAL (SoC 0.89)",
+     "t=2020s POLICY -> SAFE (sun-point, payload off): attitude error 64.7 deg > 15.0 for 120s",
+     "t=2620s POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    "isolated_wheels": [
+     0
+    ]
+   },
+   "without_policy_violations": {}
+  },
+  {
+   "faults": {
+    "orbit": {
+     "beta_deg": 2.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 400.0,
+      "type": "friction",
+      "severity": 0.2
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 400.0,
+     "mag_Nm": 1.2e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "with_policy": {
+    "violations": {
+     "wheel_saturation": 6255.0,
+     "attitude_loss": 9265.0
+    },
+    "margins": {
+     "battery_margin": 0.442,
+     "att_err_ratio": 5.436,
+     "att_dur_ratio": 2.746,
+     "wheel_speed_ratio": 1.047,
+     "sat_dur_ratio": 85.167
+    },
+    "policy_log": [
+     "t=400s FAULT rw0 applied {\"wheel\": 2, \"onset_s\": 400.0, \"type\": \"friction\", \"severity\": 0.2}",
+     "t=400s FAULT leak0 applied {\"onset_s\": 400.0, \"mag_Nm\": 1.2e-06, \"axis\": [0.0, 0.0, 1.0]}",
+     "t=6385s POLICY FDIR: wheel 2 isolated (residual 3.52e-04 Nm)",
+     "t=6520s POLICY -> SAFE (sun-point, payload off): attitude error 29.9 deg > 15.0 for 120s",
+     "t=7120s POLICY -> NOMINAL (SoC 0.86)",
+     "t=7240s POLICY -> SAFE (sun-point, payload off): attitude error 30.5 deg > 15.0 for 120s",
+     "t=7840s POLICY -> NOMINAL (SoC 1.00)",
+     "t=7980s POLICY -> SAFE (sun-point, payload off): attitude error 27.5 deg > 15.0 for 120s"
+    ],
+    "isolated_wheels": [
+     2
+    ]
+   },
+   "without_policy_violations": {
+    "wheel_saturation": 6255.0
+   }
+  }
+ ],
+ "response_verbatim": "{\"diagnosis\": \"FDIR absolute threshold 0.0003 Nm is below mild friction residual ~0.0004 Nm (severity 0.2). It isolates the first mildly-degraded wheel to trip, exhausting the one-isolation budget (min_avail=3). System is left on 3 wheels with the worse fault still present, losing control authority and momentum capacity, causing attitude_loss and wheel_saturation that 4 degraded wheels avoid.\", \"change\": {\"fdir_abs_Nm\": 0.0006}, \"rationale\": \"Raising abs to 0.6 mNm permanently filters severity-0.2 Coulomb faults (~0.4 mNm, observed residuals 4.5-5.1e-04 Nm) while still passing severe friction e.g. 0.68->1.37 mNm. No isolation -> keeps 4-wheel pseudo-inverse control as in without-policy runs which have no violation. True dead/derate wheels still trip when |cmd|>abs, preserving single-fault isolation, only delayed to larger commands. Fixes dominant mild-first mis-isolation and isolation-induced saturation.\", \"expected_fixed_patterns\": [\"attitude_loss <- rw_friction+rw_friction\", \"attitude_loss <- leak+rw_friction+rw_friction\", \"attitude_loss <- rw_friction+rw_torque_derate\", \"attitude_loss <- leak+rw_friction+rw_torque_derate\", \"attitude_loss <- leak+rw_friction\", \"wheel_saturation <- leak+rw_friction+rw_friction\", \"wheel_saturation <- rw_friction+rw_friction\", \"wheel_saturation <- rw_friction+rw_torque_derate\", \"wheel_saturation <- leak+rw_friction+rw_torque_derate\"], \"risks\": \"Delays isolation of dead/derated wheels until commands exceed 0.6 mNm; may miss moderate faults needing isolation. Single severe friction still detected; nominal/single-mild behavior improved, not degraded.\"}",
+ "parsed": {
+  "diagnosis": "FDIR absolute threshold 0.0003 Nm is below mild friction residual ~0.0004 Nm (severity 0.2). It isolates the first mildly-degraded wheel to trip, exhausting the one-isolation budget (min_avail=3). System is left on 3 wheels with the worse fault still present, losing control authority and momentum capacity, causing attitude_loss and wheel_saturation that 4 degraded wheels avoid.",
+  "change": {
+   "fdir_abs_Nm": 0.0006
+  },
+  "rationale": "Raising abs to 0.6 mNm permanently filters severity-0.2 Coulomb faults (~0.4 mNm, observed residuals 4.5-5.1e-04 Nm) while still passing severe friction e.g. 0.68->1.37 mNm. No isolation -> keeps 4-wheel pseudo-inverse control as in without-policy runs which have no violation. True dead/derate wheels still trip when |cmd|>abs, preserving single-fault isolation, only delayed to larger commands. Fixes dominant mild-first mis-isolation and isolation-induced saturation.",
+  "expected_fixed_patterns": [
+   "attitude_loss <- rw_friction+rw_friction",
+   "attitude_loss <- leak+rw_friction+rw_friction",
+   "attitude_loss <- rw_friction+rw_torque_derate",
+   "attitude_loss <- leak+rw_friction+rw_torque_derate",
+   "attitude_loss <- leak+rw_friction",
+   "wheel_saturation <- leak+rw_friction+rw_friction",
+   "wheel_saturation <- rw_friction+rw_friction",
+   "wheel_saturation <- rw_friction+rw_torque_derate",
+   "wheel_saturation <- leak+rw_friction+rw_torque_derate"
+  ],
+  "risks": "Delays isolation of dead/derated wheels until commands exceed 0.6 mNm; may miss moderate faults needing isolation. Single severe friction still detected; nominal/single-mild behavior improved, not degraded."
+ },
+ "accepted_change": {
+  "fdir_abs_Nm": 0.0006
+ },
+ "validation_notes": []
+}
