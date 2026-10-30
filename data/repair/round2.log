@@ -1,0 +1,5 @@
+round 2: 32 in-scope policy-induced cases, 8 shown; latency 32s, attempts 1, usage 15567
+change: {'isolation_swap': True, 'swap_ratio': 1.5} []
+diagnosis: FDIR with low abs threshold (~0.6mNm) isolates the first mild friction fault (severity 0.25-0.4, residual ~6-7e-04 Nm) then min_avail=3 blocks any second isolation. The severe/dead second fault stays in the 3-wheel allocation while useful redundancy is discarded. With 4 wheels the pseudo-inverse remains controllable, so policy-on fails while policy-off is clean.
+rationale: Swap corrects wrong-first isolation: if another wheel later trips detector with residual >1.5x the recorded residual of the already-isolated wheel, re-enable the milder wheel and isolate the worse one. This keeps 3-wheel control on the healthiest wheels, removing the lockout that leaves a dead/severe fault active. With 0 or 1 trips behavior is identical, so nominal and single-fault cases are unchanged.
+risks: No fix if second faulty wheel never trips detector or only single mild fault isolated. Transient period with wrong wheel isolated remains. Possible swap chatter if residuals noisy, but limited to multi-trip cases.

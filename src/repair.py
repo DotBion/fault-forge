@@ -152,7 +152,7 @@ def cmd_propose(a):
         cases = [d for d in cases if d["reproduces"] and d["policy_induced"] and not out_of_scope(d["minimized"])]
         context = ("\nResults of the previous round (policy " + base_name + "): " +
                    json.dumps({k: prev[k] for k in ("change", "fixes", "regressions", "search") if k in prev}) +
-                   "\nThe cases below are fresh failures FOUND AGAINST " + base_name + ".\n")
+                   "\nThe cases below are new failure cases from a fresh verification search on " + base_name + ".\n")
         rp = os.path.join(REP, f"regress_{base_name}.jsonl")
         if os.path.exists(rp):   # also show in-scope regressions (v1 survived, base_name fails), with traces
             regs = [json.loads(l) for l in open(rp)]
@@ -175,7 +175,7 @@ def cmd_propose(a):
               "the onboard safe-mode/FDIR policy itself causes a safety violation that would not occur with the policy "
               "disabled. Propose ONE small, concrete policy change, chosen only from the whitelist, that removes as many of "
               "these failure cases as possible without degrading behaviour in single-fault and nominal cases.")
-    user = f"""Spacecraft: 6U CubeSat, 2-orbit sims, 4 reaction wheels, battery 30 Wh. Safety requirements: SoC >= 0.20; attitude
+    user = (L.PREFACE if a.round > 1 else "") + f"""Spacecraft: 6U CubeSat, 2-orbit sims, 4 reaction wheels, battery 30 Wh. Safety requirements: SoC >= 0.20; attitude
 error <= 30 deg (not > 1200 s continuously after 900 s); no in-use wheel >= 98% max speed for > 60 s.
 Fault types: torque_derate (u_max *= 1-severity), friction (Coulomb += severity*2 mNm), stuck heater, external torque leak.
 
