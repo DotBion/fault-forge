@@ -1,0 +1,2 @@
+seed 1 round 0: 8/200 sims, 2 violations, llm 36.1s tok 9350, fallback 0, err 0, 45s
+seed 1 round 1: 16/200 sims, 4 violations, llm 30.9s tok 9899, fallback 0, err 0, 85s

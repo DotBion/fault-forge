@@ -1,0 +1,34 @@
+{
+ "in_scope_policy_induced": {
+  "n": 207,
+  "target_fixed": 199,
+  "clean": 193,
+  "new_violation_type": 6,
+  "patterns": 44,
+  "patterns_all_clean": 35
+ },
+ "out_of_scope": {
+  "n": 107,
+  "target_fixed": 34,
+  "clean": 27,
+  "new_violation_type": 7,
+  "patterns": 24,
+  "patterns_all_clean": 6
+ },
+ "not_policy_induced": {
+  "n": 146,
+  "target_fixed": 13,
+  "clean": 7,
+  "new_violation_type": 6,
+  "patterns": 19,
+  "patterns_all_clean": 0
+ },
+ "all": {
+  "n": 460,
+  "target_fixed": 246,
+  "clean": 227,
+  "new_violation_type": 19,
+  "patterns": 86,
+  "patterns_all_clean": 40
+ }
+}
