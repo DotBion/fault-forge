@@ -218,9 +218,9 @@ Regressions (v1 had no violation, new policy does):
 | nominal only | 9 | 0 | 0 | 0 | 0 |
 | every stored (unminimized) search run, all arms | 2932 | 497 | 458 | **24** | 63 |
 
-v2's 24 regressions are multi-fault runs: 16 are two heavy friction faults (severity 0.3-1.0, mostly found by
-CMA-ES) ending in attitude_loss, where v1's earlier isolation happened to help. The other 7-8 have two dead wheels
-(out of scope). So v2 keeps every single-fault and nominal case but does **not** survive everything v1 survived.
+v2's 24 regressions are all multi-fault runs. 13 are two heavy friction faults (severity 0.3-1.0; 11 found by
+CMA-ES, 2 by random) ending in attitude_loss, where v1's earlier isolation happened to help. 7 have two dead wheels
+(out of scope). 4 pair one dead wheel (severity 1.0) with heavy friction and/or the 1.5 uNm leak. So v2 keeps every single-fault and nominal case but does **not** survive everything v1 survived.
 
 Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed):
 
