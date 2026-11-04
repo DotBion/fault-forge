@@ -259,7 +259,7 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
     applied = set()
 
     st = dict(mode="NOMINAL", payload=True, avail=[True] * nRW, res_cnt=[0] * nRW, att_bad_s=0.0,
-              safe_since=None, iso_res=[0.0] * nRW)
+              safe_since=None, iso_res=[0.0] * nRW, readmit_s=[0.0] * nRW, flagged=[False] * nRW)
     log = []           # policy actions
     tel = []
     att_log = []       # optional: [t, sigma_BR(3), sigma_BN(3)] for visualisation (log_attitude=True)
@@ -307,8 +307,20 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
         # ---- policy
         if policy_enabled:
             # FDIR: per-wheel torque residual from wheel-speed change vs commanded torque
+            hard = policy.get("fdir_hard_Nm")   # structural option (off = v1): isolate only hard failures, flag mild ones
             for i in range(nRW):
                 if not st["avail"][i]:
+                    # structural option (off = v1): re-admit an isolated wheel whose residual stays below fdir_abs_Nm
+                    rd = policy.get("fdir_readmit_s")
+                    if rd:
+                        res = abs(u_mean[i] - Js[i] * (Om[i] - prev_Om[i]) / chunk)
+                        st["readmit_s"][i] = st["readmit_s"][i] + chunk if res <= policy["fdir_abs_Nm"] else 0.0
+                        if st["readmit_s"][i] >= rd:
+                            st["avail"][i], st["res_cnt"][i], st["readmit_s"][i], st["iso_res"][i] = True, 0, 0.0, 0.0
+                            h["avail"].wheelAvailability = [messaging.AVAILABLE if a else messaging.UNAVAILABLE
+                                                            for a in st["avail"]]
+                            h["availMsg"].write(h["avail"])
+                            log.append((t, f"POLICY FDIR: wheel {i} re-admitted (residual {res:.2e} Nm <= threshold for {rd:.0f} s)"))
                     continue
                 delivered = Js[i] * (Om[i] - prev_Om[i]) / chunk
                 res = abs(u_mean[i] - delivered)
@@ -316,7 +328,11 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
                     st["res_cnt"][i] += 1
                 else:
                     st["res_cnt"][i] = 0
-                if st["res_cnt"][i] >= policy["fdir_persist"] and sum(st["avail"]) > policy.get("min_avail", 3):
+                if hard and st["res_cnt"][i] >= policy["fdir_persist"] and res < hard:
+                    if not st["flagged"][i]:
+                        st["flagged"][i] = True
+                        log.append((t, f"POLICY FDIR: wheel {i} flagged degraded, kept in control (residual {res:.2e} < hard {hard:.1e} Nm)"))
+                elif st["res_cnt"][i] >= policy["fdir_persist"] and sum(st["avail"]) > policy.get("min_avail", 3):
                     st["avail"][i] = False
                     st["iso_res"][i] = res
                     h["avail"].wheelAvailability = [messaging.AVAILABLE if a else messaging.UNAVAILABLE

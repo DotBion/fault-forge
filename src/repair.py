@@ -39,6 +39,12 @@ WHITELIST = {
                         "absolute value, Nm (null = no extra condition)"),
     "swap_max_iso_res_Nm": ("float_or_null", 3e-4, 5e-3, "narrows the FDIR swap: only an isolated wheel whose recorded residual "
                             "is <= this value, Nm (i.e. a mildly degraded wheel) may be re-enabled (null = no extra condition)"),
+    "fdir_hard_Nm": ("float_or_null", 5e-4, 3e-3, "STRUCTURAL: reserve isolation (and swaps) for hard failures - a wheel that "
+                     "trips the detector is isolated only if its residual >= this value, Nm; milder ones are only flagged "
+                     "and stay in control (null = off, v1 behaviour)"),
+    "fdir_readmit_s": ("float_or_null", 30.0, 1800.0, "STRUCTURAL: re-admit an isolated wheel once its (uncommanded) torque "
+                       "residual has stayed <= fdir_abs_Nm for this many s; frees the single isolation for a later fault "
+                       "(null = off, v1 behaviour)"),
     "min_avail": ("choice", [2, 3], None, "isolation allowed only while more than this many wheels are available "
                   "(3 = at most one isolation; 2 = a second isolation, leaving 2 wheels = under-actuated)"),
     "fdir_persist": ("int", 2, 12, "consecutive 5 s detector hits before isolating (persistence / hysteresis)"),

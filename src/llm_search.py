@@ -105,6 +105,15 @@ def policy_extra_text(P):
     if P.get("wheel_safe_frac"):
         out.append(f"- Momentum guard: an in-use wheel >= {P['wheel_safe_frac']:.0%} of max speed for {P.get('wheel_safe_s', 30):.0f} s -> SAFE "
                    "(no resume while any wheel stays above that).")
+    if P.get("swap_min_res_Nm") or P.get("swap_max_iso_res_Nm"):
+        out.append(f"- Swap only if the new residual >= {P.get('swap_min_res_Nm')} Nm and the isolated wheel's recorded residual "
+                   f"<= {P.get('swap_max_iso_res_Nm')} Nm (None = no condition).")
+    if P.get("fdir_hard_Nm"):
+        out.append(f"- FDIR isolates (or swaps) only hard failures: residual >= {P['fdir_hard_Nm']:.1e} Nm; milder detector trips are "
+                   "only flagged and the wheel stays in control.")
+    if P.get("fdir_readmit_s"):
+        out.append(f"- FDIR re-admits an isolated wheel once its uncommanded residual stays <= the absolute threshold for "
+                   f"{P['fdir_readmit_s']:.0f} s.")
     return "".join(l + "\n" for l in out)
 
 
