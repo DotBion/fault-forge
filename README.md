@@ -41,7 +41,7 @@ the verbatim response, but **no request ids**. `make replay` prints these and th
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt    # bsk==2.12.1 prebuilt wheel, no build
 cp .env.example .env && $EDITOR .env                                     # MUSE_API_KEY=<your key>, no quotes; only for `make live`
-make replay        # ~15 s, no network
+make replay        # ~5-15 s, no network
 make live          # ~1-2 min: one Muse call (30-100 s) + 8 Basilisk sims; LIVE_ARGS="--workers 2 --n 8 --blind" optional
 ```
 

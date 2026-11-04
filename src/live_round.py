@@ -26,6 +26,8 @@ from muse_client import chat_logged, ENDPOINT, MODEL  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 B, Y, R, G, C, D, X = "\033[1m", "\033[33m", "\033[31m", "\033[32m", "\033[36m", "\033[2m", "\033[0m"
+if os.environ.get("NO_COLOR") or not (sys.stdout.isatty() or os.environ.get("FORCE_COLOR")):
+    B = Y = R = G = C = D = X = ""
 
 
 def _sim(job):

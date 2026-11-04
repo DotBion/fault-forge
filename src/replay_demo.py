@@ -20,7 +20,7 @@ import ff_sim  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KEY = "a6e8087b7a52c977"
 B, Y, R, G, C, D, X = "\033[1m", "\033[33m", "\033[31m", "\033[32m", "\033[36m", "\033[2m", "\033[0m"
-if not sys.stdout.isatty() and not os.environ.get("FORCE_COLOR"):
+if os.environ.get("NO_COLOR") or not (sys.stdout.isatty() or os.environ.get("FORCE_COLOR")):
     B = Y = R = G = C = D = X = ""
 
 
@@ -43,7 +43,7 @@ def wrap(s, w=100, ind="      "):
 
 
 def headline():
-    print(f"{B}== 1. Headline counterexample {KEY} (re-simulated now, Basilisk, ~2 x 10 s) =={X}")
+    print(f"{B}== 1. Headline counterexample {KEY} (re-simulated now in Basilisk, a few seconds) =={X}")
     mn = next(json.loads(l) for l in open(os.path.join(ROOT, "data/cmp/minimized.jsonl"))
               if json.loads(l)["key"] == KEY)
     p = mn["minimized"]
