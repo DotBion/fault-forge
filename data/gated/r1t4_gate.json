@@ -1,0 +1,41 @@
+{
+ "round": 1,
+ "try": 4,
+ "name": "r1t4",
+ "base": "v1",
+ "change_proposed": {
+  "att_safe_deg": 18.0
+ },
+ "change": {
+  "att_safe_deg": 18.0
+ },
+ "validation_notes": [],
+ "diagnosis": "Minimized runs show FDIR isolates a mildly degraded friction wheel with residual 4-5e-04 Nm just above threshold, then a second fault dominates. Saturation traces separately show NOMINAL error hovering at 15-16 deg for hundreds of seconds, triggering repeated SAFE sun-point slews that pump wheels to saturation, while no-policy runs ride through clean. The 15-deg watchdog is too close to nominal tracking error and causes policy-induced cycling.",
+ "rationale": "Raise attitude watchdog from 15 to 18 deg to filter marginal 15-16 deg nuisance trips. Representative saturation cases trigger SAFE at 15.9, 15.4, 15.2 deg; with 18 deg they stay in NOMINAL like the clean no-policy run and avoid SAFE-induced momentum buildup. True losses with 30-170 deg errors still exceed 18 deg for 120s, so SAFE protection is preserved with only seconds delay, well below the 30-deg requirement.",
+ "why_no_regressions": "18 deg remains 12 deg below the 30-deg safety limit and only suppresses SAFE in the 15-18 deg band which is inherently safe. No change to FDIR, battery thresholds, or resume dwell, so single-fault and severe multi-fault behavior is unchanged.",
+ "decision": "reject",
+ "gate_reason": "rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)",
+ "gate": {
+  "evaluated": 982,
+  "new_violations": 6,
+  "runs_with_new_violations": 5,
+  "clean_to_violating": 4,
+  "fixes": 3,
+  "violating_runs": 97,
+  "violating_runs_base": 96,
+  "new_violation_ids": [
+   "cmaes_seed0_120",
+   "cmaes_seed0_160",
+   "muse_seed0_204",
+   "muse_seed1_105",
+   "museblind_seed1_217"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_261",
+   "cmaes_seed0_264",
+   "cmaes_seed0_98"
+  ],
+  "complete": false,
+  "eval_s": 0
+ }
+}

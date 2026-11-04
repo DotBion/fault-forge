@@ -1,0 +1,41 @@
+{
+ "round": 2,
+ "try": 1,
+ "name": "r2t1",
+ "base": "v1",
+ "change_proposed": {
+  "isolation_swap": true,
+  "swap_ratio": 2.0,
+  "swap_min_res_Nm": 0.0008,
+  "swap_max_iso_res_Nm": 0.0006
+ },
+ "change": {
+  "isolation_swap": true,
+  "swap_ratio": 2.0,
+  "swap_min_res_Nm": 0.0008,
+  "swap_max_iso_res_Nm": 0.0006
+ },
+ "validation_notes": [],
+ "diagnosis": "FDIR isolates the first mild friction wheel with residual 0.3-0.5 mNm just over 0.3 mNm threshold, severity 0.2, then min_avail=3 blocks second isolation. Control continues on 3-wheel set containing the later severe friction/derate fault, causing attitude_loss/saturation. With 4 wheels the mild fault is tolerable, so no violation without policy.",
+ "rationale": "Enable swap to keep healthiest 3 wheels: if another wheel trips while one is isolated and new residual >2x isolated residual and >=0.8mNm, re-enable mild isolated wheel <=0.6mNm and isolate new worse wheel. This corrects wrong-wheel-first isolation in friction+friction and friction+derate pairs without changing single-fault isolation thresholds or SAFE logic.",
+ "why_no_regressions": "Single-fault/nominal behavior unchanged, swap needs second trip. Narrow gates allow swap only from mildly-degraded to clearly-worse wheel, keeping 3-wheel control. Cannot trigger spuriously.",
+ "decision": "reject",
+ "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 66 runs)",
+ "gate": {
+  "evaluated": 66,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 0,
+  "violating_runs": 4,
+  "violating_runs_base": 1,
+  "new_violation_ids": [
+   "cmaes_seed0_137",
+   "cmaes_seed0_150",
+   "cmaes_seed0_158"
+  ],
+  "fix_ids": [],
+  "complete": false,
+  "eval_s": 5
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "round": 1,
+ "try": 6,
+ "name": "r1t6",
+ "base": "v1",
+ "change_proposed": {
+  "isolation_swap": true,
+  "swap_ratio": 5.0,
+  "swap_min_res_Nm": 0.002,
+  "swap_max_iso_res_Nm": 0.0004
+ },
+ "change": {
+  "isolation_swap": true,
+  "swap_ratio": 5.0,
+  "swap_min_res_Nm": 0.002,
+  "swap_max_iso_res_Nm": 0.0004
+ },
+ "validation_notes": [],
+ "diagnosis": "Current FDIR allows one latch. It often latches a first mildly-degraded friction wheel (severity 0.2, residual ~3-5e-04 Nm) then cannot address a later severe wheel, leaving the severe wheel in the 3-wheel allocation causing policy-induced attitude loss/saturation. Open swap was meant to fix ordering but swaps similarly-degraded wheels, changing geometry and destabilizing control.",
+ "rationale": "Narrow swap to clearly-dead replaces clearly-mild only. Re-enable allowed only if recorded residual <=0.0004 Nm (mild) and new residual >=0.002 Nm with ratio >=5. This targets mild-first/severe-second ordering that dominates rw_friction+rw_friction attitude loss, keeps 3-wheel control on healthiest wheels, and ignores comparable-degradation cases where swap was harmful.",
+ "why_no_regressions": "All three listed regressions blocked: case1 old 5.11e-04>0.0004 and ratio 3.9<5; case2 old 5.74e-04>0.0004; case3 new 1.14e-03<0.002 and ratio 3.56<5. Strictly narrower than try5, so fewer triggers.",
+ "decision": "reject",
+ "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 25 runs)",
+ "gate": {
+  "evaluated": 25,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 0,
+  "violating_runs": 3,
+  "violating_runs_base": 0,
+  "new_violation_ids": [
+   "cmaes_seed0_278",
+   "cmaes_seed0_294",
+   "cmaes_seed2_117"
+  ],
+  "fix_ids": [],
+  "complete": false,
+  "eval_s": 14
+ }
+}

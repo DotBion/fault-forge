@@ -65,3 +65,51 @@ held-out v1: 51 / 300
 === round 1: nothing accepted; policy now v1
 === round 2 (current policy v1)
   r2t1: Muse change {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} -> valid {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} []
+=== restart Tue Nov  3 23:19:51 EST 2026
+=== round 1 (current policy v1)
+  r1t1: (cached) reject rejected: 20 new violations in 20 runs (20 previously clean) (evaluation stopped early after 861 runs)
+  r1t2: (cached) reject rejected: 20 new violations in 20 runs (12 previously clean) (evaluation stopped early after 1777 runs)
+  r1t3: (cached) reject rejected: 19 new violations in 18 runs (10 previously clean) vs 44 fixes on the full suite
+  r1t4: (cached) reject rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)
+  r1t5: (cached) reject rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 7 runs)
+  r1t6: (cached) reject rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 25 runs)
+=== round 1: nothing accepted; policy now v1
+=== round 2 (current policy v1)
+  r2t1: Muse change {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} -> valid {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} []
+  r2t1: reject - rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 66 runs)
+  LLM call failed (attempt 1): ValueError: empty content, finish_reason=length
+  r2t2: Muse change {'wheel_safe_frac': 0.97, 'wheel_safe_s': 60.0} -> valid {'wheel_safe_frac': 0.97, 'wheel_safe_s': 60.0} []
+    r2t2: 250/3508 96s, new viol so far 0
+    r2t2: 500/3508 193s, new viol so far 0
+    r2t2: 750/3508 290s, new viol so far 0
+    r2t2: 1000/3508 394s, new viol so far 0
+    r2t2: 1250/3508 502s, new viol so far 0
+    r2t2: 1500/3508 604s, new viol so far 0
+    r2t2: 1750/3508 704s, new viol so far 0
+    r2t2: 2000/3508 1254s, new viol so far 0
+    r2t2: 2250/3508 1351s, new viol so far 0
+    r2t2: 2500/3508 1446s, new viol so far 1
+    r2t2: 2750/3508 1540s, new viol so far 1
+    r2t2: 3000/3508 1636s, new viol so far 1
+    r2t2: 3250/3508 1736s, new viol so far 1
+    r2t2: 3500/3508 1834s, new viol so far 1
+  r2t2: reject - rejected: 1 new violations in 1 runs (0 previously clean) vs 13 fixes on the full suite
+  r2t3: Muse change {'wheel_safe_frac': 0.97, 'wheel_safe_s': 120.0} -> valid {'wheel_safe_frac': 0.97, 'wheel_safe_s': 120.0} []
+    r2t3: 250/3508 121s, new viol so far 1
+    r2t3: 500/3508 236s, new viol so far 1
+    r2t3: 750/3508 332s, new viol so far 1
+    r2t3: 1000/3508 424s, new viol so far 1
+    r2t3: 1250/3508 515s, new viol so far 1
+    r2t3: 1500/3508 602s, new viol so far 1
+    r2t3: 1750/3508 692s, new viol so far 1
+    r2t3: 2000/3508 782s, new viol so far 1
+    r2t3: 2250/3508 1076s, new viol so far 1
+    r2t3: 2500/3508 1175s, new viol so far 2
+    r2t3: 2750/3508 1270s, new viol so far 2
+    r2t3: 3000/3508 1362s, new viol so far 2
+    r2t3: 3250/3508 1456s, new viol so far 2
+    r2t3: 3500/3508 1547s, new viol so far 2
+  r2t3: reject - rejected: 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite
+  r2t4: Muse change {'fdir_persist': 4} -> valid {'fdir_persist': 4} []
+  r2t4: reject - rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 13 runs)
+strict loop stopped manually after r2t4 partial to free time for structural phase Wed Nov  4 00:24:58 EST 2026

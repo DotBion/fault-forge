@@ -1,0 +1,34 @@
+{
+ "round": 2,
+ "try": 3,
+ "model": "muse-spark-1.3",
+ "latency_s": 114.66704605199993,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 11802,
+  "prompt_tokens": 8464,
+  "total_tokens": 20266,
+  "completion_tokens_details": {
+   "reasoning_tokens": 11489
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "n_cases": 244,
+ "response_verbatim": "{\"diagnosis\": \"Policy-induced wheel-saturation cases with leak plus friction accumulate momentum on 3-wheel control after FDIR isolation. Current policy has no momentum guard, so it stays in NOMINAL until 98% saturation, while sun-point SAFE with payload off would limit buildup. With policy disabled the 4-wheel allocation shares momentum and avoids saturation.\", \"change\": {\"wheel_safe_frac\": 0.97, \"wheel_safe_s\": 120.0}, \"rationale\": \"Add narrowest momentum guard: if an in-use wheel stays >=97% max for 120s continuous, enter sun-point SAFE and block resume while high. This sheds payload power and holds sun-pointing to stop momentum growth before the 98% for 60s violation. 97% is least sensitive fraction and 120s is longest persistence, so it acts only on prolonged near-saturation that precedes violation.\", \"why_no_regressions\": \"Strictly narrower than tested 0.97 for 60s which had only 1 regression in 3508 runs. Requires 120s continuous vs 60s, so any run clean under 60s version stays clean, and intermittent high-speed in regressed heater+leak+derate case is less likely to trigger.\", \"expected_fixed_patterns\": [\"wheel_saturation <- leak+rw_friction+rw_friction\", \"wheel_saturation <- heater+leak+rw_friction\", \"wheel_saturation <- heater+leak\"]}",
+ "parsed": {
+  "diagnosis": "Policy-induced wheel-saturation cases with leak plus friction accumulate momentum on 3-wheel control after FDIR isolation. Current policy has no momentum guard, so it stays in NOMINAL until 98% saturation, while sun-point SAFE with payload off would limit buildup. With policy disabled the 4-wheel allocation shares momentum and avoids saturation.",
+  "change": {
+   "wheel_safe_frac": 0.97,
+   "wheel_safe_s": 120.0
+  },
+  "rationale": "Add narrowest momentum guard: if an in-use wheel stays >=97% max for 120s continuous, enter sun-point SAFE and block resume while high. This sheds payload power and holds sun-pointing to stop momentum growth before the 98% for 60s violation. 97% is least sensitive fraction and 120s is longest persistence, so it acts only on prolonged near-saturation that precedes violation.",
+  "why_no_regressions": "Strictly narrower than tested 0.97 for 60s which had only 1 regression in 3508 runs. Requires 120s continuous vs 60s, so any run clean under 60s version stays clean, and intermittent high-speed in regressed heater+leak+derate case is less likely to trigger.",
+  "expected_fixed_patterns": [
+   "wheel_saturation <- leak+rw_friction+rw_friction",
+   "wheel_saturation <- heater+leak+rw_friction",
+   "wheel_saturation <- heater+leak"
+  ]
+ }
+}

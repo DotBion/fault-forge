@@ -1,0 +1,46 @@
+{
+ "round": 2,
+ "try": 3,
+ "name": "r2t3",
+ "base": "v1",
+ "change_proposed": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 120.0
+ },
+ "change": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 120.0
+ },
+ "validation_notes": [],
+ "diagnosis": "Policy-induced wheel-saturation cases with leak plus friction accumulate momentum on 3-wheel control after FDIR isolation. Current policy has no momentum guard, so it stays in NOMINAL until 98% saturation, while sun-point SAFE with payload off would limit buildup. With policy disabled the 4-wheel allocation shares momentum and avoids saturation.",
+ "rationale": "Add narrowest momentum guard: if an in-use wheel stays >=97% max for 120s continuous, enter sun-point SAFE and block resume while high. This sheds payload power and holds sun-pointing to stop momentum growth before the 98% for 60s violation. 97% is least sensitive fraction and 120s is longest persistence, so it acts only on prolonged near-saturation that precedes violation.",
+ "why_no_regressions": "Strictly narrower than tested 0.97 for 60s which had only 1 regression in 3508 runs. Requires 120s continuous vs 60s, so any run clean under 60s version stays clean, and intermittent high-speed in regressed heater+leak+derate case is less likely to trigger.",
+ "decision": "reject",
+ "gate_reason": "rejected: 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite",
+ "gate": {
+  "evaluated": 3508,
+  "new_violations": 2,
+  "runs_with_new_violations": 2,
+  "clean_to_violating": 0,
+  "fixes": 9,
+  "violating_runs": 496,
+  "violating_runs_base": 505,
+  "new_violation_ids": [
+   "museblind_seed1_115",
+   "museblind_seed1_121"
+  ],
+  "fix_ids": [
+   "grid_381",
+   "muse_seed0_104",
+   "muse_seed0_40",
+   "muse_seed2_115",
+   "muse_seed2_151",
+   "muse_seed2_34",
+   "muse_seed2_53",
+   "random_seed0_61",
+   "random_seed0_9"
+  ],
+  "complete": true,
+  "eval_s": 1550
+ }
+}

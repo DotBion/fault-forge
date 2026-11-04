@@ -1,0 +1,35 @@
+{
+ "round": 1,
+ "try": 6,
+ "model": "muse-spark-1.3",
+ "latency_s": 104.613905252,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 11351,
+  "prompt_tokens": 9079,
+  "total_tokens": 20430,
+  "completion_tokens_details": {
+   "reasoning_tokens": 10999
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "n_cases": 235,
+ "response_verbatim": "{\"diagnosis\": \"Current FDIR allows one latch. It often latches a first mildly-degraded friction wheel (severity 0.2, residual ~3-5e-04 Nm) then cannot address a later severe wheel, leaving the severe wheel in the 3-wheel allocation causing policy-induced attitude loss/saturation. Open swap was meant to fix ordering but swaps similarly-degraded wheels, changing geometry and destabilizing control.\", \"change\": {\"isolation_swap\": true, \"swap_ratio\": 5.0, \"swap_min_res_Nm\": 0.002, \"swap_max_iso_res_Nm\": 0.0004}, \"rationale\": \"Narrow swap to clearly-dead replaces clearly-mild only. Re-enable allowed only if recorded residual <=0.0004 Nm (mild) and new residual >=0.002 Nm with ratio >=5. This targets mild-first/severe-second ordering that dominates rw_friction+rw_friction attitude loss, keeps 3-wheel control on healthiest wheels, and ignores comparable-degradation cases where swap was harmful.\", \"why_no_regressions\": \"All three listed regressions blocked: case1 old 5.11e-04>0.0004 and ratio 3.9<5; case2 old 5.74e-04>0.0004; case3 new 1.14e-03<0.002 and ratio 3.56<5. Strictly narrower than try5, so fewer triggers.\", \"expected_fixed_patterns\": [\"heater+rw0_friction+rw1_friction\", \"heater+rw0_friction+rw2_friction\"]}",
+ "parsed": {
+  "diagnosis": "Current FDIR allows one latch. It often latches a first mildly-degraded friction wheel (severity 0.2, residual ~3-5e-04 Nm) then cannot address a later severe wheel, leaving the severe wheel in the 3-wheel allocation causing policy-induced attitude loss/saturation. Open swap was meant to fix ordering but swaps similarly-degraded wheels, changing geometry and destabilizing control.",
+  "change": {
+   "isolation_swap": true,
+   "swap_ratio": 5.0,
+   "swap_min_res_Nm": 0.002,
+   "swap_max_iso_res_Nm": 0.0004
+  },
+  "rationale": "Narrow swap to clearly-dead replaces clearly-mild only. Re-enable allowed only if recorded residual <=0.0004 Nm (mild) and new residual >=0.002 Nm with ratio >=5. This targets mild-first/severe-second ordering that dominates rw_friction+rw_friction attitude loss, keeps 3-wheel control on healthiest wheels, and ignores comparable-degradation cases where swap was harmful.",
+  "why_no_regressions": "All three listed regressions blocked: case1 old 5.11e-04>0.0004 and ratio 3.9<5; case2 old 5.74e-04>0.0004; case3 new 1.14e-03<0.002 and ratio 3.56<5. Strictly narrower than try5, so fewer triggers.",
+  "expected_fixed_patterns": [
+   "heater+rw0_friction+rw1_friction",
+   "heater+rw0_friction+rw2_friction"
+  ]
+ }
+}

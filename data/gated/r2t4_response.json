@@ -1,0 +1,32 @@
+{
+ "round": 2,
+ "try": 4,
+ "model": "muse-spark-1.3",
+ "latency_s": 98.51231735300007,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 11113,
+  "prompt_tokens": 9270,
+  "total_tokens": 20383,
+  "completion_tokens_details": {
+   "reasoning_tokens": 10864
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "n_cases": 244,
+ "response_verbatim": "{\"diagnosis\": \"Dominant policy-induced failures isolate the first mild friction wheel (severity 0.2, residual ~4.6e-04 Nm just above 0.0003) consuming the one-isolation budget, leaving a later severe friction/derate wheel in control. 4-wheel allocation without policy rides through, but 3-wheel control with the bad wheel fails.\", \"change\": {\"fdir_persist\": 4}, \"rationale\": \"Increase FDIR persistence 3 to 4 consecutive 5s hits. Requires sustained residual, filtering intermittent marginal exceedances from mild Coulomb friction when commanded torque varies, while still isolating solid dead-wheel faults whose residual equals command and persists. Only 5s delay, no threshold or SAFE-logic change.\", \"why_no_regressions\": \"Only delays isolation by 5s, preserves isolation order and decisions for persistent faults, adds no new SAFE triggers or swaps. Negligible versus 60s saturation and 1200s attitude-loss thresholds.\", \"expected_fixed_patterns\": [\"attitude_loss <- rw_friction+rw_friction\", \"wheel_saturation <- rw_friction+rw_friction\"] }",
+ "parsed": {
+  "diagnosis": "Dominant policy-induced failures isolate the first mild friction wheel (severity 0.2, residual ~4.6e-04 Nm just above 0.0003) consuming the one-isolation budget, leaving a later severe friction/derate wheel in control. 4-wheel allocation without policy rides through, but 3-wheel control with the bad wheel fails.",
+  "change": {
+   "fdir_persist": 4
+  },
+  "rationale": "Increase FDIR persistence 3 to 4 consecutive 5s hits. Requires sustained residual, filtering intermittent marginal exceedances from mild Coulomb friction when commanded torque varies, while still isolating solid dead-wheel faults whose residual equals command and persists. Only 5s delay, no threshold or SAFE-logic change.",
+  "why_no_regressions": "Only delays isolation by 5s, preserves isolation order and decisions for persistent faults, adds no new SAFE triggers or swaps. Negligible versus 60s saturation and 1200s attitude-loss thresholds.",
+  "expected_fixed_patterns": [
+   "attitude_loss <- rw_friction+rw_friction",
+   "wheel_saturation <- rw_friction+rw_friction"
+  ]
+ }
+}

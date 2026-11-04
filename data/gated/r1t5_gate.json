@@ -1,0 +1,41 @@
+{
+ "round": 1,
+ "try": 5,
+ "name": "r1t5",
+ "base": "v1",
+ "change_proposed": {
+  "isolation_swap": true,
+  "swap_ratio": 2.5,
+  "swap_min_res_Nm": 0.001,
+  "swap_max_iso_res_Nm": 0.0006
+ },
+ "change": {
+  "isolation_swap": true,
+  "swap_ratio": 2.5,
+  "swap_min_res_Nm": 0.001,
+  "swap_max_iso_res_Nm": 0.0006
+ },
+ "validation_notes": [],
+ "diagnosis": "Current FDIR isolates first wheel whose residual exceeds 0.3mNm for 3 checks, then blocks further isolation. Mild friction (0.2 severity adds 0.4mNm) already trips detector with residuals ~0.45mNm. Logs show mild wheel isolated first, then severe second fault arrives but cannot be isolated. Control continues on degraded wheel plus skewed allocation, causing attitude loss and saturation that does not occur with all wheels available.",
+ "rationale": "Enable FDIR swap with tight gates so swap only replaces a mildly degraded isolated wheel with a clearly failed wheel. Require isolated residual <=0.6mNm and new residual >=1.0mNm and ratio >=2.5. This restores 3-wheel control on healthiest wheels in mild-then-severe friction sequences that dominate remaining policy-induced attitude losses, while ignoring small or similar residuals.",
+ "why_no_regressions": "Swap never triggers in nominal or single-fault runs, preserving 576 baseline runs. Absolute gates plus higher ratio block swaps between similar or small residuals and prevent swapping out correctly isolated dead wheels, avoiding churn that caused try-1 regressions.",
+ "decision": "reject",
+ "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 7 runs)",
+ "gate": {
+  "evaluated": 7,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 0,
+  "violating_runs": 3,
+  "violating_runs_base": 0,
+  "new_violation_ids": [
+   "cmaes_seed0_137",
+   "cmaes_seed0_150",
+   "cmaes_seed0_169"
+  ],
+  "fix_ids": [],
+  "complete": false,
+  "eval_s": 5
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "round": 2,
+ "try": 4,
+ "name": "r2t4",
+ "base": "v1",
+ "change_proposed": {
+  "fdir_persist": 4
+ },
+ "change": {
+  "fdir_persist": 4
+ },
+ "validation_notes": [],
+ "diagnosis": "Dominant policy-induced failures isolate the first mild friction wheel (severity 0.2, residual ~4.6e-04 Nm just above 0.0003) consuming the one-isolation budget, leaving a later severe friction/derate wheel in control. 4-wheel allocation without policy rides through, but 3-wheel control with the bad wheel fails.",
+ "rationale": "Increase FDIR persistence 3 to 4 consecutive 5s hits. Requires sustained residual, filtering intermittent marginal exceedances from mild Coulomb friction when commanded torque varies, while still isolating solid dead-wheel faults whose residual equals command and persists. Only 5s delay, no threshold or SAFE-logic change.",
+ "why_no_regressions": "Only delays isolation by 5s, preserves isolation order and decisions for persistent faults, adds no new SAFE triggers or swaps. Negligible versus 60s saturation and 1200s attitude-loss thresholds.",
+ "decision": "reject",
+ "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 13 runs)",
+ "gate": {
+  "evaluated": 13,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 0,
+  "violating_runs": 3,
+  "violating_runs_base": 0,
+  "new_violation_ids": [
+   "cmaes_seed0_137",
+   "cmaes_seed0_176",
+   "cmaes_seed0_294"
+  ],
+  "fix_ids": [],
+  "complete": false,
+  "eval_s": 9
+ }
+}
