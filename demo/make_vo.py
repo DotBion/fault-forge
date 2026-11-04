@@ -12,9 +12,12 @@ $FF_PIPER_VOICE (default /workspace/piper_voices/en_US-ryan-high.onnx).
 import argparse, hashlib, time, json, os, re, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
-import v2_script  # noqa: E402
+import importlib  # noqa: E402
 
-VO = os.path.join(HERE, "vo"); os.makedirs(VO, exist_ok=True)
+# --script v2 (default, demo/v2_script.py -> demo/vo/) or --script v3 (demo/v3_script.py -> demo/vo_v3/)
+_SCRIPT = sys.argv[sys.argv.index("--script") + 1] if "--script" in sys.argv else "v2"
+v2_script = importlib.import_module(f"{_SCRIPT}_script")  # name kept so the code below is unchanged
+VO = os.path.join(HERE, "vo" if _SCRIPT == "v2" else f"vo_{_SCRIPT}"); os.makedirs(VO, exist_ok=True)
 BIN = os.environ.get("FF_TTS_BIN", "/workspace/ttsvenv/bin")
 PV = os.environ.get("FF_PIPER_VOICE", "/workspace/piper_voices/en_US-ryan-high.onnx")
 
@@ -60,6 +63,7 @@ if __name__ == "__main__":
     ap.add_argument("--engine", default="edge", choices=["edge", "piper"])
     ap.add_argument("--voice", default="en-US-AndrewNeural"); ap.add_argument("--rate", default="+0%")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--script", default="v2", choices=["v2", "v3"])
     a = ap.parse_args()
     dj = os.path.join(VO, "durations.json")
     old = json.load(open(dj)) if os.path.exists(dj) else {}
@@ -87,4 +91,4 @@ if __name__ == "__main__":
     print(f"total {tot:.1f} s (cap {v2_script.MAX_TOTAL})")
     json.dump(out, open(dj, "w"), indent=1)
     if tot > v2_script.MAX_TOTAL:
-        sys.exit(f"TOO LONG: {tot:.1f} s > {v2_script.MAX_TOTAL} s; shorten text in demo/v2_script.py")
+        sys.exit(f"TOO LONG: {tot:.1f} s > {v2_script.MAX_TOTAL} s; shorten text in demo/{_SCRIPT}_script.py")

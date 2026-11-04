@@ -336,6 +336,15 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 
 ## Demo video
 
+**Current: `demo/faultforge_demo_v3.mp4`** (2:53, 1080p30, narrated). Re-render with `bash demo/render_v3.sh`
+(edge-tts narration from `demo/v3_script.py` -> `demo/vo_v3/`, segments via `demo/make_video_v3.py`; script and
+on-screen data sources in `docs/video_v3_script.md`). Every count is read from the repo at render time, so
+re-rendering picks up new gate results. The live beat is a real, unedited `make live` terminal recording
+(`demo/live/take1.cast`, 2/8 runs violated; second take `take2.cast`, 0/8; records in `data/live/`), converted
+by `demo/cast_to_mp4.sh`. Only the Muse wait is sped up, and it is labelled on screen. Recorded (non-live) Muse calls are
+labelled with the commit time of their data file. Stills: `demo/v3_still_*.png`.
+
+Older version:
 `demo/faultforge_demo_v1.mp4` (2:49, 1080p30, captions only) is rendered entirely from repo data by
 `demo/make_video.py`; attitude traces for the headline case come from `demo/replay_attitude.py`
 (re-runs `data/repair/headline_v2.json` as v1, v1 with policy disabled, and v2). Stills: `demo/still_*.png`.
