@@ -1,0 +1,81 @@
+{
+ "name": "b2t1",
+ "phase": "budget",
+ "round": 2,
+ "try": 1,
+ "base": "b1t1",
+ "change_proposed": {
+  "fdir_hard_Nm": 0.0005
+ },
+ "change": {
+  "fdir_hard_Nm": 0.0005
+ },
+ "validation_notes": [],
+ "diagnosis": "FDIR consumes the single isolation on first mild friction fault (residual ~0.46-0.49 mNm, severity 0.2) leaving no isolation for later severe friction/derate/leak and forcing degraded 3-wheel control. Without-policy runs are clean, so premature isolation itself induces attitude loss and saturation.",
+ "rationale": "Reserve isolation for hard failures. Mild Coulomb friction trips detector at ~0.00046 Nm but stays controllable in 4-wheel pseudo-inverse allocation. Requiring residual >=0.0005 Nm to isolate keeps mild wheels in control, preserves 4-wheel authority against leaks and momentum build-up, and leaves the one isolation free for later severe derate/friction whose residual exceeds 0.0005 Nm.",
+ "why_no_regressions": "Only suppresses isolations below 0.0005 Nm, which are shown controllable without policy. Hard faults still isolate as before. No change to SOC, attitude watchdog, or momentum guard.",
+ "decision": "reject",
+ "gate_reason": "rejected (budget): 4 previously clean runs broken (max 3), 4 runs with new violations, 3 fixes, net -1, 797 runs evaluated (stopped early)",
+ "gate": {
+  "evaluated": 797,
+  "new_violations": 4,
+  "runs_with_new_violations": 4,
+  "clean_to_violating": 4,
+  "fixes": 3,
+  "violating_runs": 71,
+  "violating_runs_base": 70,
+  "new_violation_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294",
+   "cmaes_seed0_297"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_264",
+   "cmaes_seed0_289",
+   "cmaes_seed0_292"
+  ],
+  "complete": false,
+  "eval_s": 285,
+  "mode": "budget",
+  "clean_broken_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294",
+   "cmaes_seed0_297"
+  ],
+  "net_fixes": -1,
+  "sat_rule": "consecutive"
+ },
+ "gate_legacy_cumulative": {
+  "evaluated": 797,
+  "new_violations": 4,
+  "runs_with_new_violations": 4,
+  "clean_to_violating": 4,
+  "fixes": 3,
+  "violating_runs": 73,
+  "violating_runs_base": 72,
+  "new_violation_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294",
+   "cmaes_seed0_297"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_264",
+   "cmaes_seed0_289",
+   "cmaes_seed0_292"
+  ],
+  "complete": false,
+  "eval_s": 285,
+  "mode": "budget",
+  "clean_broken_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294",
+   "cmaes_seed0_297"
+  ],
+  "net_fixes": -1
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
+}

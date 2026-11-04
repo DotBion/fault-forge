@@ -55,6 +55,36 @@
    "cmaes_seed0_293",
    "cmaes_seed0_294"
   ],
+  "net_fixes": 0,
+  "sat_rule": "consecutive"
+ },
+ "gate_legacy_cumulative": {
+  "evaluated": 794,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 3,
+  "violating_runs": 73,
+  "violating_runs_base": 73,
+  "new_violation_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_264",
+   "cmaes_seed0_289",
+   "cmaes_seed0_292"
+  ],
+  "complete": false,
+  "eval_s": 1355,
+  "mode": "strict",
+  "clean_broken_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294"
+  ],
   "net_fixes": 0
- }
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

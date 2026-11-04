@@ -1,0 +1,20 @@
+{
+ "name": "b1t1",
+ "base": "v1",
+ "params": {
+  "soc_shed": 0.4,
+  "soc_resume": 0.7,
+  "att_safe_deg": 15.0,
+  "att_safe_dur_s": 120.0,
+  "fdir_rel": 0.25,
+  "fdir_abs_Nm": 0.0003,
+  "fdir_persist": 3,
+  "resume_min_s": 600.0,
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ },
+ "change_vs_base": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ }
+}

@@ -17,6 +17,61 @@
  "gate_reason": "rejected: 19 new violations in 18 runs (10 previously clean) vs 44 fixes on the full suite",
  "gate": {
   "evaluated": 3508,
+  "new_violations": 17,
+  "runs_with_new_violations": 16,
+  "clean_to_violating": 10,
+  "fixes": 10,
+  "violating_runs": 415,
+  "violating_runs_base": 415,
+  "new_violation_ids": [
+   "cmaes_seed0_120",
+   "cmaes_seed0_240",
+   "cmaes_seed0_277",
+   "cmaes_seed0_279",
+   "muse_seed0_150",
+   "muse_seed0_182",
+   "muse_seed0_204",
+   "muse_seed0_231",
+   "muse_seed1_195",
+   "muse_seed1_75",
+   "muse_seed2_179",
+   "muse_seed2_219",
+   "muse_seed2_292",
+   "muse_seed2_32",
+   "museblind_seed1_215",
+   "museblind_seed1_5"
+  ],
+  "fix_ids": [
+   "muse_seed0_203",
+   "muse_seed1_189",
+   "muse_seed1_239",
+   "muse_seed1_78",
+   "muse_seed2_12",
+   "muse_seed2_160",
+   "muse_seed2_188",
+   "museblind_seed1_135",
+   "museblind_seed1_219",
+   "museblind_seed1_91"
+  ],
+  "complete": true,
+  "eval_s": 1211,
+  "net_fixes": -6,
+  "clean_broken_ids": [
+   "cmaes_seed0_120",
+   "cmaes_seed0_240",
+   "cmaes_seed0_277",
+   "cmaes_seed0_279",
+   "muse_seed0_204",
+   "muse_seed1_195",
+   "muse_seed1_75",
+   "muse_seed2_179",
+   "muse_seed2_32",
+   "museblind_seed1_5"
+  ],
+  "sat_rule": "consecutive"
+ },
+ "gate_legacy_cumulative": {
+  "evaluated": 3508,
   "new_violations": 19,
   "runs_with_new_violations": 18,
   "clean_to_violating": 10,
@@ -91,5 +146,6 @@
   ],
   "complete": true,
   "eval_s": 1211
- }
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

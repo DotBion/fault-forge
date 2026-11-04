@@ -11,3 +11,36 @@
     s2: 500/3508 188s
     s2: 750/3508 1336s
   s2: reject - rejected (strict): 3 new violations in 3 runs (3 previously clean), 3 fixes, 794 runs evaluated (stopped early)
+226d087 structural try results
+=== budget round 1 (current policy v1)
+  b1t1: Muse change {'wheel_safe_frac': 0.97, 'wheel_safe_s': 60.0} -> {'wheel_safe_frac': 0.97, 'wheel_safe_s': 60.0} []
+    b1t1: 250/3508 96s
+    b1t1: 500/3508 191s
+    b1t1: 750/3508 285s
+    b1t1: 1000/3508 382s
+    b1t1: 1250/3508 476s
+    b1t1: 1500/3508 566s
+    b1t1: 1750/3508 657s
+    b1t1: 2000/3508 750s
+    b1t1: 2250/3508 840s
+    b1t1: 2500/3508 931s
+    b1t1: 2750/3508 1022s
+    b1t1: 3000/3508 1114s
+    b1t1: 3250/3508 1205s
+    b1t1: 3500/3508 1294s
+  b1t1: accept - accepted (budget): 13 fixes, 1 runs with new violations (0 previously clean = waived), net +12 on all 3508 runs
+=== budget round 1: accepted b1t1
+=== budget round 2 (current policy b1t1)
+    b1t1: 250/320 95s, new viol so far 0
+  b2t1: Muse change {'fdir_hard_Nm': 0.0005} -> {'fdir_hard_Nm': 0.0005} []
+    b2t1: 250/3508 91s
+    b2t1: 500/3508 181s
+    b2t1: 750/3508 269s
+  b2t1: reject - rejected (budget): 4 previously clean runs broken (max 3), 4 runs with new violations, 3 fixes, net -1, 797 runs evaluated (stopped early)
+  b2t2: Muse change {'isolation_swap': True, 'swap_ratio': 3.0, 'swap_max_iso_res_Nm': 0.0005} -> {'isolation_swap': True, 'swap_ratio': 3.0, 'swap_max_iso_res_Nm': 0.0005} []
+    b2t2: 250/3508 91s
+    b2t2: 500/3508 180s
+  b2t2: reject - rejected (budget): 4 previously clean runs broken (max 3), 4 runs with new violations, 2 fixes, net -2, 659 runs evaluated (stopped early)
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+  LLM call failed (attempt 2): ValueError: empty content, finish_reason=length
+=== Wed Nov  4 02:04:13 EST 2026 pipeline stopped manually for sat-rule fix (see data/satfix/impact.md)

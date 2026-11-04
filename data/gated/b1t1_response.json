@@ -1,0 +1,32 @@
+{
+ "model": "muse-spark-1.3",
+ "latency_s": 111.2272868730006,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 12380,
+  "prompt_tokens": 7526,
+  "total_tokens": 19906,
+  "completion_tokens_details": {
+   "reasoning_tokens": 12089
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "response_verbatim": "{\"diagnosis\": \"Leak plus friction faults build secular momentum until an in-use wheel dwells >=98% and violates saturation. Current policy has no wheel-speed watch and stays in NOMINAL. FDIR also wastes its single isolation on mild 0.2 friction first. Narrowest low-side-effect fix is a near-limit momentum guard.\", \"change\": {\"wheel_safe_frac\": 0.97, \"wheel_safe_s\": 60.0}, \"rationale\": \"Add momentum guard: in-use wheel >=97% max speed for 60s triggers SAFE sun-point and blocks resume while above. Triggers only just below the 98% for 60s violation definition, giving controller relief and preventing dwell violation. 0.97 is maximum allowed fraction, most conservative setting, so behavior change is minimal and orthogonal to FDIR isolation logic.\", \"why_no_regressions\": \"Triggers only when wheel already near limit, rare in clean runs. SAFE preserves power and sun-pointing, battery margins are large, so no new SoC or attitude violations. Prior full 3508-run evaluation showed zero previously-clean breaks.\", \"expected_fixed_patterns\": [\"wheel_saturation <- leak+rw_friction\", \"wheel_saturation <- heater+leak+rw_friction\", \"wheel_saturation <- leak+rw_torque_derate\", \"wheel_saturation <- heater+leak\"]}",
+ "parsed": {
+  "diagnosis": "Leak plus friction faults build secular momentum until an in-use wheel dwells >=98% and violates saturation. Current policy has no wheel-speed watch and stays in NOMINAL. FDIR also wastes its single isolation on mild 0.2 friction first. Narrowest low-side-effect fix is a near-limit momentum guard.",
+  "change": {
+   "wheel_safe_frac": 0.97,
+   "wheel_safe_s": 60.0
+  },
+  "rationale": "Add momentum guard: in-use wheel >=97% max speed for 60s triggers SAFE sun-point and blocks resume while above. Triggers only just below the 98% for 60s violation definition, giving controller relief and preventing dwell violation. 0.97 is maximum allowed fraction, most conservative setting, so behavior change is minimal and orthogonal to FDIR isolation logic.",
+  "why_no_regressions": "Triggers only when wheel already near limit, rare in clean runs. SAFE preserves power and sun-pointing, battery margins are large, so no new SoC or attitude violations. Prior full 3508-run evaluation showed zero previously-clean breaks.",
+  "expected_fixed_patterns": [
+   "wheel_saturation <- leak+rw_friction",
+   "wheel_saturation <- heater+leak+rw_friction",
+   "wheel_saturation <- leak+rw_torque_derate",
+   "wheel_saturation <- heater+leak"
+  ]
+ }
+}

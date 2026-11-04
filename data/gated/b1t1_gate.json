@@ -1,0 +1,104 @@
+{
+ "name": "b1t1",
+ "phase": "budget",
+ "round": 1,
+ "try": 1,
+ "base": "v1",
+ "change_proposed": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ },
+ "change": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ },
+ "validation_notes": [],
+ "diagnosis": "Leak plus friction faults build secular momentum until an in-use wheel dwells >=98% and violates saturation. Current policy has no wheel-speed watch and stays in NOMINAL. FDIR also wastes its single isolation on mild 0.2 friction first. Narrowest low-side-effect fix is a near-limit momentum guard.",
+ "rationale": "Add momentum guard: in-use wheel >=97% max speed for 60s triggers SAFE sun-point and blocks resume while above. Triggers only just below the 98% for 60s violation definition, giving controller relief and preventing dwell violation. 0.97 is maximum allowed fraction, most conservative setting, so behavior change is minimal and orthogonal to FDIR isolation logic.",
+ "why_no_regressions": "Triggers only when wheel already near limit, rare in clean runs. SAFE preserves power and sun-pointing, battery margins are large, so no new SoC or attitude violations. Prior full 3508-run evaluation showed zero previously-clean breaks.",
+ "decision": "accept",
+ "gate_reason": "accepted (budget): 13 fixes, 1 runs with new violations (0 previously clean = waived), net +12 on all 3508 runs",
+ "gate": {
+  "evaluated": 3508,
+  "new_violations": 2,
+  "runs_with_new_violations": 2,
+  "clean_to_violating": 1,
+  "fixes": 26,
+  "violating_runs": 390,
+  "violating_runs_base": 415,
+  "new_violation_ids": [
+   "museblind_seed1_121",
+   "museblind_seed1_28"
+  ],
+  "fix_ids": [
+   "grid_253",
+   "grid_317",
+   "grid_381",
+   "grid_509",
+   "muse_seed0_104",
+   "muse_seed0_149",
+   "muse_seed0_203",
+   "muse_seed0_208",
+   "muse_seed0_40",
+   "muse_seed1_100",
+   "muse_seed1_177",
+   "muse_seed1_191",
+   "muse_seed1_22",
+   "muse_seed1_220",
+   "muse_seed1_276",
+   "muse_seed1_53",
+   "muse_seed1_61",
+   "muse_seed1_78",
+   "muse_seed2_105",
+   "muse_seed2_115",
+   "muse_seed2_12",
+   "muse_seed2_151",
+   "muse_seed2_34",
+   "muse_seed2_53",
+   "random_seed0_61",
+   "random_seed0_9"
+  ],
+  "complete": true,
+  "eval_s": 1298,
+  "mode": "budget",
+  "clean_broken_ids": [
+   "museblind_seed1_28"
+  ],
+  "net_fixes": 24,
+  "sat_rule": "consecutive"
+ },
+ "waivers": [],
+ "gate_legacy_cumulative": {
+  "evaluated": 3508,
+  "new_violations": 1,
+  "runs_with_new_violations": 1,
+  "clean_to_violating": 0,
+  "fixes": 13,
+  "violating_runs": 492,
+  "violating_runs_base": 505,
+  "new_violation_ids": [
+   "museblind_seed1_121"
+  ],
+  "fix_ids": [
+   "grid_381",
+   "grid_509",
+   "muse_seed0_104",
+   "muse_seed0_40",
+   "muse_seed1_177",
+   "muse_seed1_220",
+   "muse_seed1_53",
+   "muse_seed2_115",
+   "muse_seed2_151",
+   "muse_seed2_34",
+   "muse_seed2_53",
+   "random_seed0_61",
+   "random_seed0_9"
+  ],
+  "complete": true,
+  "eval_s": 1298,
+  "mode": "budget",
+  "clean_broken_ids": [],
+  "net_fixes": 12
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
+}

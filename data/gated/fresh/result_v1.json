@@ -4,8 +4,8 @@
  "muse_seed": 300,
  "muse": {
   "n": 100,
-  "violating": 39,
-  "rate": 0.39
+  "violating": 38,
+  "rate": 0.38
  },
  "random": {
   "n": 200,
@@ -15,18 +15,51 @@
  "heldout_fixed": {
   "all": {
    "n": 300,
-   "violating": 51,
-   "rate": 0.17
+   "violating": 45,
+   "rate": 0.15
   },
   "muse": {
    "n": 100,
-   "violating": 48,
-   "rate": 0.48
+   "violating": 42,
+   "rate": 0.42
   },
   "random": {
    "n": 200,
    "violating": 3,
    "rate": 0.015
+  }
+ },
+ "sat_rule": "consecutive (corrected 2026-11-04)",
+ "legacy_cumulative": {
+  "policy": "v1",
+  "k": 0,
+  "muse_seed": 300,
+  "muse": {
+   "n": 100,
+   "violating": 39,
+   "rate": 0.39
+  },
+  "random": {
+   "n": 200,
+   "violating": 1,
+   "rate": 0.005
+  },
+  "heldout_fixed": {
+   "all": {
+    "n": 300,
+    "violating": 51,
+    "rate": 0.17
+   },
+   "muse": {
+    "n": 100,
+    "violating": 48,
+    "rate": 0.48
+   },
+   "random": {
+    "n": 200,
+    "violating": 3,
+    "rate": 0.015
+   }
   }
  }
 }

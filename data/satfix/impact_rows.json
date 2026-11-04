@@ -1,0 +1,392 @@
+[
+ {
+  "dataset": "cmp/cmaes_seed0.jsonl",
+  "n": 300,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 71,
+  "violating_new": 71,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/cmaes_seed1.jsonl",
+  "n": 300,
+  "sat": 1,
+  "sat_only": 1,
+  "sat_removed": 1,
+  "violating_old": 12,
+  "violating_new": 11,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/cmaes_seed2.jsonl",
+  "n": 300,
+  "sat": 1,
+  "sat_only": 1,
+  "sat_removed": 1,
+  "violating_old": 4,
+  "violating_new": 3,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/muse_seed0.jsonl",
+  "n": 232,
+  "sat": 52,
+  "sat_only": 40,
+  "sat_removed": 19,
+  "violating_old": 90,
+  "violating_new": 75,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/muse_seed1.jsonl",
+  "n": 300,
+  "sat": 55,
+  "sat_only": 40,
+  "sat_removed": 19,
+  "violating_old": 95,
+  "violating_new": 80,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/muse_seed2.jsonl",
+  "n": 300,
+  "sat": 47,
+  "sat_only": 38,
+  "sat_removed": 18,
+  "violating_old": 94,
+  "violating_new": 78,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/museblind_seed0.jsonl",
+  "n": 300,
+  "sat": 86,
+  "sat_only": 72,
+  "sat_removed": 44,
+  "violating_old": 139,
+  "violating_new": 99,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/museblind_seed1.jsonl",
+  "n": 300,
+  "sat": 79,
+  "sat_only": 62,
+  "sat_removed": 45,
+  "violating_old": 126,
+  "violating_new": 84,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/museblind_seed2.jsonl",
+  "n": 300,
+  "sat": 86,
+  "sat_only": 65,
+  "sat_removed": 46,
+  "violating_old": 138,
+  "violating_new": 98,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/random_seed0.jsonl",
+  "n": 300,
+  "sat": 2,
+  "sat_only": 2,
+  "sat_removed": 0,
+  "violating_old": 2,
+  "violating_new": 2,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/random_seed1.jsonl",
+  "n": 300,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 2,
+  "violating_new": 2,
+  "type_added": 0
+ },
+ {
+  "dataset": "cmp/random_seed2.jsonl",
+  "n": 300,
+  "sat": 1,
+  "sat_only": 1,
+  "sat_removed": 0,
+  "violating_old": 1,
+  "violating_new": 1,
+  "type_added": 0
+ },
+ {
+  "dataset": "grid.jsonl",
+  "n": 576,
+  "sat": 8,
+  "sat_only": 8,
+  "sat_removed": 0,
+  "violating_old": 8,
+  "violating_new": 8,
+  "type_added": 0
+ },
+ {
+  "dataset": "random_seed0.jsonl",
+  "n": 300,
+  "sat": 2,
+  "sat_only": 2,
+  "sat_removed": 0,
+  "violating_old": 2,
+  "violating_new": 2,
+  "type_added": 0
+ },
+ {
+  "dataset": "random_seed1.jsonl",
+  "n": 300,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 2,
+  "violating_new": 2,
+  "type_added": 0
+ },
+ {
+  "dataset": "random_seed2.jsonl",
+  "n": 300,
+  "sat": 1,
+  "sat_only": 1,
+  "sat_removed": 0,
+  "violating_old": 1,
+  "violating_new": 1,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/heldout_muse_seed100.jsonl",
+  "n": 100,
+  "sat": 32,
+  "sat_only": 22,
+  "sat_removed": 11,
+  "violating_old": 48,
+  "violating_new": 42,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/fresh/muse_v1_seed300.jsonl",
+  "n": 100,
+  "sat": 13,
+  "sat_only": 4,
+  "sat_removed": 3,
+  "violating_old": 39,
+  "violating_new": 38,
+  "type_added": 0
+ },
+ {
+  "dataset": "repair/regress_v2.jsonl [v1]",
+  "n": 3508,
+  "sat": 246,
+  "sat_only": 193,
+  "sat_removed": 103,
+  "violating_old": 505,
+  "violating_new": 415,
+  "type_added": 0
+ },
+ {
+  "dataset": "repair/regress_v2.jsonl [v2]",
+  "n": 3508,
+  "sat": 255,
+  "sat_only": 207,
+  "sat_removed": 105,
+  "violating_old": 466,
+  "violating_new": 372,
+  "type_added": 0
+ },
+ {
+  "dataset": "repair/regress_v3.jsonl [v1]",
+  "n": 3508,
+  "sat": 246,
+  "sat_only": 193,
+  "sat_removed": 103,
+  "violating_old": 505,
+  "violating_new": 415,
+  "type_added": 0
+ },
+ {
+  "dataset": "repair/regress_v3.jsonl [v2]",
+  "n": 3508,
+  "sat": 210,
+  "sat_only": 167,
+  "sat_removed": 81,
+  "violating_old": 531,
+  "violating_new": 459,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_b1t1.jsonl",
+  "n": 3508,
+  "sat": 233,
+  "sat_only": 186,
+  "sat_removed": 115,
+  "violating_old": 492,
+  "violating_new": 390,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_b2t1.jsonl",
+  "n": 797,
+  "sat": 6,
+  "sat_only": 6,
+  "sat_removed": 2,
+  "violating_old": 73,
+  "violating_new": 71,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_b2t2.jsonl",
+  "n": 659,
+  "sat": 6,
+  "sat_only": 6,
+  "sat_removed": 2,
+  "violating_old": 23,
+  "violating_new": 21,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t1.jsonl",
+  "n": 861,
+  "sat": 9,
+  "sat_only": 9,
+  "sat_removed": 0,
+  "violating_old": 61,
+  "violating_new": 61,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t2.jsonl",
+  "n": 1777,
+  "sat": 72,
+  "sat_only": 61,
+  "sat_removed": 30,
+  "violating_old": 183,
+  "violating_new": 157,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t3.jsonl",
+  "n": 3508,
+  "sat": 209,
+  "sat_only": 155,
+  "sat_removed": 65,
+  "violating_old": 471,
+  "violating_new": 415,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t4.jsonl",
+  "n": 982,
+  "sat": 18,
+  "sat_only": 15,
+  "sat_removed": 4,
+  "violating_old": 97,
+  "violating_new": 94,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t5.jsonl",
+  "n": 7,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 3,
+  "violating_new": 3,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r1t6.jsonl",
+  "n": 25,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 3,
+  "violating_new": 3,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r2t1.jsonl",
+  "n": 66,
+  "sat": 1,
+  "sat_only": 1,
+  "sat_removed": 0,
+  "violating_old": 4,
+  "violating_new": 4,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r2t2.jsonl",
+  "n": 3508,
+  "sat": 233,
+  "sat_only": 186,
+  "sat_removed": 115,
+  "violating_old": 492,
+  "violating_new": 390,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r2t3.jsonl",
+  "n": 3508,
+  "sat": 237,
+  "sat_only": 189,
+  "sat_removed": 103,
+  "violating_old": 496,
+  "violating_new": 406,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_r2t4.jsonl",
+  "n": 13,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 3,
+  "violating_new": 3,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_s1.jsonl",
+  "n": 663,
+  "sat": 8,
+  "sat_only": 8,
+  "sat_removed": 0,
+  "violating_old": 25,
+  "violating_new": 25,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/eval_s2.jsonl",
+  "n": 794,
+  "sat": 8,
+  "sat_only": 8,
+  "sat_removed": 0,
+  "violating_old": 73,
+  "violating_new": 73,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/heldout_eval_v1.jsonl",
+  "n": 300,
+  "sat": 33,
+  "sat_only": 23,
+  "sat_removed": 11,
+  "violating_old": 51,
+  "violating_new": 45,
+  "type_added": 0
+ },
+ {
+  "dataset": "gated/fresh/random_v1_k0.jsonl",
+  "n": 200,
+  "sat": 0,
+  "sat_only": 0,
+  "sat_removed": 0,
+  "violating_old": 1,
+  "violating_new": 1,
+  "type_added": 0
+ }
+]

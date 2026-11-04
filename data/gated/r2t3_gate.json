@@ -23,6 +23,35 @@
   "runs_with_new_violations": 2,
   "clean_to_violating": 0,
   "fixes": 9,
+  "violating_runs": 406,
+  "violating_runs_base": 415,
+  "new_violation_ids": [
+   "museblind_seed1_115",
+   "museblind_seed1_121"
+  ],
+  "fix_ids": [
+   "grid_381",
+   "muse_seed0_104",
+   "muse_seed0_40",
+   "muse_seed2_115",
+   "muse_seed2_151",
+   "muse_seed2_34",
+   "muse_seed2_53",
+   "random_seed0_61",
+   "random_seed0_9"
+  ],
+  "complete": true,
+  "eval_s": 1550,
+  "net_fixes": 7,
+  "clean_broken_ids": [],
+  "sat_rule": "consecutive"
+ },
+ "gate_legacy_cumulative": {
+  "evaluated": 3508,
+  "new_violations": 2,
+  "runs_with_new_violations": 2,
+  "clean_to_violating": 0,
+  "fixes": 9,
   "violating_runs": 496,
   "violating_runs_base": 505,
   "new_violation_ids": [
@@ -42,5 +71,6 @@
   ],
   "complete": true,
   "eval_s": 1550
- }
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

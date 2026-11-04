@@ -1372,7 +1372,7 @@
 {"id": "cmaes_seed2_274", "violations": {}}
 {"id": "cmaes_seed2_275", "violations": {}}
 {"id": "cmaes_seed2_276", "violations": {}}
-{"id": "cmaes_seed2_277", "violations": {"wheel_saturation": 10780.0}}
+{"id": "cmaes_seed2_277", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10780.0}}
 {"id": "cmaes_seed2_278", "violations": {}}
 {"id": "cmaes_seed2_279", "violations": {}}
 {"id": "cmaes_seed2_28", "violations": {}}
@@ -1493,24 +1493,24 @@
 {"id": "muse_seed0_112", "violations": {}}
 {"id": "muse_seed0_113", "violations": {}}
 {"id": "muse_seed0_114", "violations": {}}
-{"id": "muse_seed0_115", "violations": {"wheel_saturation": 11285.0}}
+{"id": "muse_seed0_115", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 11285.0}}
 {"id": "muse_seed0_116", "violations": {"attitude_loss": 2160.0}}
 {"id": "muse_seed0_117", "violations": {"attitude_loss": 6205.0}}
 {"id": "muse_seed0_118", "violations": {}}
 {"id": "muse_seed0_119", "violations": {"attitude_loss": 8415.0}}
-{"id": "muse_seed0_12", "violations": {"wheel_saturation": 8870.0}}
+{"id": "muse_seed0_12", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 8870.0}}
 {"id": "muse_seed0_120", "violations": {"attitude_loss": 2150.0}}
 {"id": "muse_seed0_121", "violations": {}}
 {"id": "muse_seed0_122", "violations": {}}
-{"id": "muse_seed0_123", "violations": {"attitude_loss": 2105.0, "wheel_saturation": 10090.0}}
+{"id": "muse_seed0_123", "violations": {"attitude_loss": 2105.0}, "violations_legacy_cumulative": {"attitude_loss": 2105.0, "wheel_saturation": 10090.0}}
 {"id": "muse_seed0_124", "violations": {}}
 {"id": "muse_seed0_125", "violations": {"attitude_loss": 2105.0, "wheel_saturation": 10955.0}}
-{"id": "muse_seed0_126", "violations": {"wheel_saturation": 8725.0}}
+{"id": "muse_seed0_126", "violations": {"wheel_saturation": 8730.0}, "violations_legacy_cumulative": {"wheel_saturation": 8725.0}}
 {"id": "muse_seed0_127", "violations": {}}
 {"id": "muse_seed0_128", "violations": {"attitude_loss": 2105.0, "wheel_saturation": 8905.0}}
 {"id": "muse_seed0_129", "violations": {}}
 {"id": "muse_seed0_13", "violations": {}}
-{"id": "muse_seed0_130", "violations": {"wheel_saturation": 7315.0}}
+{"id": "muse_seed0_130", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 7315.0}}
 {"id": "muse_seed0_131", "violations": {"attitude_loss": 7315.0}}
 {"id": "muse_seed0_132", "violations": {"attitude_loss": 6425.0}}
 {"id": "muse_seed0_133", "violations": {}}
@@ -1519,10 +1519,10 @@
 {"id": "muse_seed0_136", "violations": {}}
 {"id": "muse_seed0_137", "violations": {}}
 {"id": "muse_seed0_138", "violations": {}}
-{"id": "muse_seed0_139", "violations": {"wheel_saturation": 10425.0}}
+{"id": "muse_seed0_139", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10425.0}}
 {"id": "muse_seed0_14", "violations": {}}
 {"id": "muse_seed0_140", "violations": {"attitude_loss": 6535.0}}
-{"id": "muse_seed0_141", "violations": {"wheel_saturation": 6975.0}}
+{"id": "muse_seed0_141", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 6975.0}}
 {"id": "muse_seed0_142", "violations": {}}
 {"id": "muse_seed0_143", "violations": {}}
 {"id": "muse_seed0_144", "violations": {}}
@@ -1536,9 +1536,9 @@
 {"id": "muse_seed0_151", "violations": {"wheel_saturation": 5915.0}}
 {"id": "muse_seed0_152", "violations": {}}
 {"id": "muse_seed0_153", "violations": {}}
-{"id": "muse_seed0_154", "violations": {"wheel_saturation": 1185.0}}
+{"id": "muse_seed0_154", "violations": {"wheel_saturation": 1690.0}, "violations_legacy_cumulative": {"wheel_saturation": 1185.0}}
 {"id": "muse_seed0_155", "violations": {"attitude_loss": 2125.0}}
-{"id": "muse_seed0_156", "violations": {"wheel_saturation": 5000.0, "attitude_loss": 6445.0}}
+{"id": "muse_seed0_156", "violations": {"attitude_loss": 6445.0}, "violations_legacy_cumulative": {"wheel_saturation": 5000.0, "attitude_loss": 6445.0}}
 {"id": "muse_seed0_157", "violations": {}}
 {"id": "muse_seed0_158", "violations": {}}
 {"id": "muse_seed0_159", "violations": {}}
@@ -1551,13 +1551,13 @@
 {"id": "muse_seed0_165", "violations": {}}
 {"id": "muse_seed0_166", "violations": {"attitude_loss": 2105.0}}
 {"id": "muse_seed0_167", "violations": {"attitude_loss": 9005.0}}
-{"id": "muse_seed0_168", "violations": {"wheel_saturation": 8755.0}}
+{"id": "muse_seed0_168", "violations": {"wheel_saturation": 8765.0}, "violations_legacy_cumulative": {"wheel_saturation": 8755.0}}
 {"id": "muse_seed0_169", "violations": {}}
 {"id": "muse_seed0_17", "violations": {}}
 {"id": "muse_seed0_170", "violations": {}}
 {"id": "muse_seed0_171", "violations": {}}
 {"id": "muse_seed0_172", "violations": {}}
-{"id": "muse_seed0_173", "violations": {"wheel_saturation": 3705.0}}
+{"id": "muse_seed0_173", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 3705.0}}
 {"id": "muse_seed0_174", "violations": {}}
 {"id": "muse_seed0_175", "violations": {"attitude_loss": 3175.0}}
 {"id": "muse_seed0_176", "violations": {}}
@@ -1567,21 +1567,21 @@
 {"id": "muse_seed0_18", "violations": {}}
 {"id": "muse_seed0_180", "violations": {}}
 {"id": "muse_seed0_181", "violations": {"attitude_loss": 2170.0}}
-{"id": "muse_seed0_182", "violations": {"attitude_loss": 2180.0, "wheel_saturation": 11345.0}}
+{"id": "muse_seed0_182", "violations": {"attitude_loss": 2180.0}, "violations_legacy_cumulative": {"attitude_loss": 2180.0, "wheel_saturation": 11345.0}}
 {"id": "muse_seed0_183", "violations": {"attitude_loss": 3170.0}}
 {"id": "muse_seed0_184", "violations": {}}
-{"id": "muse_seed0_185", "violations": {"wheel_saturation": 10660.0}}
+{"id": "muse_seed0_185", "violations": {"wheel_saturation": 10685.0}, "violations_legacy_cumulative": {"wheel_saturation": 10660.0}}
 {"id": "muse_seed0_186", "violations": {}}
 {"id": "muse_seed0_187", "violations": {"attitude_loss": 8640.0}}
-{"id": "muse_seed0_188", "violations": {"wheel_saturation": 8725.0}}
-{"id": "muse_seed0_189", "violations": {"wheel_saturation": 10235.0}}
+{"id": "muse_seed0_188", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 8725.0}}
+{"id": "muse_seed0_189", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10235.0}}
 {"id": "muse_seed0_19", "violations": {"wheel_saturation": 7460.0}}
 {"id": "muse_seed0_190", "violations": {}}
 {"id": "muse_seed0_191", "violations": {"wheel_saturation": 10290.0}}
 {"id": "muse_seed0_192", "violations": {"wheel_saturation": 8960.0}}
 {"id": "muse_seed0_193", "violations": {}}
 {"id": "muse_seed0_194", "violations": {}}
-{"id": "muse_seed0_195", "violations": {"wheel_saturation": 10395.0}}
+{"id": "muse_seed0_195", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10395.0}}
 {"id": "muse_seed0_196", "violations": {"attitude_loss": 4895.0}}
 {"id": "muse_seed0_197", "violations": {}}
 {"id": "muse_seed0_198", "violations": {}}
@@ -1591,10 +1591,10 @@
 {"id": "muse_seed0_200", "violations": {"attitude_loss": 5465.0}}
 {"id": "muse_seed0_201", "violations": {}}
 {"id": "muse_seed0_202", "violations": {}}
-{"id": "muse_seed0_203", "violations": {"wheel_saturation": 8540.0}}
+{"id": "muse_seed0_203", "violations": {"wheel_saturation": 8565.0}, "violations_legacy_cumulative": {"wheel_saturation": 8540.0}}
 {"id": "muse_seed0_204", "violations": {}}
 {"id": "muse_seed0_205", "violations": {}}
-{"id": "muse_seed0_206", "violations": {"wheel_saturation": 2075.0}}
+{"id": "muse_seed0_206", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 2075.0}}
 {"id": "muse_seed0_207", "violations": {"attitude_loss": 10030.0}}
 {"id": "muse_seed0_208", "violations": {"wheel_saturation": 7015.0}}
 {"id": "muse_seed0_209", "violations": {}}
@@ -1602,7 +1602,7 @@
 {"id": "muse_seed0_210", "violations": {}}
 {"id": "muse_seed0_211", "violations": {}}
 {"id": "muse_seed0_212", "violations": {}}
-{"id": "muse_seed0_213", "violations": {"wheel_saturation": 5115.0}}
+{"id": "muse_seed0_213", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 5115.0}}
 {"id": "muse_seed0_214", "violations": {}}
 {"id": "muse_seed0_215", "violations": {}}
 {"id": "muse_seed0_216", "violations": {"attitude_loss": 8365.0}}
@@ -1611,24 +1611,24 @@
 {"id": "muse_seed0_219", "violations": {}}
 {"id": "muse_seed0_22", "violations": {"attitude_loss": 5765.0}}
 {"id": "muse_seed0_220", "violations": {}}
-{"id": "muse_seed0_221", "violations": {"attitude_loss": 3190.0, "wheel_saturation": 8795.0}}
+{"id": "muse_seed0_221", "violations": {"attitude_loss": 3190.0}, "violations_legacy_cumulative": {"attitude_loss": 3190.0, "wheel_saturation": 8795.0}}
 {"id": "muse_seed0_222", "violations": {}}
 {"id": "muse_seed0_223", "violations": {}}
 {"id": "muse_seed0_224", "violations": {"wheel_saturation": 9950.0}}
-{"id": "muse_seed0_225", "violations": {"wheel_saturation": 10565.0}}
+{"id": "muse_seed0_225", "violations": {"wheel_saturation": 10620.0}, "violations_legacy_cumulative": {"wheel_saturation": 10565.0}}
 {"id": "muse_seed0_226", "violations": {}}
 {"id": "muse_seed0_227", "violations": {}}
 {"id": "muse_seed0_228", "violations": {"attitude_loss": 3670.0}}
 {"id": "muse_seed0_229", "violations": {}}
-{"id": "muse_seed0_23", "violations": {"attitude_loss": 2105.0, "wheel_saturation": 10875.0}}
+{"id": "muse_seed0_23", "violations": {"attitude_loss": 2105.0, "wheel_saturation": 10900.0}, "violations_legacy_cumulative": {"attitude_loss": 2105.0, "wheel_saturation": 10875.0}}
 {"id": "muse_seed0_230", "violations": {"wheel_saturation": 8700.0}}
-{"id": "muse_seed0_231", "violations": {"wheel_saturation": 3310.0}}
+{"id": "muse_seed0_231", "violations": {"wheel_saturation": 6565.0}, "violations_legacy_cumulative": {"wheel_saturation": 3310.0}}
 {"id": "muse_seed0_24", "violations": {}}
 {"id": "muse_seed0_25", "violations": {"attitude_loss": 2105.0}}
 {"id": "muse_seed0_26", "violations": {}}
 {"id": "muse_seed0_27", "violations": {"wheel_saturation": 8460.0}}
 {"id": "muse_seed0_28", "violations": {"attitude_loss": 7615.0}}
-{"id": "muse_seed0_29", "violations": {"wheel_saturation": 6950.0}}
+{"id": "muse_seed0_29", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 6950.0}}
 {"id": "muse_seed0_3", "violations": {"attitude_loss": 2105.0}}
 {"id": "muse_seed0_30", "violations": {}}
 {"id": "muse_seed0_31", "violations": {}}
@@ -1674,47 +1674,47 @@
 {"id": "muse_seed0_68", "violations": {}}
 {"id": "muse_seed0_69", "violations": {}}
 {"id": "muse_seed0_7", "violations": {}}
-{"id": "muse_seed0_70", "violations": {"wheel_saturation": 8780.0}}
+{"id": "muse_seed0_70", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 8780.0}}
 {"id": "muse_seed0_71", "violations": {}}
 {"id": "muse_seed0_72", "violations": {}}
 {"id": "muse_seed0_73", "violations": {}}
 {"id": "muse_seed0_74", "violations": {}}
 {"id": "muse_seed0_75", "violations": {}}
 {"id": "muse_seed0_76", "violations": {"attitude_loss": 10680.0}}
-{"id": "muse_seed0_77", "violations": {"wheel_saturation": 11030.0}}
+{"id": "muse_seed0_77", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 11030.0}}
 {"id": "muse_seed0_78", "violations": {}}
 {"id": "muse_seed0_79", "violations": {"wheel_saturation": 8700.0}}
 {"id": "muse_seed0_8", "violations": {}}
 {"id": "muse_seed0_80", "violations": {}}
 {"id": "muse_seed0_81", "violations": {}}
 {"id": "muse_seed0_82", "violations": {}}
-{"id": "muse_seed0_83", "violations": {"wheel_saturation": 10420.0}}
+{"id": "muse_seed0_83", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10420.0}}
 {"id": "muse_seed0_84", "violations": {}}
 {"id": "muse_seed0_85", "violations": {}}
 {"id": "muse_seed0_86", "violations": {"attitude_loss": 2105.0}}
 {"id": "muse_seed0_87", "violations": {}}
-{"id": "muse_seed0_88", "violations": {"wheel_saturation": 10360.0}}
+{"id": "muse_seed0_88", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10360.0}}
 {"id": "muse_seed0_89", "violations": {}}
 {"id": "muse_seed0_9", "violations": {}}
 {"id": "muse_seed0_90", "violations": {"attitude_loss": 7950.0}}
 {"id": "muse_seed0_91", "violations": {}}
-{"id": "muse_seed0_92", "violations": {"wheel_saturation": 7185.0}}
+{"id": "muse_seed0_92", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 7185.0}}
 {"id": "muse_seed0_93", "violations": {}}
 {"id": "muse_seed0_94", "violations": {}}
 {"id": "muse_seed0_95", "violations": {}}
 {"id": "muse_seed0_96", "violations": {}}
 {"id": "muse_seed0_97", "violations": {}}
-{"id": "muse_seed0_98", "violations": {"wheel_saturation": 10185.0}}
+{"id": "muse_seed0_98", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10185.0}}
 {"id": "muse_seed0_99", "violations": {}}
 {"id": "muse_seed1_0", "violations": {}}
 {"id": "muse_seed1_1", "violations": {}}
-{"id": "muse_seed1_10", "violations": {"wheel_saturation": 10640.0}}
-{"id": "muse_seed1_100", "violations": {"wheel_saturation": 9980.0}}
+{"id": "muse_seed1_10", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10640.0}}
+{"id": "muse_seed1_100", "violations": {"wheel_saturation": 9995.0}, "violations_legacy_cumulative": {"wheel_saturation": 9980.0}}
 {"id": "muse_seed1_101", "violations": {}}
 {"id": "muse_seed1_102", "violations": {}}
-{"id": "muse_seed1_103", "violations": {"wheel_saturation": 7975.0}}
+{"id": "muse_seed1_103", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 7975.0}}
 {"id": "muse_seed1_104", "violations": {}}
-{"id": "muse_seed1_105", "violations": {"wheel_saturation": 10590.0}}
+{"id": "muse_seed1_105", "violations": {"wheel_saturation": 10595.0}, "violations_legacy_cumulative": {"wheel_saturation": 10590.0}}
 {"id": "muse_seed1_106", "violations": {}}
 {"id": "muse_seed1_107", "violations": {}}
 {"id": "muse_seed1_108", "violations": {"attitude_loss": 3020.0}}
@@ -1728,7 +1728,7 @@
 {"id": "muse_seed1_115", "violations": {}}
 {"id": "muse_seed1_116", "violations": {}}
 {"id": "muse_seed1_117", "violations": {}}
-{"id": "muse_seed1_118", "violations": {"wheel_saturation": 4675.0}}
+{"id": "muse_seed1_118", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 4675.0}}
 {"id": "muse_seed1_119", "violations": {}}
 {"id": "muse_seed1_12", "violations": {"attitude_loss": 6220.0}}
 {"id": "muse_seed1_120", "violations": {}}
@@ -1738,7 +1738,7 @@
 {"id": "muse_seed1_124", "violations": {}}
 {"id": "muse_seed1_125", "violations": {"attitude_loss": 7920.0}}
 {"id": "muse_seed1_126", "violations": {}}
-{"id": "muse_seed1_127", "violations": {"attitude_loss": 2280.0, "wheel_saturation": 10515.0}}
+{"id": "muse_seed1_127", "violations": {"attitude_loss": 2280.0, "wheel_saturation": 10530.0}, "violations_legacy_cumulative": {"attitude_loss": 2280.0, "wheel_saturation": 10515.0}}
 {"id": "muse_seed1_128", "violations": {}}
 {"id": "muse_seed1_129", "violations": {}}
 {"id": "muse_seed1_13", "violations": {}}
@@ -1750,10 +1750,10 @@
 {"id": "muse_seed1_135", "violations": {}}
 {"id": "muse_seed1_136", "violations": {}}
 {"id": "muse_seed1_137", "violations": {}}
-{"id": "muse_seed1_138", "violations": {"wheel_saturation": 8710.0}}
+{"id": "muse_seed1_138", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 8710.0}}
 {"id": "muse_seed1_139", "violations": {}}
 {"id": "muse_seed1_14", "violations": {}}
-{"id": "muse_seed1_140", "violations": {"wheel_saturation": 5225.0}}
+{"id": "muse_seed1_140", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 5225.0}}
 {"id": "muse_seed1_141", "violations": {}}
 {"id": "muse_seed1_142", "violations": {}}
 {"id": "muse_seed1_143", "violations": {}}
@@ -1764,7 +1764,7 @@
 {"id": "muse_seed1_148", "violations": {}}
 {"id": "muse_seed1_149", "violations": {}}
 {"id": "muse_seed1_15", "violations": {}}
-{"id": "muse_seed1_150", "violations": {"wheel_saturation": 10410.0}}
+{"id": "muse_seed1_150", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10410.0}}
 {"id": "muse_seed1_151", "violations": {}}
 {"id": "muse_seed1_152", "violations": {}}
 {"id": "muse_seed1_153", "violations": {}}
@@ -1774,4 +1774,4 @@
 {"id": "muse_seed1_157", "violations": {}}
 {"id": "muse_seed1_158", "violations": {}}
 {"id": "muse_seed1_159", "violations": {}}
-{"id": "muse_seed1_16", "violations": {"wheel_saturation": 7605.0}}
+{"id": "muse_seed1_16", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 7605.0}}

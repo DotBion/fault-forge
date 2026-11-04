@@ -17,6 +17,7 @@ torque), the recovery policy, and constraint checking.
 import copy
 import json
 import math
+import os
 import time
 
 import numpy as np
@@ -56,7 +57,8 @@ CFG = dict(
     # safety constraints
     soc_floor=0.20,
     att_err_bound_deg=30.0, att_err_max_dur_s=1200.0, att_grace_s=900.0,
-    sat_frac=0.98, sat_max_dur_s=60.0,
+    sat_frac=0.98, sat_max_dur_s=60.0,   # wheel_saturation: an available wheel >= 98% max speed for > 60 s CONSECUTIVE
+    sat_rule="consecutive",               # fixed 2026-11-04; "cumulative" = legacy bug (see README changelog)
 )
 
 # policy thresholds (the "existing recovery policy" under test)
@@ -265,6 +267,10 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
     att_log = []       # optional: [t, sigma_BR(3), sigma_BN(3)] for visualisation (log_attitude=True)
     prev_Om = [rw.Omega for rw in rws]
     sat_s = [0.0] * nRW
+    # wheel_saturation rule: "consecutive" (fixed, default) or "cumulative" (legacy pre-fix behaviour: time above the
+    # threshold summed over the run and never reset). Override with cfg["sat_rule"] or env FF_SAT_RULE.
+    sat_rule = os.environ.get("FF_SAT_RULE") or cfg.get("sat_rule", "consecutive")
+    assert sat_rule in ("consecutive", "cumulative"), sat_rule
     att_bad_run = 0.0
     viol = {}
 
@@ -332,6 +338,12 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
                     if not st["flagged"][i]:
                         st["flagged"][i] = True
                         log.append((t, f"POLICY FDIR: wheel {i} flagged degraded, kept in control (residual {res:.2e} < hard {hard:.1e} Nm)"))
+                elif (st["res_cnt"][i] >= policy["fdir_persist"] and policy.get("suppress_isolation")):
+                    # causal-replay option: FDIR detects but never removes a wheel (isolation + swap suppressed);
+                    # mode switching, sun-pointing, payload and momentum logic unchanged
+                    if not st["flagged"][i]:
+                        st["flagged"][i] = True
+                        log.append((t, f"POLICY FDIR: wheel {i} would be isolated (residual {res:.2e} Nm) - SUPPRESSED"))
                 elif st["res_cnt"][i] >= policy["fdir_persist"] and sum(st["avail"]) > policy.get("min_avail", 3):
                     st["avail"][i] = False
                     st["iso_res"][i] = res
@@ -396,8 +408,10 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
         for i in range(nRW):
             if st["avail"][i] and abs(Om[i]) >= cfg["sat_frac"] * Om_max[i]:
                 sat_s[i] += chunk
-                if sat_s[i] > cfg["sat_max_dur_s"] and "wheel_saturation" not in viol:
-                    viol["wheel_saturation"] = t
+            elif sat_rule == "consecutive":
+                sat_s[i] = 0.0   # consecutive time above threshold (fixed rule, matches attitude_loss)
+            if sat_s[i] > cfg["sat_max_dur_s"] and "wheel_saturation" not in viol:
+                viol["wheel_saturation"] = t
 
         if telemetry and (int(round(t)) % 10 == 0):
             tel.append([t, soc, h["panel"].nodePowerOutMsg.read().netPower, bat.currentNetPower, err_deg,

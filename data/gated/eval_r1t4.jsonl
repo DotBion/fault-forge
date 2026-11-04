@@ -30,7 +30,7 @@
 {"id": "muse_seed0_70", "violations": {"attitude_loss": 2105.0}}
 {"id": "muse_seed0_88", "violations": {"attitude_loss": 2160.0}}
 {"id": "muse_seed1_10", "violations": {"attitude_loss": 2130.0}}
-{"id": "muse_seed1_105", "violations": {"attitude_loss": 6950.0, "wheel_saturation": 11240.0}}
+{"id": "muse_seed1_105", "violations": {"attitude_loss": 6950.0}, "violations_legacy_cumulative": {"attitude_loss": 6950.0, "wheel_saturation": 11240.0}}
 {"id": "muse_seed1_112", "violations": {"wheel_saturation": 4105.0, "battery_floor": 8645.0}}
 {"id": "muse_seed1_16", "violations": {"attitude_loss": 2930.0}}
 {"id": "cmaes_seed0_240", "violations": {}}
@@ -38,16 +38,16 @@
 {"id": "cmaes_seed0_279", "violations": {}}
 {"id": "muse_seed0_101", "violations": {}}
 {"id": "muse_seed0_150", "violations": {"attitude_loss": 2125.0}}
-{"id": "muse_seed0_204", "violations": {"attitude_loss": 9080.0, "wheel_saturation": 10765.0}}
-{"id": "muse_seed0_231", "violations": {"wheel_saturation": 3360.0}}
+{"id": "muse_seed0_204", "violations": {"attitude_loss": 9080.0, "wheel_saturation": 10840.0}, "violations_legacy_cumulative": {"attitude_loss": 9080.0, "wheel_saturation": 10765.0}}
+{"id": "muse_seed0_231", "violations": {"wheel_saturation": 4840.0}, "violations_legacy_cumulative": {"wheel_saturation": 3360.0}}
 {"id": "muse_seed2_168", "violations": {}}
 {"id": "muse_seed2_179", "violations": {}}
 {"id": "muse_seed2_213", "violations": {}}
 {"id": "muse_seed2_219", "violations": {"attitude_loss": 8625.0}}
-{"id": "muse_seed2_292", "violations": {"wheel_saturation": 7445.0}}
-{"id": "muse_seed2_32", "violations": {"wheel_saturation": 8700.0}}
-{"id": "museblind_seed1_215", "violations": {"wheel_saturation": 8740.0}}
-{"id": "museblind_seed1_217", "violations": {"wheel_saturation": 10815.0}}
+{"id": "muse_seed2_292", "violations": {"wheel_saturation": 8200.0}, "violations_legacy_cumulative": {"wheel_saturation": 7445.0}}
+{"id": "muse_seed2_32", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 8700.0}}
+{"id": "museblind_seed1_215", "violations": {"wheel_saturation": 9530.0}, "violations_legacy_cumulative": {"wheel_saturation": 8740.0}}
+{"id": "museblind_seed1_217", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 10815.0}}
 {"id": "museblind_seed1_219", "violations": {"attitude_loss": 10045.0}}
 {"id": "museblind_seed1_279", "violations": {"attitude_loss": 2145.0}}
 {"id": "grid_0", "violations": {}}
@@ -962,7 +962,7 @@
 {"id": "cmaes_seed1_150", "violations": {}}
 {"id": "cmaes_seed1_151", "violations": {}}
 {"id": "cmaes_seed1_152", "violations": {}}
-{"id": "cmaes_seed1_153", "violations": {"wheel_saturation": 9875.0}}
+{"id": "cmaes_seed1_153", "violations": {}, "violations_legacy_cumulative": {"wheel_saturation": 9875.0}}
 {"id": "cmaes_seed1_154", "violations": {}}
 {"id": "cmaes_seed1_155", "violations": {}}
 {"id": "cmaes_seed1_156", "violations": {}}

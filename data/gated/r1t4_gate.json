@@ -17,6 +17,34 @@
  "gate_reason": "rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)",
  "gate": {
   "evaluated": 982,
+  "new_violations": 4,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 3,
+  "violating_runs": 94,
+  "violating_runs_base": 94,
+  "new_violation_ids": [
+   "cmaes_seed0_120",
+   "cmaes_seed0_160",
+   "muse_seed0_204"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_261",
+   "cmaes_seed0_264",
+   "cmaes_seed0_98"
+  ],
+  "complete": false,
+  "eval_s": 0,
+  "net_fixes": 0,
+  "clean_broken_ids": [
+   "cmaes_seed0_120",
+   "cmaes_seed0_160",
+   "muse_seed0_204"
+  ],
+  "sat_rule": "consecutive"
+ },
+ "gate_legacy_cumulative": {
+  "evaluated": 982,
   "new_violations": 6,
   "runs_with_new_violations": 5,
   "clean_to_violating": 4,
@@ -37,5 +65,6 @@
   ],
   "complete": false,
   "eval_s": 0
- }
+ },
+ "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

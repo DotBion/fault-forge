@@ -1,0 +1,6442 @@
+{
+ "arms": {
+  "cmaes": {
+   "per_seed": {
+    "0": {
+     "sims": 232,
+     "violations": 43,
+     "violations_per_sim": 0.1853448275862069,
+     "sims_to_first_violation": 4,
+     "unique_patterns_coarse": 2,
+     "unique_patterns_fine": 4,
+     "unique_patterns_policy_induced": 4,
+     "patterns_policy_induced": [
+      "attitude_loss <- heater+rw1_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw1_friction+rw2_friction"
+     ],
+     "violation_types": {
+      "attitude_loss": 43
+     },
+     "policy_induced_minimized": 43,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 604,
+     "unique_patterns_policy_induced_in_scope": 4,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 43,
+     "patterns_fine": [
+      "attitude_loss <- heater+rw1_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw1_friction+rw2_friction"
+     ]
+    },
+    "1": {
+     "sims": 300,
+     "violations": 12,
+     "violations_per_sim": 0.04,
+     "sims_to_first_violation": 154,
+     "unique_patterns_coarse": 3,
+     "unique_patterns_fine": 4,
+     "unique_patterns_policy_induced": 4,
+     "patterns_policy_induced": [
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "wheel_saturation <- rw0_friction+rw1_friction"
+     ],
+     "violation_types": {
+      "wheel_saturation": 1,
+      "attitude_loss": 11
+     },
+     "policy_induced_minimized": 12,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 174,
+     "unique_patterns_policy_induced_in_scope": 4,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 12,
+     "patterns_fine": [
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "wheel_saturation <- rw0_friction+rw1_friction"
+     ]
+    },
+    "2": {
+     "sims": 300,
+     "violations": 4,
+     "violations_per_sim": 0.013333333333333334,
+     "sims_to_first_violation": 157,
+     "unique_patterns_coarse": 2,
+     "unique_patterns_fine": 2,
+     "unique_patterns_policy_induced": 2,
+     "patterns_policy_induced": [
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction"
+     ],
+     "violation_types": {
+      "attitude_loss": 3,
+      "wheel_saturation": 1
+     },
+     "policy_induced_minimized": 4,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 66,
+     "unique_patterns_policy_induced_in_scope": 2,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 4,
+     "patterns_fine": [
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction"
+     ]
+    }
+   },
+   "mean": {
+    "violations_per_sim": 0.07955938697318009,
+    "sims_to_first_violation": 105.0,
+    "unique_patterns_coarse": 2.3333333333333335,
+    "unique_patterns_fine": 3.3333333333333335,
+    "unique_patterns_policy_induced": 3.3333333333333335,
+    "unique_patterns_policy_induced_in_scope": 3.3333333333333335,
+    "out_of_scope_share": 0.0,
+    "seeds": [
+     0,
+     1,
+     2
+    ]
+   },
+   "std": {
+    "violations_per_sim": 0.07558967020277725,
+    "sims_to_first_violation": 71.42828571371429,
+    "unique_patterns_coarse": 0.4714045207910317,
+    "unique_patterns_fine": 0.9428090415820634,
+    "unique_patterns_policy_induced": 0.9428090415820634,
+    "unique_patterns_policy_induced_in_scope": 0.9428090415820634,
+    "out_of_scope_share": 0.0
+   },
+   "union_patterns_fine": [
+    "attitude_loss <- heater+rw1_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction",
+    "wheel_saturation <- rw0_friction+rw1_friction"
+   ],
+   "union_patterns_policy_induced": [
+    "attitude_loss <- heater+rw1_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction",
+    "wheel_saturation <- rw0_friction+rw1_friction"
+   ]
+  },
+  "muse": {
+   "per_seed": {
+    "0": {
+     "sims": 232,
+     "violations": 90,
+     "violations_per_sim": 0.3879310344827586,
+     "sims_to_first_violation": 4,
+     "unique_patterns_coarse": 19,
+     "unique_patterns_fine": 40,
+     "unique_patterns_policy_induced": 28,
+     "patterns_policy_induced": [
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+      "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw1_friction+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "attitude_loss": 50,
+      "wheel_saturation": 52
+     },
+     "policy_induced_minimized": 58,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 1449,
+     "unique_patterns_policy_induced_in_scope": 19,
+     "out_of_scope_minimized": 25,
+     "out_of_scope_share": 0.2777777777777778,
+     "policy_induced_in_scope_minimized": 39,
+     "patterns_fine": [
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+      "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- leak+Z+rw3_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+X",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw2_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- leak+Z+rw2_friction",
+      "wheel_saturation <- leak+Z+rw2_torque_derate",
+      "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak-Z+rw2_friction",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw1_friction+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 29,
+      "failed_calls": 3,
+      "fallback_scenarios": 24,
+      "repairs": 0,
+      "prompt_tokens": 213553,
+      "completion_tokens": 180405,
+      "reasoning_tokens": 147326,
+      "latency_mean_s": 31.10383726015397,
+      "latency_p95_s": 44.733987425751366,
+      "latency_total_s": 808.6997687640032
+     }
+    },
+    "1": {
+     "sims": 300,
+     "violations": 95,
+     "violations_per_sim": 0.31666666666666665,
+     "sims_to_first_violation": 3,
+     "unique_patterns_coarse": 20,
+     "unique_patterns_fine": 43,
+     "unique_patterns_policy_induced": 31,
+     "patterns_policy_induced": [
+      "attitude_loss <- heater+leak+X+rw3_torque_derate",
+      "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- heater+leak+Z+rw2_friction",
+      "attitude_loss <- heater+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+      "wheel_saturation <- heater+leak-Y+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "wheel_saturation": 55,
+      "attitude_loss": 54,
+      "battery_floor": 6
+     },
+     "policy_induced_minimized": 61,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 1660,
+     "unique_patterns_policy_induced_in_scope": 19,
+     "out_of_scope_minimized": 30,
+     "out_of_scope_share": 0.3157894736842105,
+     "policy_induced_in_scope_minimized": 39,
+     "patterns_fine": [
+      "attitude_loss <- heater+leak+X+rw3_torque_derate",
+      "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- heater+leak+Z+rw2_friction",
+      "attitude_loss <- heater+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+Y+rw1_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+      "wheel_saturation <- heater+leak-Y+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw2_friction",
+      "wheel_saturation <- leak+X+rw2_torque_derate",
+      "wheel_saturation <- leak+Y",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- leak-Z+rw0_friction",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 38,
+      "failed_calls": 2,
+      "fallback_scenarios": 16,
+      "repairs": 0,
+      "prompt_tokens": 329550,
+      "completion_tokens": 252549,
+      "reasoning_tokens": 207073,
+      "latency_mean_s": 32.36603163269491,
+      "latency_p95_s": 47.62331390024701,
+      "latency_total_s": 1165.1771387770168
+     }
+    },
+    "2": {
+     "sims": 300,
+     "violations": 94,
+     "violations_per_sim": 0.31333333333333335,
+     "sims_to_first_violation": 10,
+     "unique_patterns_coarse": 17,
+     "unique_patterns_fine": 34,
+     "unique_patterns_policy_induced": 26,
+     "patterns_policy_induced": [
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+      "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw3_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "wheel_saturation": 47,
+      "attitude_loss": 55,
+      "battery_floor": 4
+     },
+     "policy_induced_minimized": 54,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 1503,
+     "unique_patterns_policy_induced_in_scope": 17,
+     "out_of_scope_minimized": 26,
+     "out_of_scope_share": 0.2765957446808511,
+     "policy_induced_in_scope_minimized": 35,
+     "patterns_fine": [
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw1_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+      "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw3_friction",
+      "attitude_loss <- leak+Z+rw3_torque_derate",
+      "attitude_loss <- leak-Z+rw2_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw2_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 38,
+      "failed_calls": 1,
+      "fallback_scenarios": 8,
+      "repairs": 0,
+      "prompt_tokens": 325033,
+      "completion_tokens": 244272,
+      "reasoning_tokens": 199611,
+      "latency_mean_s": 30.594605997648614,
+      "latency_p95_s": 42.83969549779795,
+      "latency_total_s": 1132.0004219129987
+     }
+    }
+   },
+   "mean": {
+    "violations_per_sim": 0.33931034482758626,
+    "sims_to_first_violation": 5.666666666666667,
+    "unique_patterns_coarse": 18.666666666666668,
+    "unique_patterns_fine": 39.0,
+    "unique_patterns_policy_induced": 28.333333333333332,
+    "unique_patterns_policy_induced_in_scope": 18.333333333333332,
+    "out_of_scope_share": 0.29005433204761316,
+    "seeds": [
+     0,
+     1,
+     2
+    ]
+   },
+   "std": {
+    "violations_per_sim": 0.03440694091493963,
+    "sims_to_first_violation": 3.0912061651652345,
+    "unique_patterns_coarse": 1.247219128924647,
+    "unique_patterns_fine": 3.7416573867739413,
+    "unique_patterns_policy_induced": 2.0548046676563256,
+    "unique_patterns_policy_induced_in_scope": 0.9428090415820634,
+    "out_of_scope_share": 0.018203890369045732
+   },
+   "union_patterns_fine": [
+    "attitude_loss <- heater+leak+X+rw3_torque_derate",
+    "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- heater+leak+Z+rw2_friction",
+    "attitude_loss <- heater+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw1_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw2_friction",
+    "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+    "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+    "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+    "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Y+rw1_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw2_friction",
+    "attitude_loss <- leak+Z+rw3_friction",
+    "attitude_loss <- leak+Z+rw3_torque_derate",
+    "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak-Z+rw2_torque_derate",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw1_friction",
+    "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw2_friction",
+    "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw3_torque_derate",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+    "wheel_saturation <- heater+leak-Y+rw1_friction",
+    "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+    "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+X",
+    "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+X+rw2_friction",
+    "wheel_saturation <- leak+X+rw2_torque_derate",
+    "wheel_saturation <- leak+Y",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+    "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+Z",
+    "wheel_saturation <- leak+Z+rw2_friction",
+    "wheel_saturation <- leak+Z+rw2_torque_derate",
+    "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak-Z+rw0_friction",
+    "wheel_saturation <- leak-Z+rw2_friction",
+    "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw3_friction",
+    "wheel_saturation <- rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+   ],
+   "union_patterns_policy_induced": [
+    "attitude_loss <- heater+leak+X+rw3_torque_derate",
+    "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- heater+leak+Z+rw2_friction",
+    "attitude_loss <- heater+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw2_friction",
+    "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+    "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+    "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+    "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw2_friction",
+    "attitude_loss <- leak+Z+rw3_friction",
+    "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+    "wheel_saturation <- heater+leak-Y+rw1_friction",
+    "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+    "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+    "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+    "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw3_friction",
+    "wheel_saturation <- rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+   ]
+  },
+  "museblind": {
+   "per_seed": {
+    "0": {
+     "sims": 232,
+     "violations": 108,
+     "violations_per_sim": 0.46551724137931033,
+     "sims_to_first_violation": 5,
+     "unique_patterns_coarse": 23,
+     "unique_patterns_fine": 40,
+     "unique_patterns_policy_induced": 31,
+     "patterns_policy_induced": [
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+      "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "wheel_saturation <- heater+leak+X",
+      "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+      "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+      "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- heater+leak-Z+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "wheel_saturation": 66,
+      "attitude_loss": 52
+     },
+     "policy_induced_minimized": 76,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 1814,
+     "unique_patterns_policy_induced_in_scope": 22,
+     "out_of_scope_minimized": 28,
+     "out_of_scope_share": 0.25925925925925924,
+     "policy_induced_in_scope_minimized": 49,
+     "patterns_fine": [
+      "attitude_loss <- heater+leak+Z+rw1_friction",
+      "attitude_loss <- heater+leak+Z+rw2_torque_derate",
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+      "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_friction",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_friction+rw2_torque_derate",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "wheel_saturation <- heater+leak+X",
+      "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+      "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+      "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- heater+leak-Z+rw1_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- leak+Z+rw2_friction",
+      "wheel_saturation <- leak+Z+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 38,
+      "failed_calls": 0,
+      "fallback_scenarios": 0,
+      "repairs": 0,
+      "prompt_tokens": 327417,
+      "completion_tokens": 286052,
+      "reasoning_tokens": 236490,
+      "latency_mean_s": 66.12323913357862,
+      "latency_p95_s": 92.2539867422587,
+      "latency_total_s": 2512.6830870759877
+     }
+    },
+    "1": {
+     "sims": 300,
+     "violations": 126,
+     "violations_per_sim": 0.42,
+     "sims_to_first_violation": 6,
+     "unique_patterns_coarse": 19,
+     "unique_patterns_fine": 35,
+     "unique_patterns_policy_induced": 26,
+     "patterns_policy_induced": [
+      "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+      "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "wheel_saturation": 79,
+      "attitude_loss": 64,
+      "battery_floor": 4
+     },
+     "policy_induced_minimized": 55,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 2091,
+     "unique_patterns_policy_induced_in_scope": 15,
+     "out_of_scope_minimized": 26,
+     "out_of_scope_share": 0.20634920634920634,
+     "policy_induced_in_scope_minimized": 33,
+     "patterns_fine": [
+      "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+      "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw1_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+Z+rw2_friction",
+      "attitude_loss <- leak+Z+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Z+rw2_torque_derate",
+      "attitude_loss <- leak+Z+rw3_torque_derate",
+      "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+      "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+      "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+X+rw2_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- leak+Z+rw2_torque_derate",
+      "wheel_saturation <- leak-X+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 39,
+      "failed_calls": 7,
+      "fallback_scenarios": 56,
+      "repairs": 0,
+      "prompt_tokens": 222285,
+      "completion_tokens": 219051,
+      "reasoning_tokens": 177296,
+      "latency_mean_s": 27.174120108467832,
+      "latency_p95_s": 37.55530534084683,
+      "latency_total_s": 869.5718434709706
+     }
+    },
+    "2": {
+     "sims": 300,
+     "violations": 138,
+     "violations_per_sim": 0.46,
+     "sims_to_first_violation": 4,
+     "unique_patterns_coarse": 21,
+     "unique_patterns_fine": 55,
+     "unique_patterns_policy_induced": 47,
+     "patterns_policy_induced": [
+      "attitude_loss <- heater+leak+X+rw3_friction",
+      "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+      "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+      "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+      "attitude_loss <- heater+rw1_friction+rw2_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "wheel_saturation <- heater+leak+X+rw0_friction",
+      "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+      "wheel_saturation <- heater+leak+Z+rw1_friction",
+      "wheel_saturation <- heater+rw3_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Z+rw2_torque_derate",
+      "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "violation_types": {
+      "wheel_saturation": 86,
+      "attitude_loss": 73
+     },
+     "policy_induced_minimized": 111,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 2583,
+     "unique_patterns_policy_induced_in_scope": 31,
+     "out_of_scope_minimized": 52,
+     "out_of_scope_share": 0.37681159420289856,
+     "policy_induced_in_scope_minimized": 67,
+     "patterns_fine": [
+      "attitude_loss <- heater+leak+X+rw3_friction",
+      "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+      "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+      "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+      "attitude_loss <- heater+rw1_friction+rw2_friction",
+      "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+      "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+      "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- leak+Z+rw0_torque_derate+rw3_friction",
+      "attitude_loss <- leak+Z+rw1_torque_derate+rw3_torque_derate",
+      "attitude_loss <- leak-Z+rw1_torque_derate+rw2_torque_derate",
+      "attitude_loss <- rw0_friction+rw1_friction",
+      "attitude_loss <- rw0_friction+rw1_torque_derate",
+      "attitude_loss <- rw0_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate",
+      "attitude_loss <- rw0_torque_derate+rw1_friction",
+      "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+      "attitude_loss <- rw1_friction+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw2_friction",
+      "attitude_loss <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- heater+leak+X+rw0_friction",
+      "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+      "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+      "wheel_saturation <- heater+leak+Z+rw1_friction",
+      "wheel_saturation <- heater+rw3_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+      "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+      "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+      "wheel_saturation <- leak+X+rw2_torque_derate",
+      "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Y+rw1_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+      "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+      "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak+Z",
+      "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak+Z+rw2_torque_derate",
+      "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+      "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+      "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_friction+rw3_friction",
+      "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+      "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+      "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+     ],
+     "llm": {
+      "calls": 38,
+      "failed_calls": 0,
+      "fallback_scenarios": 0,
+      "repairs": 0,
+      "prompt_tokens": 331290,
+      "completion_tokens": 243557,
+      "reasoning_tokens": 193605,
+      "latency_mean_s": 56.12570234473663,
+      "latency_p95_s": 86.2341053355456,
+      "latency_total_s": 2132.776689099992
+     }
+    }
+   },
+   "mean": {
+    "violations_per_sim": 0.4485057471264368,
+    "sims_to_first_violation": 5.0,
+    "unique_patterns_coarse": 21.0,
+    "unique_patterns_fine": 43.333333333333336,
+    "unique_patterns_policy_induced": 34.666666666666664,
+    "unique_patterns_policy_induced_in_scope": 22.666666666666668,
+    "out_of_scope_share": 0.28080668660378805,
+    "seeds": [
+     0,
+     1,
+     2
+    ]
+   },
+   "std": {
+    "violations_per_sim": 0.0202820643679198,
+    "sims_to_first_violation": 0.816496580927726,
+    "unique_patterns_coarse": 1.632993161855452,
+    "unique_patterns_fine": 8.498365855987975,
+    "unique_patterns_policy_induced": 8.956685895029603,
+    "unique_patterns_policy_induced_in_scope": 6.548960901462833,
+    "out_of_scope_share": 0.07123938581557938
+   },
+   "union_patterns_fine": [
+    "attitude_loss <- heater+leak+X+rw3_friction",
+    "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+    "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+    "attitude_loss <- heater+leak+Z+rw1_friction",
+    "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+    "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+    "attitude_loss <- heater+leak+Z+rw2_torque_derate",
+    "attitude_loss <- heater+rw1_friction+rw2_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw1_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+    "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+    "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+Z+rw0_torque_derate+rw3_friction",
+    "attitude_loss <- leak+Z+rw1_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw2_friction",
+    "attitude_loss <- leak+Z+rw2_friction+rw3_friction",
+    "attitude_loss <- leak+Z+rw2_torque_derate",
+    "attitude_loss <- leak+Z+rw3_torque_derate",
+    "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak-Z+rw1_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw1_friction",
+    "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw2_friction",
+    "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "attitude_loss <- rw1_friction+rw2_torque_derate",
+    "attitude_loss <- rw1_torque_derate+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+leak+X",
+    "wheel_saturation <- heater+leak+X+rw0_friction",
+    "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+    "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+    "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+    "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- heater+leak+Z+rw1_friction",
+    "wheel_saturation <- heater+leak-Z+rw1_friction",
+    "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+rw3_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+X+rw2_torque_derate",
+    "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+Y+rw1_friction",
+    "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Z",
+    "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+Z+rw2_friction",
+    "wheel_saturation <- leak+Z+rw2_torque_derate",
+    "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak-X+rw2_torque_derate",
+    "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+   ],
+   "union_patterns_policy_induced": [
+    "attitude_loss <- heater+leak+X+rw3_friction",
+    "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+    "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+    "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+    "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+    "attitude_loss <- heater+rw1_friction+rw2_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+    "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+X+rw2_friction+rw3_friction",
+    "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate",
+    "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- leak+Z+rw2_friction",
+    "attitude_loss <- leak-X+rw0_friction+rw3_friction",
+    "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+    "attitude_loss <- rw0_friction+rw1_friction",
+    "attitude_loss <- rw0_friction+rw1_torque_derate",
+    "attitude_loss <- rw0_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw1_friction",
+    "attitude_loss <- rw0_torque_derate+rw1_torque_derate",
+    "attitude_loss <- rw0_torque_derate+rw2_torque_derate",
+    "attitude_loss <- rw1_friction+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_friction",
+    "attitude_loss <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- heater+leak+X",
+    "wheel_saturation <- heater+leak+X+rw0_friction",
+    "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+    "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+    "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+    "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- heater+leak+Z+rw1_friction",
+    "wheel_saturation <- heater+leak-Z+rw1_friction",
+    "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- heater+rw3_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw1_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+    "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+    "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction",
+    "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_friction",
+    "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+    "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak+Z+rw2_torque_derate",
+    "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+    "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+    "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_friction+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw2_torque_derate",
+    "wheel_saturation <- rw1_torque_derate+rw3_friction",
+    "wheel_saturation <- rw1_torque_derate+rw3_torque_derate",
+    "wheel_saturation <- rw2_torque_derate+rw3_torque_derate"
+   ]
+  },
+  "random": {
+   "per_seed": {
+    "0": {
+     "sims": 232,
+     "violations": 2,
+     "violations_per_sim": 0.008620689655172414,
+     "sims_to_first_violation": 10,
+     "unique_patterns_coarse": 1,
+     "unique_patterns_fine": 2,
+     "unique_patterns_policy_induced": 0,
+     "patterns_policy_induced": [],
+     "violation_types": {
+      "wheel_saturation": 2
+     },
+     "policy_induced_minimized": 0,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 22,
+     "unique_patterns_policy_induced_in_scope": 0,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 0,
+     "patterns_fine": [
+      "wheel_saturation <- leak+Z+rw2_friction",
+      "wheel_saturation <- leak-Y+rw2_friction"
+     ]
+    },
+    "1": {
+     "sims": 300,
+     "violations": 2,
+     "violations_per_sim": 0.006666666666666667,
+     "sims_to_first_violation": 15,
+     "unique_patterns_coarse": 2,
+     "unique_patterns_fine": 2,
+     "unique_patterns_policy_induced": 2,
+     "patterns_policy_induced": [
+      "attitude_loss <- leak-X+rw1_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate"
+     ],
+     "violation_types": {
+      "attitude_loss": 2
+     },
+     "policy_induced_minimized": 2,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 27,
+     "unique_patterns_policy_induced_in_scope": 2,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 2,
+     "patterns_fine": [
+      "attitude_loss <- leak-X+rw1_friction+rw2_friction",
+      "attitude_loss <- rw0_friction+rw2_torque_derate"
+     ]
+    },
+    "2": {
+     "sims": 300,
+     "violations": 1,
+     "violations_per_sim": 0.0033333333333333335,
+     "sims_to_first_violation": 166,
+     "unique_patterns_coarse": 1,
+     "unique_patterns_fine": 1,
+     "unique_patterns_policy_induced": 0,
+     "patterns_policy_induced": [],
+     "violation_types": {
+      "wheel_saturation": 1
+     },
+     "policy_induced_minimized": 0,
+     "minimized_non_reproducing": 0,
+     "minimization_sims": 11,
+     "unique_patterns_policy_induced_in_scope": 0,
+     "out_of_scope_minimized": 0,
+     "out_of_scope_share": 0.0,
+     "policy_induced_in_scope_minimized": 0,
+     "patterns_fine": [
+      "wheel_saturation <- leak+Z+rw1_friction"
+     ]
+    }
+   },
+   "mean": {
+    "violations_per_sim": 0.0062068965517241385,
+    "sims_to_first_violation": 63.666666666666664,
+    "unique_patterns_coarse": 1.3333333333333333,
+    "unique_patterns_fine": 1.6666666666666667,
+    "unique_patterns_policy_induced": 0.6666666666666666,
+    "unique_patterns_policy_induced_in_scope": 0.6666666666666666,
+    "out_of_scope_share": 0.0,
+    "seeds": [
+     0,
+     1,
+     2
+    ]
+   },
+   "std": {
+    "violations_per_sim": 0.0021828995453247687,
+    "sims_to_first_violation": 72.38937920870866,
+    "unique_patterns_coarse": 0.4714045207910317,
+    "unique_patterns_fine": 0.4714045207910317,
+    "unique_patterns_policy_induced": 0.9428090415820634,
+    "unique_patterns_policy_induced_in_scope": 0.9428090415820634,
+    "out_of_scope_share": 0.0
+   },
+   "union_patterns_fine": [
+    "attitude_loss <- leak-X+rw1_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate",
+    "wheel_saturation <- leak+Z+rw1_friction",
+    "wheel_saturation <- leak+Z+rw2_friction",
+    "wheel_saturation <- leak-Y+rw2_friction"
+   ],
+   "union_patterns_policy_induced": [
+    "attitude_loss <- leak-X+rw1_friction+rw2_friction",
+    "attitude_loss <- rw0_friction+rw2_torque_derate"
+   ]
+  }
+ },
+ "patterns": {
+  "attitude_loss <- rw0_friction+rw1_friction": {
+   "cmaes": [
+    {
+     "seed": 0,
+     "id": 3,
+     "key": "74004d1c404edbda",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 13,
+     "key": "ad2e9a76ed8663bd",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 28,
+     "key": "9f6c5fc6a5fcd1f0",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 163,
+     "key": "950b43e2d8f824ed",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 181,
+     "key": "5bd6a24b12ffab18",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 201,
+     "key": "3c45e228f56cec91",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 205,
+     "key": "11ea7397e0ddb5e7",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 207,
+     "key": "fd38b3c5c4f6a53f",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 223,
+     "key": "aafddf40ad2fdd81",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 232,
+     "key": "7941ba03dd99bb2e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 243,
+     "key": "991374ef06e31e11",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 261,
+     "key": "ad89e46dc16018e6",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 271,
+     "key": "eacc832c9173d78c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 281,
+     "key": "5832c6645c2713cb",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 286,
+     "key": "eb85721e67403428",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 292,
+     "key": "18760539488ae9b4",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 299,
+     "key": "47659a76aba2ff72",
+     "policy_induced": true
+    }
+   ],
+   "muse": [
+    {
+     "seed": 0,
+     "id": 8,
+     "key": "085ce0759cbc36e1",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 16,
+     "key": "492abacaed497725",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 88,
+     "key": "1050afa817af4852",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 120,
+     "key": "0c59b29384568b94",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 125,
+     "key": "f3c4fd8ed8fdb152",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 155,
+     "key": "2c3a909a4193a5e8",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 165,
+     "key": "bcfe047efdaedb1d",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 166,
+     "key": "d2e2ef7d717c7a4f",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 200,
+     "key": "1d5725fcba697c3c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 10,
+     "key": "f950d21261d933cc",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 16,
+     "key": "f7fe6b504f393961",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 62,
+     "key": "69a20c26f2e6de46",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 228,
+     "key": "3b402193a13484e3",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 24,
+     "key": "ded138d75bfc24b3",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 35,
+     "key": "f50ecbae40a26dda",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 40,
+     "key": "19ce097512d98a43",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 50,
+     "key": "fe43e3c84e65374d",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 194,
+     "key": "cfc639610d578b1c",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 7,
+     "key": "159aa5eb65d11718",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 59,
+     "key": "5f77cc63924c603c",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 78,
+     "key": "a4ceab2c8bd55105",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 109,
+     "key": "25e3bf1ed3297c2b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 191,
+     "key": "ef28031ba4153fe0",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 204,
+     "key": "a7cf24c033bcd5c7",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 34,
+     "key": "4486d74975ff481e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 74,
+     "key": "cfc2c3f9f6e0b499",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 79,
+     "key": "99711965f78ca382",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 82,
+     "key": "871dbd4c7455a8c5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 139,
+     "key": "96bf081a58e9d5fd",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 190,
+     "key": "7f7617c2f0fbc489",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 202,
+     "key": "fff240cc7ef3c627",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 214,
+     "key": "2bef382e4e9e07b0",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 278,
+     "key": "1daab173a64655a7",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 279,
+     "key": "5afe7954771a8479",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 31,
+     "key": "914907d8f4f285e4",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 83,
+     "key": "f1a7378b9dac2ad1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 159,
+     "key": "bbfa42a2b81e226b",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 183,
+     "key": "d33a8693ee3dc932",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 203,
+     "key": "18dcd516c2f3a9a4",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 224,
+     "key": "150e25278aede236",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 232,
+     "key": "059def4e3a0e10ab",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 274,
+     "key": "9091be7420211b0a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 296,
+     "key": "d2868b6b438e42c2",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw1_friction+rw2_friction": {
+   "cmaes": [
+    {
+     "seed": 0,
+     "id": 70,
+     "key": "f46ba5cb33a00ab3",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 73,
+     "key": "3ff62708f7a81f44",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 95,
+     "key": "e373e6d19e099f4e",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 98,
+     "key": "0a0f04e660ed5c37",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 100,
+     "key": "3f92a0d9c8f58208",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 102,
+     "key": "0aea12696a62c04d",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 103,
+     "key": "6bcaa940ab2599bf",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 105,
+     "key": "4cdbdaa88ebf8c2e",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 107,
+     "key": "5678102df8dfc09f",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 117,
+     "key": "6713c7cde625fb99",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 126,
+     "key": "4f23f38d82af3538",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 131,
+     "key": "ecd62b65d1cfdb36",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 139,
+     "key": "6fbfa0824abe5764",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 140,
+     "key": "2294f8f2ec5aa482",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 148,
+     "key": "4e0b0bdaa4425d57",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 191,
+     "key": "a4d1f6541ed3ffd8",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 192,
+     "key": "a8a7fc2965544850",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 193,
+     "key": "d1eda4f7a6158688",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 200,
+     "key": "6738f125e9dfd2d9",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 204,
+     "key": "a36460636cc34167",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 212,
+     "key": "0805e05f39e4e419",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 228,
+     "key": "6e7e50b388e17b27",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 230,
+     "key": "79e685c148ec77ff",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 156,
+     "key": "1e1ae05deebd903c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 159,
+     "key": "ab424c7de612a133",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 174,
+     "key": "77afb87ca8d715f4",
+     "policy_induced": true
+    }
+   ],
+   "muse": [
+    {
+     "seed": 0,
+     "id": 3,
+     "key": "d3faaf0aa2ab6cde",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 23,
+     "key": "5e3d50d8515b3ad7",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 25,
+     "key": "f08ffc891e97b85a",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 131,
+     "key": "56356a7253914d13",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 135,
+     "key": "948869c64272848f",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 150,
+     "key": "a825e5e54e96a1d9",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 207,
+     "key": "0db15e2c57157ca4",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 20,
+     "key": "1baf3ecae1d7a196",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 67,
+     "key": "aac45f8ba2d8e30c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 83,
+     "key": "d734f4149995142e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 108,
+     "key": "d24cbab88a3aa480",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 110,
+     "key": "64a459ae20317327",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 125,
+     "key": "88d9338f7967be5e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 127,
+     "key": "5d813ee6816f50bb",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 186,
+     "key": "10893f2f860d6a3d",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 26,
+     "key": "b605af464b63f380",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 73,
+     "key": "bfb051059a55925c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 116,
+     "key": "0bfb4fd01fe3ae38",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 204,
+     "key": "4fc33c0e354b633d",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 210,
+     "key": "c5902f768f447468",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 247,
+     "key": "261b5b8b17961c8d",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 16,
+     "key": "2a6ad386c1f88034",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 68,
+     "key": "274c0cc9fb799301",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 76,
+     "key": "93aeed67e8dda908",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 101,
+     "key": "54a3af3fcc8c4cdf",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 118,
+     "key": "a14df4b968594618",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 156,
+     "key": "ff714ae84aa03324",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 214,
+     "key": "759ed0626632a0f8",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 224,
+     "key": "03bd47a6fa61b93c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 89,
+     "key": "9c5c9ab380fc02f5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 148,
+     "key": "e07f7c2a1fbf2598",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 167,
+     "key": "8f01b7601effb18e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 194,
+     "key": "adaacbeeb0bd83ed",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 254,
+     "key": "31af9dae78399a5e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 13,
+     "key": "37cdd6f98b9718b6",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 19,
+     "key": "98ba00014e064205",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 29,
+     "key": "357b74fff25399c1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 32,
+     "key": "cd00caa557e4c850",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 41,
+     "key": "8f57bbc472f96fc5",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 65,
+     "key": "5b3c05c286df5c0a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 96,
+     "key": "cd00caa557e4c850",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 121,
+     "key": "54304ea97ac49d31",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 166,
+     "key": "02f32d8e0f46854e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 176,
+     "key": "b5e55776637cb7fc",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 207,
+     "key": "cd8c559a138f812e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 250,
+     "key": "dd8db72cbca56339",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 282,
+     "key": "8f01b7601effb18e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+rw1_friction+rw2_friction": {
+   "cmaes": [
+    {
+     "seed": 0,
+     "id": 142,
+     "key": "a5b0748a40830a51",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 149,
+     "key": "6faa143beec115ed",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 179,
+     "key": "2b7624e4c0aca27e",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 63,
+     "key": "218aff6ef9b54c94",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw0_friction+rw2_friction": {
+   "cmaes": [
+    {
+     "seed": 0,
+     "id": 190,
+     "key": "dac296e9619b329d",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 195,
+     "key": "976e6a11dc6208e9",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 203,
+     "key": "439c1d2c56a6734d",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 210,
+     "key": "186b683313545cd2",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 211,
+     "key": "7f0eed1185580c4b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 214,
+     "key": "7f3f104ae16fc394",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 216,
+     "key": "680de0843556ab6a",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 218,
+     "key": "b06650846efc700c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 196,
+     "key": "e6d75181220dc668",
+     "policy_induced": true
+    }
+   ],
+   "muse": [
+    {
+     "seed": 0,
+     "id": 116,
+     "key": "a0eac854debbdb47",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 28,
+     "key": "8e092cee5669eaff",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 36,
+     "key": "a59771eb0344f41e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 90,
+     "key": "0e37fa5b3d057a6e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 199,
+     "key": "44373d117007799a",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 207,
+     "key": "ef45446b7d7196d4",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 27,
+     "key": "e64326c6faeb98a1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 103,
+     "key": "f260d1358e684533",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 238,
+     "key": "5d5719405edb3d9b",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 245,
+     "key": "46c18945345663f5",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 275,
+     "key": "c42e20a09b4058fc",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 32,
+     "key": "e93c4b046d3fc36f",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 164,
+     "key": "61240ae21dee4584",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 193,
+     "key": "34f9932dad1f674c",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 207,
+     "key": "080870271bf6bfc0",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 213,
+     "key": "a2a287803cf3aa35",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 228,
+     "key": "77f83d367b140c50",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 101,
+     "key": "27deb41d5eb2303b",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 229,
+     "key": "65a76c9b2790a709",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 294,
+     "key": "713c97c3dbf0e37b",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 72,
+     "key": "c324310e0f3000d4",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 94,
+     "key": "274daa95d31d3213",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 126,
+     "key": "dad67cfd0cf2fe7a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 136,
+     "key": "8510f632ba82bd88",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 199,
+     "key": "049b66fbca57862e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 259,
+     "key": "def4a6d04a8f7d42",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 279,
+     "key": "5cd1105c8898d6e6",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 291,
+     "key": "5dc9a69978b64c74",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw0_friction+rw1_friction": {
+   "cmaes": [
+    {
+     "seed": 1,
+     "id": 153,
+     "key": "9bd4e33a731f388e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw0_friction+rw1_torque_derate": {
+   "cmaes": [
+    {
+     "seed": 1,
+     "id": 295,
+     "key": "0f43017d5a96cacd",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 298,
+     "key": "249176e9d73a2b3b",
+     "policy_induced": true
+    }
+   ],
+   "muse": [
+    {
+     "seed": 1,
+     "id": 150,
+     "key": "67908447a260f944",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 173,
+     "key": "a6e8087b7a52c977",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 116,
+     "key": "92fa20d826d9acd0",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 143,
+     "key": "5968552517238005",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 168,
+     "key": "2f156f651f2e814a",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction": {
+   "cmaes": [
+    {
+     "seed": 2,
+     "id": 277,
+     "key": "390c7a7a0df154b2",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 5,
+     "key": "c16debee2158e991",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 10,
+     "key": "53a3f33072877ca3",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 11,
+     "key": "4fc8e066bce5f7e3",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 27,
+     "key": "fc8197382b02fa68",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 34,
+     "key": "6401114f255462e7",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 79,
+     "key": "07c684118430aa5c",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 100,
+     "key": "774e4faff53c1521",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 149,
+     "key": "ed71da0eb9646f7b",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 185,
+     "key": "c317317e814947b1",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 191,
+     "key": "0edb7314b1ada7e8",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 208,
+     "key": "4bf7152481df1983",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 218,
+     "key": "d681ee30c07a072a",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 224,
+     "key": "01fc61a51b5f82b8",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 230,
+     "key": "c5a125d5c32eb16b",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 8,
+     "key": "935b6468134948cd",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 24,
+     "key": "7e42d614e3334c32",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 53,
+     "key": "e5557c8ce529afff",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 57,
+     "key": "aa0b9ab45ee26ff7",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 61,
+     "key": "1387d4567c1a9993",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 66,
+     "key": "4dec004186838fa3",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 71,
+     "key": "310a0ac345bd2f37",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 79,
+     "key": "a93570654cf90ebf",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 118,
+     "key": "bb0ce24d35525824",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 175,
+     "key": "35d3ed836c0b9578",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 191,
+     "key": "47ad51ee95d4d67a",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 203,
+     "key": "6152d71df78b90a4",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 220,
+     "key": "e32230aec6040079",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 244,
+     "key": "d86eb23e7387e714",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 259,
+     "key": "cf1b4f3504157174",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 284,
+     "key": "f103d8961c61a3be",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 9,
+     "key": "d401cfeb8e89f64f",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 15,
+     "key": "c88fbc7b3cd21ddc",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 20,
+     "key": "5134b4b062704a70",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 31,
+     "key": "35ff4d4b631a2ecd",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 34,
+     "key": "6bfadab3b7cfd5c2",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 39,
+     "key": "6ffcf621768a409e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 44,
+     "key": "950b96fddff2e53e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 53,
+     "key": "bf3c52eab8c4ddba",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 99,
+     "key": "8bd5724b53ca5a03",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 106,
+     "key": "58abdcbe00a23718",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 115,
+     "key": "57be8bc9f927a193",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 188,
+     "key": "652c09e208474f90",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 195,
+     "key": "0db05cdf5445273b",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 205,
+     "key": "8a5747c5d747322e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 221,
+     "key": "b172992425787e7d",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 230,
+     "key": "a5f73888937060d2",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 234,
+     "key": "aa134edd0856de6f",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 242,
+     "key": "ccdcb286f0f931c6",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 251,
+     "key": "77d90a06f733b76c",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 269,
+     "key": "cbab345c26ebf3e0",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 291,
+     "key": "758933425bebb64a",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 10,
+     "key": "7ab84b97433be91e",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 17,
+     "key": "919f5285bf63508f",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 33,
+     "key": "2ff7e08bd56ccdff",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 38,
+     "key": "7ffd8afce3881d5a",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 46,
+     "key": "425c4d8b0c373e9a",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 47,
+     "key": "167eca0e9720ff8e",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 53,
+     "key": "b2ae9f46f0ecd559",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 54,
+     "key": "5d38a67dfb2ac364",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 58,
+     "key": "11ab2a78eaba23b1",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 60,
+     "key": "9a39889e4508bf4f",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 66,
+     "key": "5a041497413e0563",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 69,
+     "key": "d92190f10c4c727d",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 100,
+     "key": "a89a5c6c02c28ddb",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 102,
+     "key": "794773adb110db83",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 148,
+     "key": "7d7a86f093599034",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 163,
+     "key": "7e61f64d2221a9fd",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 173,
+     "key": "01257c365e173222",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 197,
+     "key": "9e6f8cb6eec4ffcd",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 205,
+     "key": "dd51dadc0966fe20",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 215,
+     "key": "5ad626e24148693d",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 222,
+     "key": "3b05eb7b3a72dc6d",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 223,
+     "key": "67bf68f5229df9f6",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 14,
+     "key": "d28ee1164908d485",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 20,
+     "key": "55b8a048bd421123",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 37,
+     "key": "78c030ad5990f341",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 72,
+     "key": "71bda335a2e2e2bf",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 80,
+     "key": "2d5e0ac1d424d97c",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 95,
+     "key": "30024171c8873b70",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 97,
+     "key": "acffd44d3337d7dc",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 113,
+     "key": "00328d84a3735240",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 115,
+     "key": "4f4ac8a188fa97b9",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 121,
+     "key": "9519bca8d611e085",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 128,
+     "key": "5fb2c8048c832b28",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 133,
+     "key": "69c94b37ae042569",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 138,
+     "key": "674f5b1ad79164fa",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 144,
+     "key": "74f772424e3a1a3a",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 147,
+     "key": "32f99439b44daa5e",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 152,
+     "key": "0bc7a82817ad824e",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 153,
+     "key": "d7ff8d1c6bf30ab6",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 160,
+     "key": "5dbc88cbbaf610cb",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 161,
+     "key": "c758871c51942f02",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 169,
+     "key": "b4f79ec303cb4103",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 175,
+     "key": "3d26af7f26d7d99e",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 184,
+     "key": "38cf64156448c6c6",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 193,
+     "key": "b24631a6941fd283",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 201,
+     "key": "acffd44d3337d7dc",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 203,
+     "key": "14b6119b3519c268",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 204,
+     "key": "32c7052d9bd458e5",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 206,
+     "key": "0aa8cbe60e24005d",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 210,
+     "key": "110e3eb67d37ca40",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 218,
+     "key": "33dfe407fdb30d4b",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 225,
+     "key": "77cd51dd9b043f59",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 233,
+     "key": "b24631a6941fd283",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 242,
+     "key": "acffd44d3337d7dc",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 246,
+     "key": "0ffe20f0e705dc8e",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 250,
+     "key": "861fec1ae30836c2",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 255,
+     "key": "d39188d540dd7494",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 260,
+     "key": "bc4eb450f4b55869",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 263,
+     "key": "a898b51336c9ce96",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 265,
+     "key": "71bda335a2e2e2bf",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 266,
+     "key": "cea4b03b53cefd95",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 273,
+     "key": "8f1f99382bfcae6e",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 277,
+     "key": "774a74aef1cdf3a6",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 282,
+     "key": "5fb2c8048c832b28",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 290,
+     "key": "acffd44d3337d7dc",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 299,
+     "key": "60a07344f3d92a1d",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 91,
+     "key": "6b61071df599f8a9",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 122,
+     "key": "57aa9aaeabb56d60",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 141,
+     "key": "2b87917133d5e85c",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 177,
+     "key": "c8fe4df843c72002",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 241,
+     "key": "b95b58499a703520",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 255,
+     "key": "411fcbee7f68238f",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 268,
+     "key": "8a02923437bfa0a6",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 12,
+     "key": "4765e41618fe8510",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 40,
+     "key": "623577c260d9f933",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 104,
+     "key": "623577c260d9f933",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 4,
+     "key": "b85da255b76b603a",
+     "policy_induced": false
+    }
+   ],
+   "random": [
+    {
+     "seed": 0,
+     "id": 61,
+     "key": "e40ade1c08cba581",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- rw0_torque_derate+rw1_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 19,
+     "key": "4e46b7184129eb54",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 74,
+     "key": "7ba0d1bb148337fd",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 141,
+     "key": "ed0220bd05bdc57b",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 67,
+     "key": "b36fe48d9bff299e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 154,
+     "key": "bdcf3f6bc1e526b7",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 160,
+     "key": "c92f1e8434c51d0e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 254,
+     "key": "58339815dff390b2",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 26,
+     "key": "7e5d3ac278afb3be",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 29,
+     "key": "3dfb1eae6243eb48",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 205,
+     "key": "96d705ccfeebceed",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 270,
+     "key": "92f4e68bfc3b95cf",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 124,
+     "key": "00247560233bcc11",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- rw0_torque_derate+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 22,
+     "key": "10cc410820ad73e1",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 38,
+     "key": "15b1887142ad0307",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 66,
+     "key": "f27823424778403d",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 119,
+     "key": "4e8260b505b9eff7",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 175,
+     "key": "165d06b384d5f2c1",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 193,
+     "key": "370051ff169e23ba",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 196,
+     "key": "8ab4ce4a03916a06",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 216,
+     "key": "9d01b0be282d5852",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 30,
+     "key": "fdf2974d2f55c3ef",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 73,
+     "key": "58aaacc16ae6c08e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 16,
+     "key": "2dd3f212fd8fd9eb",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 125,
+     "key": "e18aa5a0b45d753d",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 165,
+     "key": "e0128c44c83885af",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 5,
+     "key": "21d0a11dcaf1ebc2",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 25,
+     "key": "8975c138c5160b2e",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 55,
+     "key": "19243c7317d04676",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 65,
+     "key": "a833cf3c134a5430",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 117,
+     "key": "0148878f9fc94d54",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 139,
+     "key": "7315fa28e42dd7dc",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 8,
+     "key": "3b39f862c2b71c95",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 36,
+     "key": "143aa4428da3e275",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 91,
+     "key": "6497184005971553",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 117,
+     "key": "d185dd5d9b2d097f",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 155,
+     "key": "3a26df9f22241f3c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 174,
+     "key": "a153992245af8b9a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 17,
+     "key": "21997f802443477c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 28,
+     "key": "53334164d047f4ad",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 175,
+     "key": "b3a462586bd8c7c3",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw1_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 28,
+     "key": "3e458968b2522ee2",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 226,
+     "key": "9cce37175861f2b3",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 238,
+     "key": "8cd610e356554168",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 287,
+     "key": "ac01ab1bfed27c77",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 29,
+     "key": "89603c39d8bf9db7",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 35,
+     "key": "37fa98be3edaead8",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 141,
+     "key": "e310eac2256f6c44",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 192,
+     "key": "64d51989f9803be1",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 200,
+     "key": "9b818908fdae9f36",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 208,
+     "key": "5212246f51a49537",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 216,
+     "key": "92bfa2c4d88ccd89",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 224,
+     "key": "23aaf901bb0a7771",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 232,
+     "key": "a927bc2d6be75cd4",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 240,
+     "key": "fcae482b3f443eab",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 272,
+     "key": "9b818908fdae9f36",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 281,
+     "key": "5212246f51a49537",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 288,
+     "key": "5bee5e8620ed6077",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 296,
+     "key": "4c7779fdc4110f0c",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 3,
+     "key": "0a0356c52c2220d0",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 34,
+     "key": "50e1724656fb0458",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 70,
+     "key": "021efb359678a9a0",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_friction+rw3_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 37,
+     "key": "4308ccaa9db261d2",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 132,
+     "key": "cb06795c911eac6f",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 87,
+     "key": "eb40c82c337a0132",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 229,
+     "key": "3cb6c8ed39482af6",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 98,
+     "key": "978c5b3caa0209e8",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 142,
+     "key": "e5f725a46594b920",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 197,
+     "key": "dec8ac58a6d61d2b",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 40,
+     "key": "eb776afe5356c3f4",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 210,
+     "key": "111486cc922862ff",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 268,
+     "key": "167bb389d2715c6c",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 70,
+     "key": "7cee1697e44110bc",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 86,
+     "key": "85821e3222214ccc",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 139,
+     "key": "505563eb402294cf",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 36,
+     "key": "2337c3e8d3a3edea",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 44,
+     "key": "99488d4927e333d9",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 221,
+     "key": "8ec8a8f62ed484cd",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw0_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 76,
+     "key": "03f52f618ee20224",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_friction+rw3_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 77,
+     "key": "7c0f09b74b3c58db",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 63,
+     "key": "77dca83eb7b23771",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 140,
+     "key": "e18a89b7476addc6",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 214,
+     "key": "8d3705516a4b5cfa",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 102,
+     "key": "e1f20e3c647e6097",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 203,
+     "key": "3b7b9076b275b5ea",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 31,
+     "key": "e761cf6811c7de4c",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 56,
+     "key": "2de2478f1da96732",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 159,
+     "key": "412cabe8414af6fd",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 216,
+     "key": "a10ffd03876e3564",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 261,
+     "key": "82c3e26b10d2c8d1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 93,
+     "key": "5bb8242098fac6b6",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 281,
+     "key": "60b0978dedee0bf8",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw2_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 82,
+     "key": "2af8c83f87822382",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 92,
+     "key": "65f192ce0212e39d",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 189,
+     "key": "788039aac4514dff",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 281,
+     "key": "87d5a37fc8f36ff4",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 101,
+     "key": "c054252f03c58cc7",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 106,
+     "key": "5bd8d64056fa9ced",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 123,
+     "key": "88788f4d0b0d700b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 129,
+     "key": "62ff87be2f264f18",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 144,
+     "key": "89e266d53ab16923",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 179,
+     "key": "62ff87be2f264f18",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 196,
+     "key": "89e266d53ab16923",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 202,
+     "key": "88788f4d0b0d700b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 218,
+     "key": "62ff87be2f264f18",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 230,
+     "key": "0ba55bbccfb5d8aa",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 98,
+     "key": "9cba6a0558425236",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 137,
+     "key": "ab5c3c0e65d4e3a1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 202,
+     "key": "22ee949dc86d25f6",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 83,
+     "key": "ae0864fb4df05566",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 213,
+     "key": "56de8f4a752b8a14",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 224,
+     "key": "724191722ae0fefc",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 240,
+     "key": "983737d60438fd82",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 268,
+     "key": "56f6185e65ed7487",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 90,
+     "key": "fdc36788be728ace",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 221,
+     "key": "8f82e673868aba53",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 299,
+     "key": "998691e76b3764be",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 230,
+     "key": "3dbec4b4b0e3e037",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- rw0_torque_derate+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 98,
+     "key": "a3fdab4cc9d105f0",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 2,
+     "key": "bb26a8f4bb6a6817",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 111,
+     "key": "dc28de0d032fe339",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 259,
+     "key": "9f88dbdae2cbf0e9",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 102,
+     "key": "9d1b442b4b527dc5",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 12,
+     "key": "448dbe38c6cf5b2c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 292,
+     "key": "b1ad0e106ace51fc",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 42,
+     "key": "5c84176400ef9ada",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 118,
+     "key": "f505173542726764",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 239,
+     "key": "25106c0fdb6caa30",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 248,
+     "key": "9a72fe1939b13017",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 257,
+     "key": "2cd794468284c751",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 273,
+     "key": "705b5c3e2a650e11",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 281,
+     "key": "4a2b1b12b89c8acb",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 289,
+     "key": "cb2bc602235a99f0",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 27,
+     "key": "2c18aaf762db19f8",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 34,
+     "key": "685f744af9c8be74",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 212,
+     "key": "10e3d732be5ee061",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 15,
+     "key": "47a954f0be885e6a",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 211,
+     "key": "75de82b1816162d7",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 69,
+     "key": "5c791995656be61d",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 276,
+     "key": "b6a201e08b9d8744",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+rw2_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 115,
+     "key": "c99ee71aec73eeac",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 130,
+     "key": "5e148de1c7c66c4e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 117,
+     "key": "3cf2e6d10b8a7155",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 239,
+     "key": "3373241713b80380",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw0_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 123,
+     "key": "30b3b8c27a5686e2",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 179,
+     "key": "f036734075a2d37d",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 183,
+     "key": "8f91c484a394be2c",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 187,
+     "key": "7480b2be69f57fb3",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 209,
+     "key": "2f5f037ce9e79a9c",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 19,
+     "key": "e2eec82d24464603",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 22,
+     "key": "82ba45e44b69c370",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 97,
+     "key": "fd153d906a9d6e36",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 158,
+     "key": "6129e3d584abf4d0",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 33,
+     "key": "d14de054bef7c2bd",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 81,
+     "key": "35a9b159512f02f5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 125,
+     "key": "8922ab77884c1096",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 286,
+     "key": "0fc43aecefa1ce4b",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- rw0_friction+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 126,
+     "key": "631e800f6b800e55",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 199,
+     "key": "3b19545e59ed96a6",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 134,
+     "key": "e8fd162c060f9b0e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 119,
+     "key": "dfde430f997f84fd",
+     "policy_induced": true
+    }
+   ],
+   "random": [
+    {
+     "seed": 1,
+     "id": 218,
+     "key": "1ca65cbab71193bb",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Y+rw0_friction+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 128,
+     "key": "da312909d6c9726a",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 125,
+     "key": "065d044eede20458",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 130,
+     "key": "3fdddcae3438fef4",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 173,
+     "key": "bdd14a29ec0645c7",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 75,
+     "key": "82e8c7944ef5e647",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 45,
+     "key": "e59452ab806df015",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 132,
+     "key": "83011afc427d364d",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 61,
+     "key": "a2b1216f533dcd53",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 238,
+     "key": "a5196c9322540b4e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 140,
+     "key": "e343b48d30ef8af6",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 267,
+     "key": "16d2c19d1a390da0",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 12,
+     "key": "591f71190c3876e3",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 12,
+     "key": "a80706830d7c907e",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 20,
+     "key": "2abc802bb59f5f4f",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 140,
+     "key": "58f9d838a7a7a8f9",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 149,
+     "key": "3800ed12aba64513",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 221,
+     "key": "8661869474f5a1f1",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 244,
+     "key": "7fdd8ce5ce41350f",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_torque_derate+rw3_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 141,
+     "key": "6d33868f929a021b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 188,
+     "key": "01a412b54306db36",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 196,
+     "key": "8a5158f3648db3a1",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 50,
+     "key": "1227cbf870292c2c",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_friction+rw1_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 151,
+     "key": "a572e5b8ff1c137a",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 168,
+     "key": "84fa5449a80cc8c3",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 239,
+     "key": "4bbe5373c0341825",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 296,
+     "key": "9b12cfe22e77adfa",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 105,
+     "key": "7583d26ffa5cf404",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_friction+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 154,
+     "key": "0f79f60280a4e09a",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 156,
+     "key": "2a4eceb5bad133bc",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Z+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 167,
+     "key": "1b238633de309118",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 170,
+     "key": "0f7f8481e88ef199",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- rw0_torque_derate+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 181,
+     "key": "4a27bfb7fe884b39",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 107,
+     "key": "e97056dba91e731b",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 46,
+     "key": "471731b57cf29919",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 279,
+     "key": "73d37ed73ea14a4c",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 45,
+     "key": "9ddc37ce8c703400",
+     "policy_induced": false
+    },
+    {
+     "seed": 0,
+     "id": 151,
+     "key": "8f8831bd1d59e014",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 182,
+     "key": "8e0926c879a4ad1e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_friction+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 192,
+     "key": "9de189e5e08404c2",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 162,
+     "key": "b14a46ffc76f44b7",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 12,
+     "key": "e78e76ea4f5b70e1",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 181,
+     "key": "5fdb199268312526",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 195,
+     "key": "45ac02f75abc70b4",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw2_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 203,
+     "key": "091455c9ae253130",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 231,
+     "key": "5f768d35ba598458",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 105,
+     "key": "b09d4ec4b012fb10",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 119,
+     "key": "d370acf7d81ef623",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 140,
+     "key": "d3730cadbb2d840b",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 151,
+     "key": "61bd406439f613b4",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- rw1_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 206,
+     "key": "da14ac7dcda4555b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 231,
+     "key": "391c0071ab0bd8e6",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 17,
+     "key": "2c909482712e47a3",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 70,
+     "key": "bfbc360d2ef0651e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 78,
+     "key": "ac5d4c777e502708",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 112,
+     "key": "d188a1b9fec455ce",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 212,
+     "key": "84b80fee82af8833",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 28,
+     "key": "b088df2a4afae41a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 32,
+     "key": "16af26359f581314",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 71,
+     "key": "3caa461499950fa7",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 89,
+     "key": "40bb371671340842",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 255,
+     "key": "5d9149ffa684c781",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 20,
+     "key": "c750e2befe76ebe0",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 75,
+     "key": "f4a8da0d94be8771",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 83,
+     "key": "82067fc487cabf38",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 9,
+     "key": "eeb3af710de4724e",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 75,
+     "key": "588019f195db5fe5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 135,
+     "key": "0791e76ea7ee339f",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 156,
+     "key": "c2e2e9d976fbcdc5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 251,
+     "key": "351e68537a766d0a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 4,
+     "key": "f8e92cdca232b1cd",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 73,
+     "key": "e023ef05a102eecb",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 117,
+     "key": "0618469a323da08b",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 215,
+     "key": "4eaa0e043e1fc398",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 229,
+     "key": "9605878446fe992c",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw2_friction+rw3_friction": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 225,
+     "key": "ef2fbe741589a244",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 113,
+     "key": "1728c0705764e0ee",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 131,
+     "key": "b6d1d85c4925f69f",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 126,
+     "key": "1df52061afaa3d39",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 215,
+     "key": "186c523692e22a3c",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 259,
+     "key": "7f550704d417db7c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 103,
+     "key": "6cfdaa0316fcbb99",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 105,
+     "key": "e5d9f460e86a877c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 112,
+     "key": "a293034327b73583",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 169,
+     "key": "edf4d397035b0cad",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 187,
+     "key": "b84db9a41259ea7f",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 260,
+     "key": "edf4d397035b0cad",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Y+rw1_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 0,
+     "id": 228,
+     "key": "bbdb86247c39667e",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 291,
+     "key": "f428523c1f355b70",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak-Y+rw1_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 22,
+     "key": "6290a36644eb9db0",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Y+rw1_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 23,
+     "key": "851ad4dade833f58",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 84,
+     "key": "cb272e2edbb326f9",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+X+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 54,
+     "key": "f7338b4a2949083d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_torque_derate+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 56,
+     "key": "470ecbdc47aad4ec",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 201,
+     "key": "0beb880a4685f595",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 222,
+     "key": "5bf398fbecf2d957",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 141,
+     "key": "19e3e9b6d2f9bbc5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 196,
+     "key": "6cc008993e6496bc",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 80,
+     "key": "b59d9e34993c0041",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 99,
+     "key": "6f494015bc06f3a1",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 118,
+     "key": "4f8ebd550dd32a36",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 85,
+     "key": "7509a0c7a80f4561",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- rw0_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 91,
+     "key": "9f4e568722463ace",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 295,
+     "key": "096b91eb78312da0",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 126,
+     "key": "dd4b234de793f057",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 94,
+     "key": "28377ea121adbf8d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak-Y+rw0_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 100,
+     "key": "0a3db99fce957dff",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 103,
+     "key": "d6400672ff0b3f68",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 157,
+     "key": "7b08ad9bdc438201",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 105,
+     "key": "26158a9c38e7fde5",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 233,
+     "key": "66d7e598534d9c13",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 109,
+     "key": "b8aa55fda0b3a05a",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw0_friction+rw1_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 117,
+     "key": "f45560507045eb37",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 247,
+     "key": "8c03bffb199a4d2b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw2_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 123,
+     "key": "706096025cfc7712",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 138,
+     "key": "14577fa3cb93377f",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 221,
+     "key": "48e5e3703459f7ad",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 28,
+     "key": "1d9a653c4b3854ef",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 123,
+     "key": "ffb9cba467204d99",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 231,
+     "key": "37f6eff40ae2bc53",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 270,
+     "key": "511bf37b85acafd6",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 177,
+     "key": "2e96cc9e677c289a",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 193,
+     "key": "6ed89a7595af4d68",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw1_torque_derate+rw3_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 195,
+     "key": "c8c51804732e49c1",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 44,
+     "key": "eece42a61680ac0c",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 230,
+     "key": "8748416f2b8dfbd3",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 293,
+     "key": "d83250e82d3c7bcd",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw2_friction+rw3_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 241,
+     "key": "75dcabf17b608f5e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 219,
+     "key": "32821cbb79cbbc57",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 182,
+     "key": "0f0ae16815772b2a",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 167,
+     "key": "620d054b341dbb83",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak-X+rw0_friction+rw3_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 266,
+     "key": "e380fb67d3b6c8b8",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 171,
+     "key": "3b5e752cfad456ec",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw1_torque_derate+rw2_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 269,
+     "key": "b8f7adbf6f008a50",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 77,
+     "key": "bab4c5ad0f47913c",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 211,
+     "key": "f4e2a803c477fab5",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 197,
+     "key": "7165f44a44a5d017",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Z+rw0_friction": {
+   "muse": [
+    {
+     "seed": 1,
+     "id": 276,
+     "key": "87f25d941f9c2187",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw0_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 70,
+     "key": "81ad5688a814ef13",
+     "policy_induced": true
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 133,
+     "key": "976435450a3a157b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+rw2_friction+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 78,
+     "key": "194f868e5416aff8",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 155,
+     "key": "54fadceeaab3c3cd",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw1_torque_derate+rw3_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 175,
+     "key": "6782ae6a3a3a0228",
+     "policy_induced": false
+    }
+   ],
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 239,
+     "key": "50a79816a28463dd",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 260,
+     "key": "8f9528f5a4a2fa45",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak-Z+rw2_torque_derate": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 261,
+     "key": "2c84d90ef73669f8",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw3_friction": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 263,
+     "key": "93ff51b67faaf2a5",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction": {
+   "muse": [
+    {
+     "seed": 2,
+     "id": 292,
+     "key": "ec6abf0a2692f33d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 12,
+     "key": "87dd9add1bcd1310",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 35,
+     "key": "ba701c4815f7ccad",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 58,
+     "key": "2a7fb12028edd567",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 131,
+     "key": "6b862857c3eedd95",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 139,
+     "key": "2a7fb12028edd567",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 147,
+     "key": "0762c4897e56f2b5",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 209,
+     "key": "2a7fb12028edd567",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw1_friction": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 64,
+     "key": "7efa19ba77041aa1",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 81,
+     "key": "0de2aa71d8866e5e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak-Z+rw1_friction": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 82,
+     "key": "b297ea9210cd485c",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 89,
+     "key": "3c870141a0c73fda",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 170,
+     "key": "e4b917daf0bed27b",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 171,
+     "key": "5bef02338de41b14",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 217,
+     "key": "41ae054d9abd4a45",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 94,
+     "key": "e6c306652aafa284",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 77,
+     "key": "4074bfb26bf855f9",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 96,
+     "key": "aa968d7c170359f6",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 107,
+     "key": "2cc0116bfe8703da",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 119,
+     "key": "59fcb7c07d82e479",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 284,
+     "key": "d099b40ce7a6c1ae",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 132,
+     "key": "2cc0ce62bca459a5",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 147,
+     "key": "4a84b5cf255fc83b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw1_friction+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 149,
+     "key": "d912cf871b5b0e17",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 166,
+     "key": "e39980de680fa57d",
+     "policy_induced": true
+    },
+    {
+     "seed": 1,
+     "id": 85,
+     "key": "aa3bbc018cfe052d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 172,
+     "key": "d4b03034a5aa13e6",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 186,
+     "key": "d374b5240f44e223",
+     "policy_induced": true
+    },
+    {
+     "seed": 0,
+     "id": 209,
+     "key": "840a6c4233b0dcda",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw1_friction+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 0,
+     "id": 192,
+     "key": "db9d75cdfeb7d9bf",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 271,
+     "key": "e220bb31db20e87d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 5,
+     "key": "e0153766e9b82551",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 67,
+     "key": "8c8efadee6eb1282",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 130,
+     "key": "6943bf06175010c1",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 178,
+     "key": "12ecbd481ed02565",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 19,
+     "key": "096da433a2d05082",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 73,
+     "key": "2fefd2ac2436740d",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 96,
+     "key": "d2c130cac0512813",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 112,
+     "key": "c4214f058b0a677d",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 136,
+     "key": "f146d94fc4d550be",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 145,
+     "key": "290fd1e3c381760c",
+     "policy_induced": false
+    },
+    {
+     "seed": 1,
+     "id": 258,
+     "key": "71ff226f6474eb9c",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 86,
+     "key": "5cb185d88520e4f8",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-X+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 151,
+     "key": "48909f2164d323fc",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 166,
+     "key": "ea1c121d09959b5a",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw2_friction+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 198,
+     "key": "bad01b4133d29d43",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 1,
+     "id": 219,
+     "key": "ecb80e1c164b3427",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- rw1_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 36,
+     "key": "fff0689d94e2c92e",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 42,
+     "key": "e993ccc353266c9b",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 107,
+     "key": "7a03310799f02d57",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 217,
+     "key": "e993ccc353266c9b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 50,
+     "key": "863005e84a00d6d2",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 74,
+     "key": "ea577717edbdd89e",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 153,
+     "key": "863005e84a00d6d2",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 185,
+     "key": "863005e84a00d6d2",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 53,
+     "key": "627d2e53c25924e9",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 135,
+     "key": "fe87d3a5eb3b9ef0",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 246,
+     "key": "917a11c5888fcc61",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 54,
+     "key": "6cae6b8d7df70d98",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+X+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 55,
+     "key": "0b19913785a7c718",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 71,
+     "key": "1d03f51d51bf6657",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 76,
+     "key": "c4668f8c69b0e644",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 89,
+     "key": "dd194d6f0cdab55a",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 138,
+     "key": "dd194d6f0cdab55a",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 146,
+     "key": "81def325d66644e1",
+     "policy_induced": false
+    },
+    {
+     "seed": 2,
+     "id": 200,
+     "key": "dadadbef76dece3d",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 248,
+     "key": "856b3ca3aab148c6",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw1_torque_derate+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 110,
+     "key": "c5ea832f5dbc75ae",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_friction+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 111,
+     "key": "2080d8e5307f09b2",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw1_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 120,
+     "key": "746945bc3472f7ae",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 142,
+     "key": "05a8331dbbcda893",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 172,
+     "key": "473a8c7e15894996",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 151,
+     "key": "ba22e6196157973a",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 152,
+     "key": "73340a2db499042c",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 160,
+     "key": "e4581e267ddaa6fd",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 170,
+     "key": "8505f4f740cb4a01",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 240,
+     "key": "619a38daf8226f94",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 257,
+     "key": "1373aea6dd0bd0a5",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 280,
+     "key": "ea85227a79c37096",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 288,
+     "key": "619a38daf8226f94",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 298,
+     "key": "ef72466a55e328c9",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 156,
+     "key": "527726c24eee123f",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 157,
+     "key": "bb2be42fd5f85760",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 165,
+     "key": "940bea0f431da797",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+Z+rw1_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 191,
+     "key": "7a6bf51c68e419ff",
+     "policy_induced": true
+    },
+    {
+     "seed": 2,
+     "id": 195,
+     "key": "924d816fa627a781",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-X+rw0_friction+rw2_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 196,
+     "key": "4c8a244b9ed8051e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- heater+leak+X+rw0_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 227,
+     "key": "5f7044c317af033e",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+Z+rw0_torque_derate+rw3_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 262,
+     "key": "eeea97905a9505d1",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Y+rw0_friction+rw2_friction": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 267,
+     "key": "93e5c4a589766a0d",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 283,
+     "key": "c6a72c9b8fc646de",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 287,
+     "key": "f219ca405dcafb8b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "attitude_loss <- leak-Z+rw1_torque_derate+rw2_torque_derate": {
+   "museblind": [
+    {
+     "seed": 2,
+     "id": 293,
+     "key": "d8cda7184a10034a",
+     "policy_induced": false
+    }
+   ]
+  },
+  "wheel_saturation <- leak-Y+rw2_friction": {
+   "random": [
+    {
+     "seed": 0,
+     "id": 9,
+     "key": "3729add9318ab47d",
+     "policy_induced": false
+    }
+   ]
+  },
+  "attitude_loss <- leak-X+rw1_friction+rw2_friction": {
+   "random": [
+    {
+     "seed": 1,
+     "id": 14,
+     "key": "00ad8cb690f34a1b",
+     "policy_induced": true
+    }
+   ]
+  },
+  "wheel_saturation <- leak+Z+rw1_friction": {
+   "random": [
+    {
+     "seed": 2,
+     "id": 165,
+     "key": "5a60292d9fd08fcd",
+     "policy_induced": false
+    }
+   ]
+  }
+ },
+ "only_in_arm": {
+  "cmaes": [
+   "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction",
+   "wheel_saturation <- rw0_friction+rw1_friction"
+  ],
+  "muse": [
+   "attitude_loss <- heater+leak+X+rw3_torque_derate",
+   "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+   "attitude_loss <- heater+leak+Z+rw2_friction",
+   "attitude_loss <- heater+rw1_torque_derate",
+   "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+   "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+   "attitude_loss <- leak+X+rw2_friction",
+   "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+   "attitude_loss <- leak+Y+rw1_torque_derate+rw3_torque_derate",
+   "attitude_loss <- leak+Z+rw3_friction",
+   "attitude_loss <- leak-Z+rw2_torque_derate",
+   "attitude_loss <- rw0_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+   "wheel_saturation <- heater+leak-Y+rw1_friction",
+   "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+X",
+   "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+X+rw2_friction",
+   "wheel_saturation <- leak+Y",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+   "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak-Z+rw0_friction",
+   "wheel_saturation <- leak-Z+rw2_friction",
+   "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- rw1_friction+rw2_torque_derate",
+   "wheel_saturation <- rw1_friction+rw3_torque_derate"
+  ],
+  "museblind": [
+   "attitude_loss <- heater+leak+X+rw3_friction",
+   "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+   "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+   "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+   "attitude_loss <- heater+leak+Z+rw1_friction",
+   "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+   "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+   "attitude_loss <- heater+leak+Z+rw2_torque_derate",
+   "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+   "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+   "attitude_loss <- leak+Z+rw0_torque_derate+rw3_friction",
+   "attitude_loss <- leak+Z+rw1_torque_derate+rw3_torque_derate",
+   "attitude_loss <- leak+Z+rw2_friction+rw3_friction",
+   "attitude_loss <- leak+Z+rw2_torque_derate",
+   "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+   "attitude_loss <- leak-Z+rw1_torque_derate+rw2_torque_derate",
+   "attitude_loss <- rw1_friction+rw2_torque_derate",
+   "attitude_loss <- rw1_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+X",
+   "wheel_saturation <- heater+leak+X+rw0_friction",
+   "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+   "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+   "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+   "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+Z+rw1_friction",
+   "wheel_saturation <- heater+leak-Z+rw1_friction",
+   "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+rw3_friction",
+   "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+   "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+Y+rw1_friction",
+   "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+   "wheel_saturation <- leak-X+rw2_torque_derate",
+   "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate"
+  ],
+  "random": [
+   "attitude_loss <- leak-X+rw1_friction+rw2_friction",
+   "wheel_saturation <- leak+Z+rw1_friction",
+   "wheel_saturation <- leak-Y+rw2_friction"
+  ]
+ },
+ "only_in_arm_policy_induced": {
+  "cmaes": [
+   "wheel_saturation <- heater+leak+X+rw1_friction+rw3_friction",
+   "wheel_saturation <- rw0_friction+rw1_friction"
+  ],
+  "muse": [
+   "attitude_loss <- heater+leak+X+rw3_torque_derate",
+   "attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate",
+   "attitude_loss <- heater+leak+Z+rw2_friction",
+   "attitude_loss <- heater+rw1_torque_derate",
+   "attitude_loss <- leak+X+rw0_friction+rw1_friction",
+   "attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate",
+   "attitude_loss <- leak+X+rw2_friction",
+   "attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate",
+   "attitude_loss <- leak+Z+rw3_friction",
+   "wheel_saturation <- heater+leak+X+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+leak-Y+rw0_torque_derate",
+   "wheel_saturation <- heater+leak-Y+rw1_friction",
+   "wheel_saturation <- heater+rw2_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+X+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+X+rw1_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+X+rw1_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction",
+   "wheel_saturation <- leak-Y+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- rw1_friction+rw2_torque_derate",
+   "wheel_saturation <- rw1_friction+rw3_torque_derate"
+  ],
+  "museblind": [
+   "attitude_loss <- heater+leak+X+rw3_friction",
+   "attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+   "attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate",
+   "attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction",
+   "attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction",
+   "attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction",
+   "attitude_loss <- leak+X+rw0_torque_derate+rw3_friction",
+   "attitude_loss <- leak+X+rw1_friction+rw3_torque_derate",
+   "attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+   "attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+   "attitude_loss <- leak-X+rw0_friction+rw3_torque_derate",
+   "attitude_loss <- rw0_torque_derate+rw1_friction",
+   "wheel_saturation <- heater+leak+X",
+   "wheel_saturation <- heater+leak+X+rw0_friction",
+   "wheel_saturation <- heater+leak+X+rw0_friction+rw1_friction",
+   "wheel_saturation <- heater+leak+X+rw1_torque_derate",
+   "wheel_saturation <- heater+leak+X+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+Y+rw0_friction+rw3_friction",
+   "wheel_saturation <- heater+leak+Y+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- heater+leak+Z+rw1_friction",
+   "wheel_saturation <- heater+leak-Z+rw1_friction",
+   "wheel_saturation <- heater+rw1_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- heater+rw3_friction",
+   "wheel_saturation <- leak+X+rw0_friction+rw3_friction",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw2_friction",
+   "wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+X+rw1_friction+rw3_friction",
+   "wheel_saturation <- leak+X+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw0_friction+rw2_friction",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+Y+rw0_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+Y+rw1_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw1_torque_derate+rw2_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_friction+rw3_torque_derate",
+   "wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak+Z+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak+Z+rw2_torque_derate",
+   "wheel_saturation <- leak+Z+rw2_torque_derate+rw3_torque_derate",
+   "wheel_saturation <- leak-X+rw0_friction+rw2_friction",
+   "wheel_saturation <- leak-Y+rw0_torque_derate+rw1_torque_derate",
+   "wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate"
+  ],
+  "random": [
+   "attitude_loss <- leak-X+rw1_friction+rw2_friction"
+  ]
+ },
+ "common_seeds": [
+  0,
+  1,
+  2
+ ],
+ "head_to_head": {
+  "cmaes": {
+   "0": {
+    "violations_per_sim": 0.1853448275862069,
+    "sims_to_first_violation": 4,
+    "unique_patterns_coarse": 2,
+    "unique_patterns_fine": 4,
+    "unique_patterns_policy_induced": 4,
+    "unique_patterns_policy_induced_in_scope": 4,
+    "out_of_scope_share": 0.0
+   },
+   "1": {
+    "violations_per_sim": 0.04,
+    "sims_to_first_violation": 154,
+    "unique_patterns_coarse": 3,
+    "unique_patterns_fine": 4,
+    "unique_patterns_policy_induced": 4,
+    "unique_patterns_policy_induced_in_scope": 4,
+    "out_of_scope_share": 0.0
+   },
+   "2": {
+    "violations_per_sim": 0.013333333333333334,
+    "sims_to_first_violation": 157,
+    "unique_patterns_coarse": 2,
+    "unique_patterns_fine": 2,
+    "unique_patterns_policy_induced": 2,
+    "unique_patterns_policy_induced_in_scope": 2,
+    "out_of_scope_share": 0.0
+   }
+  },
+  "muse": {
+   "0": {
+    "violations_per_sim": 0.3879310344827586,
+    "sims_to_first_violation": 4,
+    "unique_patterns_coarse": 19,
+    "unique_patterns_fine": 40,
+    "unique_patterns_policy_induced": 28,
+    "unique_patterns_policy_induced_in_scope": 19,
+    "out_of_scope_share": 0.2777777777777778
+   },
+   "1": {
+    "violations_per_sim": 0.31666666666666665,
+    "sims_to_first_violation": 3,
+    "unique_patterns_coarse": 20,
+    "unique_patterns_fine": 43,
+    "unique_patterns_policy_induced": 31,
+    "unique_patterns_policy_induced_in_scope": 19,
+    "out_of_scope_share": 0.3157894736842105
+   },
+   "2": {
+    "violations_per_sim": 0.31333333333333335,
+    "sims_to_first_violation": 10,
+    "unique_patterns_coarse": 17,
+    "unique_patterns_fine": 34,
+    "unique_patterns_policy_induced": 26,
+    "unique_patterns_policy_induced_in_scope": 17,
+    "out_of_scope_share": 0.2765957446808511
+   }
+  },
+  "museblind": {
+   "0": {
+    "violations_per_sim": 0.46551724137931033,
+    "sims_to_first_violation": 5,
+    "unique_patterns_coarse": 23,
+    "unique_patterns_fine": 40,
+    "unique_patterns_policy_induced": 31,
+    "unique_patterns_policy_induced_in_scope": 22,
+    "out_of_scope_share": 0.25925925925925924
+   },
+   "1": {
+    "violations_per_sim": 0.42,
+    "sims_to_first_violation": 6,
+    "unique_patterns_coarse": 19,
+    "unique_patterns_fine": 35,
+    "unique_patterns_policy_induced": 26,
+    "unique_patterns_policy_induced_in_scope": 15,
+    "out_of_scope_share": 0.20634920634920634
+   },
+   "2": {
+    "violations_per_sim": 0.46,
+    "sims_to_first_violation": 4,
+    "unique_patterns_coarse": 21,
+    "unique_patterns_fine": 55,
+    "unique_patterns_policy_induced": 47,
+    "unique_patterns_policy_induced_in_scope": 31,
+    "out_of_scope_share": 0.37681159420289856
+   }
+  },
+  "random": {
+   "0": {
+    "violations_per_sim": 0.008620689655172414,
+    "sims_to_first_violation": 10,
+    "unique_patterns_coarse": 1,
+    "unique_patterns_fine": 2,
+    "unique_patterns_policy_induced": 0,
+    "unique_patterns_policy_induced_in_scope": 0,
+    "out_of_scope_share": 0.0
+   },
+   "1": {
+    "violations_per_sim": 0.006666666666666667,
+    "sims_to_first_violation": 15,
+    "unique_patterns_coarse": 2,
+    "unique_patterns_fine": 2,
+    "unique_patterns_policy_induced": 2,
+    "unique_patterns_policy_induced_in_scope": 2,
+    "out_of_scope_share": 0.0
+   },
+   "2": {
+    "violations_per_sim": 0.0033333333333333335,
+    "sims_to_first_violation": 166,
+    "unique_patterns_coarse": 1,
+    "unique_patterns_fine": 1,
+    "unique_patterns_policy_induced": 0,
+    "unique_patterns_policy_induced_in_scope": 0,
+    "out_of_scope_share": 0.0
+   }
+  }
+ }
+}
