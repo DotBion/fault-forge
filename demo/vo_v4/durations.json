@@ -1,10 +1,10 @@
 {
  "s1": {
-  "vo_s": 32.907,
-  "seg_s": 36,
+  "vo_s": 35.557,
+  "seg_s": 40,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "dce151edc8d1"
+  "hash": "c83eb4cc4af8"
  },
  "s2": {
   "vo_s": 13.551,
@@ -14,11 +14,11 @@
   "hash": "147afdfdb6ec"
  },
  "s3": {
-  "vo_s": 15.627,
+  "vo_s": 15.558,
   "seg_s": 21,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "545744f1ad66"
+  "hash": "8c7e8e4cd095"
  },
  "s4": {
   "vo_s": 24.714,
@@ -28,24 +28,24 @@
   "hash": "a1db47cf3824"
  },
  "s5": {
-  "vo_s": 23.941,
-  "seg_s": 25.141,
+  "vo_s": 20.001,
+  "seg_s": 22,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "3473207efbbd"
+  "hash": "ee1f8cd4e536"
  },
  "s6": {
-  "vo_s": 32.481,
-  "seg_s": 33.681,
+  "vo_s": 23.103,
+  "seg_s": 24.303,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "ea572ecb2ed9"
+  "hash": "5551a78652c9"
  },
  "s7": {
-  "vo_s": 15.821,
-  "seg_s": 17.021,
+  "vo_s": 17.394,
+  "seg_s": 18.594,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "2490f60f8802"
+  "hash": "d98f033fdfdc"
  }
 }

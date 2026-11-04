@@ -160,19 +160,24 @@ def _ratio(x, y):
 
 
 RATIO = _ratio(BF["muse_vps"], BF["rnd_vps"])
+_LJ = J("data", "live", os.path.basename(LIVE_JSON))
+LIVE_N, LIVE_V = len(_LJ["runs"]), sum(bool(r.get("violated")) for r in _LJ["runs"])
+_MA = (BF["matched"] or {}).get("all", {})
+MV = lambda a: _MA[a]["violations_per_sim"]
 
 SEGMENTS = [
-    dict(id="s1", name="The failure: minimized a6e8087b, full policy vs isolation-only suppressed", nominal=36,
-         visual="Split-screen Basilisk replay of minimized case a6e8087b (demo/data/hl4_*.csv): left full v1 policy "
+    dict(id="s1", name="The failure: minimized a6e8087b, full policy vs isolation-only suppressed", nominal=40,
+         visual="Opening card (no hash, no 'minimized'): 'A spacecraft's own recovery logic can turn a survivable fault "
+                "combination into a lost one. FaultForge finds those cases.' Then split-screen Basilisk replay of minimized case a6e8087b (demo/data/hl4_*.csv): left full v1 policy "
                 "(isolates RW0 at 120 s, cannot isolate dead RW1, attitude loss), right same policy with ONLY isolation "
                 "suppressed. End card leads with the safety-rule metric: longest stretch > 30 deg 9,645 s vs 30 s "
                 "(limit 1,200 s); 24-case sweep 24/24 vs 0/24; then peak 180 vs 137 deg with context. Footnote: "
                 "minimized case; original run 173 also fails with the policy off.",
-         vo="Here's a minimized case Muse found: two faults. Wheel zero gets mild friction, and the policy isolates "
-            "it, spending its only isolation. Minutes later wheel one dies; it can't be isolated, so it stays in the "
-            "loop. On the right, the same policy with only isolation switched off. The rule: at most twenty minutes "
-            "beyond thirty degrees. Full policy: nine thousand six hundred forty-five seconds in one stretch. "
-            "Isolation off: thirty. Twenty-four nearby variants: twenty-four failures versus zero."),
+         vo="A spacecraft's own recovery logic can turn a survivable fault combination into a lost one. FaultForge "
+            "finds those cases. Here's one, minimized to two faults. Wheel zero gets mild friction; the policy isolates "
+            "it, spending its only isolation. Then wheel one dies, and can't be isolated. On the right, only isolation "
+            "is switched off. The limit: twenty minutes past thirty degrees. Full policy: nine thousand six hundred "
+            "forty-five seconds. Isolation off: thirty. Nearby variants: twenty-four of twenty-four fail, versus zero."),
     dict(id="s2", name="How FaultForge found it: Muse in labeled roles", nominal=12,
          visual="Pipeline card: Muse roles labeled (1 scenario search, 2 blind rule inference, 3 diagnosis, 4 repair "
                 "selection from an engineer-provided menu) vs code steps (Basilisk sim, minimizer, policy-off re-run, "
@@ -182,11 +187,12 @@ SEGMENTS = [
             "plain code."),
     dict(id="s3", name="LIVE take1 (Muse role 1) with request id", nominal=21,
          visual="Real asciinema take demo/live/take1.cast, unedited except a labelled speed-up of the Muse wait; final "
-                "provenance card with response id and x-request-id from data/live/live_2026-11-04T061215Z.json. Note: "
+                "provenance card: main text 'Muse proposed 8 tests -> sim found 2 failures' (counted from the live JSON), "
+                "small footer with model, endpoint, response id and x-request-id from data/live/live_2026-11-04T061215Z.json. Note: "
                 "recorded (non-live) calls have no request ids.",
-         vo="This is a live, unedited run. Muse returns eight fault scenarios as JSON; the wait is sped up and labeled. "
-            "Basilisk simulates all eight, and two break a safety rule. This live call logged its request id. The "
-            "older recorded calls did not."),
+         vo=f"This is a live, unedited run. Muse proposes {say(LIVE_N)} fault scenarios as JSON; the wait is sped up and "
+            f"labeled. Basilisk simulates all {say(LIVE_N)}, and {say(LIVE_V)} break a safety rule. The request id is in "
+            "the footer; the older recorded calls have none."),
     dict(id="s4", name="Defect classes D1-D3 + D4 tie-break bug, with counts and replay commands", nominal=26,
          visual="Four cards from data/satfix/defects.json: D1 isolation lock-in 254, D2 isolates a still-needed wheel "
                 "19, D3 safe-mode chattering 3, D4 implementation bug: same-step threshold crossings resolved by wheel "
@@ -196,32 +202,34 @@ SEGMENTS = [
             f"Safe-mode chattering: {say(DF['d3'])}. And FaultForge surfaced a bug in the policy itself: when two "
             f"wheels cross the threshold in the same step, it picks by wheel index, not residual. {DF['tie']} cases. "
             "Each has a one-command replay."),
-    dict(id="s5", name="Chart 1: benchmarks (viol/sim, coarse signatures, matched-random slot)", nominal=22,
-         visual="Chart 1 (two panels, data/cmp/summary.json): violations per sim per arm (Muse 0.283, random 0.006, "
-                "~46x) and distinct fault-combination signatures (coarse; Muse 15.7 vs CMA-ES 1.7). A clearly marked "
-                "MATCHED RANDOM slot: filled from data/matched/summary.json if it exists at render time, else "
-                "'pending'. Blind-vs-informed labelled hypothesis.",
-         vo=(f"Equal budgets, three seeds: Muse finds {BF['muse_vps']:.3f} violations per simulation, random "
-             f"{BF['rnd_vps']:.3f}, and about {BF['muse_sig']:.0f} fault-combination signatures; CMA-ES under two. "
-             + MATCHED_VO) if (BF["matched"] and "matchall" in BF["matched"].get("arms", {})) else
-            (f"Against baselines, equal budgets, three seeds: Muse finds {BF['muse_vps']:.3f} violations per simulation, "
-             f"random {BF['rnd_vps']:.3f}, about {RATIO:.0f} times more. Muse finds about "
-             f"{BF['muse_sig']:.0f} distinct fault-combination signatures; CMA-ES under two. " + MATCHED_VO)),
-    dict(id="s6", name="The gate: strict rejects all; budget accepts b1t1; fresh result; chart 2", nominal=26,
-         visual="Two gates side by side: STRICT (0 new violations) rejected all N; BUDGET (net > 0, <= 3 clean runs "
-                "broken) accepted b1t1 wheel_safe_frac 0.97 / 60 s: 26 fixes, net +24, 1 clean run broken "
-                "(museblind_seed1_28, waived), round 2 rejected. Then chart 2 plots/gated_repair_trend.png with the "
-                "fresh-search result.",
-         vo=f"Repair. Muse selects and parameterizes from an engineer-provided menu, and code decides. The strict gate, "
-            f"zero new violations, rejected all {say(GF['n_sx'])} proposals. The budget gate accepted one: "
-            f"{say(int(_g.get('fixes', 0)))} fixes, net plus {say(int(_g.get('net_fixes', 0)))}, and "
-            f"{say(int(_g.get('clean_to_violating', 0)))} clean run broken, named and waived. " + FRESH_VO),
+    dict(id="s5", name="Chart 1: benchmarks, 4 bars (random, one-shot Muse bank, adaptive Muse, matched random)",
+         nominal=22,
+         visual="One panel, violations per sim (data/cmp/summary.json + data/matched/summary.json), exactly 4 bars: plain "
+                "random, one Muse call + random mutations (no feedback), adaptive closed-loop Muse, and marginals-matched "
+                "random labelled 'samples Muse's learned distribution (needs finished Muse runs)'. Footnote: CMA-ES, "
+                "family-only random, rules-blind Muse (hypothesis). Takeaway: Muse's closed loop discovers where "
+                "failures live.",
+         vo=f"Violations per simulation, equal budgets. Random: {MV('random'):.3f}. One Muse call plus mutations: "
+             f"{MV('oneshot'):.2f}. Muse's closed loop: {MV('muse'):.2f}. Sampling from Muse's finished proposals ties "
+             "it, but needs those runs first. Muse's closed loop discovers where failures live."),
+    dict(id="s6", name="Repair: held-out result first, then strict vs budget gate with the suite arithmetic",
+         nominal=22,
+         visual="Banner: 'Held-out: 4 fixed, 0 newly broken' (same 300 scenarios, v1 vs b1t1, paired). STRICT gate "
+                "(0 new violations) rejected all N. BUDGET gate accepted b1t1 wheel_safe_frac 0.97 / 60 s: fixed 26 "
+                "suite runs; 2 runs gained a new violation (1 already failing, 1 previously clean) -> net 26 - 2 = +24; "
+                "1 clean run broken (museblind_seed1_28, waived). The unpaired fresh-search 38 -> 31 is README-only.",
+         vo=f"Repair. On three hundred held-out scenarios, the accepted patch fixes {say(FRESH['h_fixed'])} and breaks "
+            f"{say(FRESH['h_new']) if FRESH['h_new'] else 'none'}. Muse picks from an engineer-provided menu; code "
+            f"decides. The strict gate rejected all {say(GF['n_sx'])} proposals. The budget gate accepted one: "
+            f"{say(int(_g.get('fixes', 0)))} suite runs fixed, {say(int(_g.get('runs_with_new_violations', 0)))} gained "
+            f"a new violation, net plus {say(int(_g.get('net_fixes', 0)))}. "
+            f"{say(int(_g.get('clean_to_violating', 0))).capitalize()} was clean before; it's named and waived."),
     dict(id="s7", name="Limits + related work + close", nominal=17,
-         visual="Limits list; related work (LLM-Falsifier arXiv 2609.20752, NASA Orion FM verification); 'implemented', "
+         visual="Three limits + 'More in README'; related work (LLM-Falsifier arXiv 2609.20752, NASA Orion FM verification); 'implemented', "
                 "not 'first'; close: git clone ... && make replay.",
-         vo="Limits: one simulated spacecraft, no momentum dumping, thresholds we chose, and blind versus informed "
-            "search is still a hypothesis. This builds on LLM-Falsifier; we implemented the loop for fault protection. "
-            "Clone it and run make replay."),
+         vo="Limits: one simulated spacecraft and our own policy; a sampler matched to Muse's proposals ties it once "
+            "the region is known; and the single-fault grid is the policy's own acceptance test. More in the README. "
+            "This builds on LLM-Falsifier. Clone it and run make replay."),
 ]
 
 
@@ -230,7 +238,7 @@ def to_markdown(durs=None):
     L = ["# FaultForge demo video v4: timed script", "",
          "Generated from `demo/v4_script.py` (`python3 demo/v4_script.py`); edit there, not here.",
          "Timings: nominal seconds, or the rendered length if `demo/vo_v4/durations.json` exists.",
-         "Narration: `demo/make_vo.py --script v4` (edge-tts en-US-AndrewNeural, piper fallback).",
+         "Narration: `demo/make_vo.py --script v4` (edge-tts en-US-AndrewNeural).",
          f"Data at generation time: defects {DF['n']} cases (D1 {DF['d1']}, D2 {DF['d2']}, D3 {DF['d3']}, tie-break "
          f"{DF['tie']}); strict/structural proposals {GF['n_sx']} ({GF['n_sx_rej']} rejected); budget accepted: "
          f"{ACC['name'] if ACC else 'none'}; matched random: "
@@ -255,7 +263,9 @@ def to_markdown(durs=None):
           "random bars are filled only from data/matched/summary.json. MATCHED fam.+params samples each parameter from "
           "the marginals of Muse's own proposals, so it is a hindsight-informed baseline, not an independent method.",
           "- s6 describes the strict and budget gates separately; the budget gate accepts by design up to 3 broken clean "
-          "runs per patch. Only one budget round was accepted (1 waiver in total)."]
+          "runs per patch. Only one budget round was accepted (1 waiver in total). Net +24 = 26 fixed - 2 runs with a "
+          "new violation (museblind_seed1_121 was already failing, museblind_seed1_28 was clean). The unpaired "
+          "fresh-search numbers (38 -> 31 of 100) are in the README, not the video."]
     return "\n".join(L) + "\n"
 
 

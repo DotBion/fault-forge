@@ -9,9 +9,12 @@ Segment ids, lengths and narration live in demo/v4_script.py (lengths: demo/vo_v
       (data/satfix/causal_replay.json, causal_sweep.json), the 137 deg peak only shown with that context.
   s3  real asciinema take demo/live/take1.cast; only the Muse wait is sped up, with a burned-in label.
   s4  defect classes from data/satfix/defects.json (+ tie-break count via src/defects.py).
-  s5  chart 1: benchmarks (data/cmp/summary.json) + a marked matched-random slot (data/matched/summary.json if present).
-  s6  gates from data/gated/*_gate.json; chart 2 = plots/gated_repair_trend.png (`gated_v2.py report`).
-Only two charts: s5 and s6. v3 files are untouched; this writes demo/build_v4/ (not committed) and the mp4.
+  s1  opens on a plain one-sentence card before the hash / the word 'minimized'.
+  s3  ends on 'Muse proposed N tests -> sim found K failures' (counted from the live JSON) + provenance footer.
+  s5  chart 1: exactly 4 bars (random, one-shot Muse bank, closed-loop Muse, marginals-matched random); others footnoted.
+  s6  repair: held-out paired result first, then strict vs budget gate with net = fixes - runs with new violations.
+  s7  three limits + 'More in README'.
+One chart (s5); the unpaired fresh-search numbers are README-only. v3 files are untouched; this writes demo/build_v4/ (not committed) and the mp4.
 Output: demo/faultforge_demo_v4.mp4
 """
 import json, os, subprocess, sys, textwrap
@@ -85,9 +88,20 @@ def s1(D, T):
     s = mv.Seg("s1", {int(0.55 * T * FPS): STILL("s1_mid"), int((T - 0.6) * FPS): STILL("s1_end")}); f = s.fig
     runs = [("full", "FULL v1 POLICY"), ("no_isolate", "SAME POLICY, ONLY ISOLATION SUPPRESSED")]
     Tend = float(tel["full"].t_s.max())
-    T0, T1 = 2.0, T - 9.5
+    T_OP = 6.0                                             # opening card: plain sentence before hash / 'minimized'
+    T0, T1 = T_OP + 1.6, T - 9.5
+    s.stills[int(3.5 * FPS)] = STILL("s1_open")
     for i in range(int(T * FPS)):
         t = i / FPS; f.clf()
+        if t < T_OP:
+            a = fade(t, 0.0, 0.4) * (1 - fade(t, T_OP - 0.5))
+            f.text(0.5, 0.60, "A spacecraft's own recovery logic can turn a\nsurvivable fault combination into a lost one.",
+                   fontsize=44, ha="center", va="center", weight="bold", color=FG, alpha=a, linespacing=1.4)
+            f.text(0.5, 0.38, "FaultForge finds those cases.", fontsize=40, ha="center", va="center", weight="bold",
+                   color=AMBER, alpha=a)
+            f.text(0.5, 0.22, "Basilisk spacecraft simulation  ·  Muse Spark-guided search  ·  gated repair",
+                   fontsize=20, ha="center", color=DIM, alpha=a)
+            s.frame(); continue
         header(f, f"A minimized case Muse found: {hl['key'][:8]}",
                "2 faults: RW0 friction 0.2 @105 s, RW1 dead @505 s · Basilisk, 2 orbits · minimized from Muse seed 1, run 173",
                "demo/data/hl4_{full,no_isolate}.csv (demo/replay_causal_v4.py) · data/satfix/causal_replay.json, "
@@ -127,7 +141,7 @@ def s1(D, T):
                     for axx in (axa, axw):
                         axx.axvline(te, color=col, lw=1.2, alpha=0.8)
         if t < T0 + 0.4:
-            a = 1 - fade(t, T0 - 0.3)
+            a = min(fade(t, T_OP), 1 - fade(t, T0 - 0.3))
             f.text(0.5, 0.50, "Same two faults · one change: isolation suppressed", fontsize=32, ha="center",
                    weight="bold", alpha=a, bbox=dict(fc=BG, ec=CYAN, lw=2, alpha=0.95 * a, pad=18))
         if t > T1 + 0.3:                                       # end card: safety metric FIRST, peak only in context
@@ -223,15 +237,16 @@ def s3(D, T):
                             f"({ts_et:%H:%M} EST)  ·  unedited except the labelled speed-up")
     role = _txt("role", "Muse role 1: scenario search")
     sped = _txt("sped", f"SPED UP {SPEED:.0f}×  —  Muse call in progress (real wait {w1 - w0:.1f} s)")
+    nr = len(lj["runs"])
+    main = _txt("main", f"Muse proposed {nr} tests → sim found {nv} failures")
+    sub = _txt("sub", f"{nv} of {nr} Muse-proposed fault scenarios broke a safety rule in Basilisk (attitude loss)")
     prov = _txt("prov", "\n".join([
-        f"model            {pv['model']}   (requested {pv['model_requested']})",
-        f"endpoint         {pv['endpoint']}",
-        f"response id      {pv['response_id']}",
-        f"{pv.get('request_id_header', 'x-request-id'):<17}{pv['request_id']}",
-        f"HTTP {pv['http_status']}  latency {pv['latency_s']:.1f} s  tokens {pv['usage']['total_tokens']}",
-        f"result           {nv}/{len(lj['runs'])} scenarios violated a safety constraint",
-        f"record           {os.path.relpath(vs.LIVE_JSON, ROOT)}",
-        "note             only this live call has a request id; recorded calls do not"]))
+        f"LIVE META CALL   model {pv['model']} (requested {pv['model_requested']})   endpoint {pv['endpoint']}",
+        f"response id {pv['response_id']}   {pv.get('request_id_header', 'x-request-id')} {pv['request_id']}",
+        f"HTTP {pv['http_status']}   latency {pv['latency_s']:.1f} s   tokens {pv['usage']['total_tokens']} "
+        f"(prompt {pv['usage']['prompt_tokens']}, completion {pv['usage']['completion_tokens']})   "
+        f"record {os.path.relpath(vs.LIVE_JSON, ROOT)}",
+        "only this live call has a request id; recorded calls do not"]))
     take = os.path.join(HERE, "live", "take1.mp4")
     ff = lambda p: p.replace(":", r"\:")
     t_sp0, t_sp1, t_h = a_len, a_len + b_len, live_len
@@ -248,11 +263,17 @@ def s3(D, T):
           f"drawbox=x=380:y=430:w=1160:h=120:color={AMBER}:t=4:enable='between(t,{t_sp0:.3f},{t_sp1:.3f})',"
           f"drawtext=fontfile={FONTB}:textfile={ff(sped)}:x=(w-tw)/2:y=470:fontsize=36:fontcolor={AMBER}:"
           f"enable='between(t,{t_sp0:.3f},{t_sp1:.3f})',"
-          f"drawbox=x=230:y=150:w=1460:h=370:color={BG}@0.93:t=fill:enable='gte(t,{t_h + 0.4:.3f})',"
-          f"drawbox=x=230:y=150:w=1460:h=370:color={CYAN}:t=3:enable='gte(t,{t_h + 0.4:.3f})',"
-          f"drawtext=fontfile={FONTB}:text='Provenance of this live call (from the JSON record it wrote)':"
-          f"x=270:y=175:fontsize=26:fontcolor={CYAN}:enable='gte(t,{t_h + 0.4:.3f})',"
-          f"drawtext=fontfile={FONTM}:textfile={ff(prov)}:x=270:y=225:fontsize=24:line_spacing=10:fontcolor={FG}:"
+          f"drawbox=x=110:y=170:w=1700:h=330:color={BG}@0.94:t=fill:enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawbox=x=110:y=170:w=1700:h=330:color={CYAN}:t=3:enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawtext=fontfile={FONTB}:textfile={ff(main)}:x=(w-tw)/2:y=215:fontsize=64:fontcolor={FG}:"
+          f"enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawtext=fontfile={FONTB}:textfile={ff(sub)}:x=(w-tw)/2:y=315:fontsize=28:fontcolor={AMBER}:"
+          f"enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawtext=fontfile={FONTB}:text='real `make live` output, unedited':x=(w-tw)/2:y=375:fontsize=22:"
+          f"fontcolor={DIM}:enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawbox=x=0:y=930:w={W}:h=150:color={BG}@0.95:t=fill:enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawbox=x=0:y=930:w={W}:h=2:color={CYAN}:t=fill:enable='gte(t,{t_h + 0.4:.3f})',"
+          f"drawtext=fontfile={FONTM}:textfile={ff(prov)}:x=40:y=945:fontsize=21:line_spacing=8:fontcolor={FG}:"
           f"enable='gte(t,{t_h + 0.4:.3f})',format=yuv420p[v]")
     out = os.path.join(BUILD, "s3.mp4")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", take, "-filter_complex", fc, "-map", "[v]",
@@ -314,149 +335,100 @@ def _replay_cmds():
     return out
 
 
-# ------------------------------------------------------------------ s5 chart 1: benchmarks + matched slot
+# ------------------------------------------------------------------ s5 chart 1: benchmarks, exactly 4 bars
 def s5(D, T):
-    S = json.load(open(P("data", "cmp", "summary.json")))["arms"]
-    arms = ["muse", "museblind", "cmaes", "random"]
-    lab = {"muse": "Muse\n(informed)", "museblind": "Muse\n(blind)", "cmaes": "CMA-ES", "random": "random\n(uniform)"}
-    vps = {a: S[a]["mean"]["violations_per_sim"] for a in arms}
-    sig = {a: S[a]["mean"]["unique_patterns_coarse"] for a in arms}
-    M = vs.BF["matched"]
+    A = vs.BF["matched"]["all"]                                   # data/matched/summary.json (includes cmp arms)
+    v = lambda a: A[a]["violations_per_sim"]
+    bars = [("random", "plain random\n(uniform)", GREY, ""),
+            ("oneshot", "1 Muse call\n+ random mutations\n(no feedback)", ORANGE, ""),
+            ("muse", "Muse closed loop\n(adaptive)", AMBER, ""),
+            ("matchall", "marginals-matched random*\nsamples Muse's learned distribution\n(needs finished Muse runs)", GREEN, "//")]
     s = mv.Seg("s5", {int((T - 1) * FPS): STILL("s5_bench")}); f = s.fig
-    cols = {"muse": AMBER, "museblind": ORANGE, "cmaes": CYAN, "random": GREY, "matched": GREEN}
     for i in range(int(T * FPS)):
         t = i / FPS; f.clf(); g = float(np.clip((t - 0.8) / 3.0, 0, 1))
-        header(f, "Chart 1 · Benchmarks: equal budgets, 3 seeds (means)",
-               f"Muse {vps['muse']:.3f} vs random {vps['random']:.3f} violations/sim (≈{vs.RATIO:.0f}×) · distinct "
-               f"fault-combination signatures (coarse) {sig['muse']:.1f} vs CMA-ES {sig['cmaes']:.1f}",
-               "data/cmp/summary.json" + (" · " + M["src"] if M else " · matched random: data/matched/summary.json "
-                                                                    "(not present at render time)"))
-        MA = (M or {}).get("arms") or {}
-        mk = [k for k in ("matchfam", "matchall", "oneshot") if k in MA]
-        mlab = {"matchfam": "MATCHED\nfamilies", "matchall": "MATCHED\nfam+param", "oneshot": "1 Muse\ncall+\nmutate"}
-        mcol = {"matchfam": GREEN, "matchall": GREEN, "oneshot": ORANGE}
-        for p, (vals, ttl, fmt) in enumerate([(vps, "violations per simulation", "{:.3f}"),
-                                              (sig, "distinct fault-combination signatures (coarse)", "{:.1f}")]):
-            ax = f.add_axes([0.06 + p * 0.49, 0.25 if MA else 0.20, 0.42, 0.53 if MA else 0.58])
-            hs = [vals[a] * g for a in arms]
-            mvals = [MA[k]["vps" if p == 0 else "sig"] for k in mk]
-            ax.bar(range(len(arms)), hs, color=[cols[a] for a in arms], width=0.62)
-            ymax = max(list(vals.values()) + [v for v in mvals if v is not None]) * 1.25
-            if mk:
-                for j, (k, v) in enumerate(zip(mk, mvals)):
-                    x = len(arms) + j
-                    ax.bar([x], [(v or 0) * g], color=mcol[k], width=0.62, hatch="//", edgecolor=BG)
-                    ax.text(x, (v or 0) * g + ymax * 0.02, fmt.format(v) if (g > 0.95 and v is not None) else "",
-                            ha="center", fontsize=15, color=mcol[k])
-                xl = [lab[a] for a in arms] + [mlab[k] for k in mk]
-            else:
-                ax.bar([len(arms)], [ymax * 0.9], color="none", width=0.62, edgecolor=GREEN, ls="--", lw=2)
-                ax.text(len(arms), ymax * 0.45, "PENDING\nnot run\nin time" if p == 0 else "PENDING", ha="center",
-                        va="center", fontsize=14, color=GREEN, weight="bold")
-                xl = [lab[a] for a in arms] + ["MATCHED\nrandom"]
-            for k, a in enumerate(arms):
-                ax.text(k, hs[k] + ymax * 0.02, fmt.format(vals[a]) if g > 0.95 else "", ha="center", fontsize=15)
-            ax.set_xticks(range(len(xl))); ax.set_xticklabels(xl, fontsize=10 if mk else 13)
-            for j, k in enumerate(mk or ["matchfam"]):
-                ax.get_xticklabels()[len(arms) + j].set_color(mcol.get(k, GREEN))
-            ax.set_ylim(0, ymax); ax.set_title(ttl, fontsize=18, color=FG, pad=12); ax.tick_params(labelsize=12)
-        a = fade(t, 4.5)
-        notes = ["Signatures are fault-type combinations, not defects (the 276 cases reduce to D1-D4). "
-                 "MATCHED = random restricted to Muse's fault families."]
-        if MA:
-            notes.append("MATCHED fam+param also samples each parameter from Muse's own proposals (a hindsight "
-                         "baseline). 1 Muse call+mutate: one 40-scenario bank, then random mutations.")
-        notes.append("Hypothesis, not a result: blind Muse beats informed on viol/sim on 3/3 seeds but on "
-                     "coarse signatures on only 2/3.")
-        for j, n in enumerate(notes):
-            f.text(0.07, 0.055 + 0.03 * (len(notes) - 1 - j), n, fontsize=13 if MA else 14, color=DIM, alpha=a)
+        header(f, "Chart 1 · Benchmarks: violations per simulation",
+               "equal budgets, 3 seeds (means) · higher = finds more safety-rule failures per simulated scenario",
+               "data/cmp/summary.json · data/matched/summary.json")
+        ax = f.add_axes([0.10, 0.32, 0.80, 0.48])
+        vals = [v(k) for k, *_ in bars]; ymax = max(vals) * 1.22
+        for x, ((k, lab, col, ht), val) in enumerate(zip(bars, vals)):
+            ax.bar([x], [val * g], color=col, width=0.58, hatch=ht, edgecolor=BG if ht else col)
+            if g > 0.95:
+                ax.text(x, val + ymax * 0.02, f"{val:.3f}", ha="center", fontsize=24, weight="bold", color=col)
+        ax.set_xticks(range(len(bars))); ax.set_xticklabels([b[1] for b in bars], fontsize=16)
+        for x, b in enumerate(bars):
+            ax.get_xticklabels()[x].set_color(b[2])
+        ax.set_ylim(0, ymax); ax.tick_params(labelsize=13); ax.set_ylabel("violations / sim", fontsize=15)
+        a = fade(t, 4.0)
+        f.text(0.10, 0.165, "* hindsight baseline: each parameter is drawn from the marginals of Muse's own finished "
+                            "proposals, so it cannot run before Muse has", fontsize=15, color=GREEN, alpha=a)
+        f.text(0.10, 0.130, f"Also run: CMA-ES {v('cmaes'):.3f} · random limited to Muse's fault families "
+                            f"{v('matchfam'):.3f} · Muse rules-blind {v('museblind'):.3f}", fontsize=15, color=DIM,
+               alpha=a)
+        f.text(0.10, 0.095, "Blind > informed is a hypothesis, not a result: higher viol/sim on 3/3 seeds, more coarse "
+                            "signatures on only 2/3", fontsize=15, color=DIM, alpha=a)
+        b = fade(t, T - 6.5)
+        f.text(0.5, 0.835, "Takeaway: Muse's closed loop discovers where failures live", fontsize=26, weight="bold",
+               ha="center", color=AMBER, alpha=b,
+               bbox=dict(fc=PANEL, ec=AMBER, lw=2, alpha=0.95 * b, pad=10))
         s.frame()
     return s.close()
 
 
-# ------------------------------------------------------------------ s6 gates + chart 2 trend
+# ------------------------------------------------------------------ s6 repair: held-out first, then the gates
 def s6(D, T):
-    GF = vs.GF; acc = vs.ACC; g = acc["gate"] if acc else {}
+    GF = vs.GF; acc = vs.ACC; g = acc["gate"] if acc else {}; FR = vs.FRESH
     rej_b = [x["name"] for x in GF["bud"] if x["decision"] != "accept"]
     wv = acc["waivers"] if acc else []
     wname = ", ".join(w.get("suite_id", w.get("run", "?")) if isinstance(w, dict) else str(w) for w in wv) or "-"
-    trend = P("plots", "gated_repair_trend.png")
-    img = np.asarray(Image.open(trend).convert("RGB")) if os.path.exists(trend) else None
-    FR = vs.FRESH
-    t_sw = T * 0.42
-    s = mv.Seg("s6", {int(t_sw * FPS) - 5: STILL("s6_gates"), int((T - 1) * FPS): STILL("s6_trend")}); f = s.fig
+    nid = g.get("new_violation_ids", []); cb = set(g.get("clean_broken_ids", []))
+    already = [x for x in nid if x not in cb]
+    fx, nw, cl, net = (int(g.get(k, 0)) for k in ("fixes", "runs_with_new_violations", "clean_to_violating", "net_fixes"))
+    assert fx - nw == net, (fx, nw, net)
+    H = FR["v1"]["heldout_fixed"]["all"]["n"]
+    s = mv.Seg("s6", {int((T - 1) * FPS): STILL("s6_gates")}); f = s.fig
     for i in range(int(T * FPS)):
         t = i / FPS; f.clf()
-        if t < t_sw:
-            header(f, "Repair: Muse picks from a menu; a code gate decides",
-                   "Muse selects and parameterizes from an engineer-provided menu of repair options; "
-                   "every candidate is re-run on the full suite",
-                   "data/gated/*_gate.json · data/gated/rejects_table.md · data/gated/waivers.md")
-            a = fade(t, 0.5)
-            card(f, 0.05, 0.16, 0.42, 0.66, GREY, 0.95 * a)
-            f.text(0.07, 0.76, "STRICT gate", fontsize=28, weight="bold", alpha=a)
-            f.text(0.07, 0.715, "accept only if 0 new violations", fontsize=17, color=DIM, alpha=a)
-            f.text(0.26, 0.52, f"{GF['n_sx_rej']}/{GF['n_sx']}", fontsize=72, weight="bold", ha="center", color=RED,
-                   alpha=a)
-            f.text(0.26, 0.45, "proposals REJECTED", fontsize=22, ha="center", color=RED, alpha=a, weight="bold")
-            f.text(0.07, 0.24, "every fix also broke at least one\npreviously clean run", fontsize=16, color=DIM,
-                   alpha=a)
-            b = fade(t, 2.5)
-            card(f, 0.53, 0.16, 0.42, 0.66, GREEN, 0.95 * b)
-            f.text(0.55, 0.76, "BUDGET gate", fontsize=28, weight="bold", alpha=b)
-            f.text(0.55, 0.715, "net fixes > 0 and ≤ 3 clean runs broken (each named)", fontsize=16, color=DIM, alpha=b)
-            if acc:
-                f.text(0.55, 0.64, f"ACCEPTED  {acc['name']}", fontsize=24, weight="bold", color=GREEN, alpha=b)
-                f.text(0.55, 0.60, " · ".join(f"{k} {v:g}" for k, v in (acc.get("change") or {}).items()), fontsize=14,
-                       family=MONO, color=DIM, alpha=b)
-                for k, (l_, v_, c_) in enumerate([("fixes", f"{int(g.get('fixes', 0))}", GREEN),
-                                                  ("net", f"+{int(g.get('net_fixes', 0))}", GREEN),
-                                                  ("clean runs broken", f"{int(g.get('clean_to_violating', 0))}", AMBER)]):
-                    f.text(0.55, 0.52 - k * 0.055, l_, fontsize=19, alpha=b)
-                    f.text(0.90, 0.52 - k * 0.055, v_, fontsize=22, weight="bold", ha="right", color=c_, alpha=b,
-                           family=MONO)
-                f.text(0.55, 0.325, f"broken + waived: {wname}", fontsize=15, family=MONO, color=AMBER, alpha=b)
-            if rej_b:
-                f.text(0.55, 0.265, f"next round ({', '.join(rej_b)}) REJECTED:", fontsize=15, color=RED, alpha=b)
-                f.text(0.55, 0.235, "only one budget round accepted", fontsize=15, color=RED, alpha=b)
-            f.text(0.55, 0.185, "the budget gate admits regressions by design", fontsize=14, color=DIM, alpha=b,
-                   style="italic")
-        else:
-            header(f, "Chart 2 · Does the accepted patch cut fresh violations?",
-                   "fresh Muse search + uniform random + fixed held-out set, run against v1 and against b1t1",
-                   "plots/gated_repair_trend.png · data/gated/fresh/result_{v1,b1t1}.json · data/gated/summary_v2.json")
-            a = fade(t, t_sw)
-            if img is not None:
-                ax = f.add_axes([0.02, 0.12, 0.60, 0.76]); ax.imshow(img); ax.axis("off")
-            else:
-                v2.placeholder(f, 0.04, 0.17, 0.56, 0.68, "chart 2 pending", "plots/gated_repair_trend.png", a)
-            card(f, 0.63, 0.17, 0.33, 0.68, CYAN, 0.95 * a)
-            if FR:
-                A, B = FR["v1"], FR["b1t1"]
-                rows = [("fresh Muse search", A["muse"], B["muse"]), ("uniform random", A["random"], B["random"]),
-                        ("held-out (fixed, paired)", A["heldout_fixed"]["all"], B["heldout_fixed"]["all"])]
-                f.text(0.65, 0.80, "violating runs", fontsize=20, weight="bold", alpha=a)
-                f.text(0.81, 0.765, "v1", fontsize=16, color=DIM, alpha=a, ha="right")
-                f.text(0.94, 0.765, "b1t1", fontsize=16, color=DIM, alpha=a, ha="right")
-                for k, (l_, x, y) in enumerate(rows):
-                    yy = 0.70 - k * 0.075
-                    f.text(0.65, yy, l_, fontsize=16, alpha=a)
-                    f.text(0.81, yy - 0.032, f"{x['violating']}/{x['n']}", fontsize=18, family=MONO, ha="right", alpha=a)
-                    c_ = GREEN if y["rate"] < x["rate"] else RED if y["rate"] > x["rate"] else FG
-                    f.text(0.94, yy - 0.032, f"{y['violating']}/{y['n']}", fontsize=18, family=MONO, ha="right",
-                           color=c_, alpha=a, weight="bold")
-                verdict = ("modest cut" if FR["cut_muse"] and FR["cut_heldout"] else
-                           "mixed evidence" if FR["cut_muse"] or FR["cut_heldout"] else "no cut")
-                f.text(0.65, 0.44, f"Verdict: {verdict}", fontsize=21, weight="bold",
-                       color=GREEN if verdict == "modest cut" else AMBER, alpha=a)
-                if FR.get("h_fixed") is not None:
-                    f.text(0.65, 0.395, f"paired held-out: {FR['h_fixed']} fixed, {FR['h_new']} new", fontsize=16,
-                           color=FG, alpha=a)
-                f.text(0.65, 0.25, wrap("Muse/random arms use new seeds per policy (unpaired: Muse seed "
-                                        f"{A['muse_seed']} vs {B['muse_seed']}); held-out is the same 300 scenarios "
-                                        "for both (paired). Small samples.", 44), fontsize=13, color=DIM, alpha=a)
-            else:
-                f.text(0.65, 0.70, "fresh-search check:\nPENDING", fontsize=24, weight="bold", color=AMBER, alpha=a)
+        header(f, "Repair: Muse picks from a menu; a code gate decides",
+               "Muse selects and parameterizes from an engineer-provided menu of repair options; "
+               "every candidate is re-run on the full 3,508-run suite",
+               "data/gated/*_gate.json · data/gated/waivers.md · data/gated/fresh/result_{v1,b1t1}.json")
+        a = fade(t, 0.4)
+        card(f, 0.05, 0.705, 0.90, 0.10, GREEN, 0.95 * a, lw=3)
+        f.text(0.5, 0.765, f"Held-out: {FR['h_fixed']} fixed, {FR['h_new']} newly broken", fontsize=36,
+               weight="bold", ha="center", va="center", color=GREEN, alpha=a)
+        f.text(0.5, 0.722, f"same {H} scenarios run against v1 and the accepted patch (paired) · small sample",
+               fontsize=16, ha="center", va="center", color=DIM, alpha=a)
+        b = fade(t, 3.0)
+        card(f, 0.05, 0.10, 0.30, 0.57, GREY, 0.95 * b)
+        f.text(0.07, 0.62, "STRICT gate", fontsize=26, weight="bold", alpha=b)
+        f.text(0.07, 0.585, "accept only if 0 new violations", fontsize=16, color=DIM, alpha=b)
+        f.text(0.20, 0.42, f"{GF['n_sx_rej']}/{GF['n_sx']}", fontsize=64, weight="bold", ha="center", color=RED, alpha=b)
+        f.text(0.20, 0.36, "proposals REJECTED", fontsize=20, ha="center", color=RED, alpha=b, weight="bold")
+        f.text(0.07, 0.17, "every fix also broke at least\none previously clean run", fontsize=16, color=DIM, alpha=b)
+        c = fade(t, 6.0)
+        card(f, 0.38, 0.10, 0.57, 0.57, GREEN, 0.95 * c)
+        f.text(0.40, 0.62, "BUDGET gate", fontsize=26, weight="bold", alpha=c)
+        f.text(0.40, 0.585, "net fixes > 0 and ≤ 3 previously clean runs broken (each named)", fontsize=16, color=DIM,
+               alpha=c)
+        if acc:
+            f.text(0.40, 0.535, f"ACCEPTED {acc['name']}  ·  " + " · ".join(f"{k} {v:g}" for k, v in
+                                                                         (acc.get("change") or {}).items()),
+                   fontsize=17, weight="bold", color=GREEN, alpha=c, family=MONO)
+            rows = [("suite runs fixed", f"{fx}", GREEN),
+                    (f"runs with a new violation ({len(already)} already failing, {cl} clean)", f"−{nw}", AMBER),
+                    ("net", f"{fx} − {nw} = +{net}", GREEN),
+                    ("previously clean runs broken", f"{cl}", AMBER)]
+            for k, (l_, v_, c_) in enumerate(rows):
+                yy = 0.47 - k * 0.06
+                f.text(0.40, yy, l_, fontsize=18, alpha=c, weight="bold" if l_ == "net" else "normal")
+                f.text(0.93, yy, v_, fontsize=21, weight="bold", ha="right", color=c_, alpha=c, family=MONO)
+            f.text(0.40, 0.215, f"broken + waived: {wname}", fontsize=16, family=MONO, color=AMBER, alpha=c)
+        if rej_b:
+            f.text(0.40, 0.165, f"later rounds ({', '.join(rej_b)}) REJECTED: only one budget patch accepted",
+                   fontsize=15, color=RED, alpha=c)
+        f.text(0.40, 0.125, "the budget gate admits named regressions by design", fontsize=14, color=DIM, alpha=c,
+               style="italic")
         s.frame()
     return s.close()
 
@@ -467,19 +439,19 @@ def wrap(s, n):
 
 # ------------------------------------------------------------------ s7 limits + related work + close
 def s7(D, T):
-    lim = ["One simulated 6U-like CubeSat (Basilisk), 4 reaction wheels, static Sun direction, no momentum dumping",
-           "Thresholds and safety rules are ours; the policy's 568/576 single-fault pass is its own acceptance test "
-           "(thresholds tuned to it)",
-           "Blind vs informed search: a hypothesis (higher viol/sim on 3/3 seeds, more signatures on only 2/3)",
-           "Repairs come from an engineer-provided menu; the budget gate admits named regressions",
-           "Recorded Muse calls carry no request ids; only the live take does"]
+    lim = ["One simulated 6U-like CubeSat (Basilisk) and a fault-protection policy we wrote ourselves",
+           "A random sampler matched to Muse's own proposals ties Muse once the failure region is known",
+           "The single-fault grid (568/576 pass) is the policy's own acceptance test; thresholds and rules are ours"]
     s = mv.Seg("s7", {int((T - 1) * FPS): STILL("s7_limits")}); f = s.fig
     for i in range(int(T * FPS)):
         t = i / FPS; f.clf()
         header(f, "Limits, and prior work", None, "README.md (Limits, Related work)")
         for k, l_ in enumerate(lim):
             a = fade(t, 0.4 + 0.5 * k)
-            f.text(0.06, 0.82 - k * 0.07, "•  " + l_, fontsize=19, alpha=a)
+            f.text(0.06, 0.80 - k * 0.08, "•  " + l_, fontsize=22, alpha=a)
+        f.text(0.06, 0.80 - 3 * 0.08, "More in README (Limits): momentum dumping, menu-based repair, waivers, "
+                                      "request ids, blind vs informed", fontsize=17, color=DIM, alpha=fade(t, 2.2),
+               style="italic")
         a = fade(t, 3.5)
         card(f, 0.06, 0.25, 0.88, 0.16, CYAN, 0.95 * a)
         f.text(0.08, 0.36, "Builds on LLM-Falsifier (ArjomandBigdeli, Zhou, Bak, arXiv:2609.20752) and simulation-based "
