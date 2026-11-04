@@ -1,2 +1,13 @@
 === v2 chain start Tue Nov  3 23:29:47 EST 2026
 === strict loop finished Wed Nov  4 00:25:14 EST 2026
+0116465 strict parameter loop finished (gated_repair.py)
+  s1: Muse structural change {'fdir_readmit_s': 1800.0} -> {'fdir_readmit_s': 1800.0} []
+    s1: 250/3508 95s
+    s1: 500/3508 189s
+  s1: reject - rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, 663 runs evaluated (stopped early)
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+  s2: Muse structural change {'fdir_hard_Nm': 0.0005} -> {'fdir_hard_Nm': 0.0005} []
+    s2: 250/3508 95s
+    s2: 500/3508 188s
+    s2: 750/3508 1336s
+  s2: reject - rejected (strict): 3 new violations in 3 runs (3 previously clean), 3 fixes, 794 runs evaluated (stopped early)

@@ -1,0 +1,57 @@
+{
+ "name": "s1",
+ "phase": "structural",
+ "base": "v1",
+ "change_proposed": {
+  "fdir_readmit_s": 1800.0
+ },
+ "change": {
+  "fdir_readmit_s": 1800.0
+ },
+ "validation_notes": [],
+ "diagnosis": "Current FDIR allows only one isolation. Logs show first mild friction fault with residual ~4.5e-04 Nm trips detector and consumes the slot, then a later severe friction or torque-derate fault cannot be isolated. Control remains on three wheels including the badly degraded wheel, leading to attitude loss or wheel saturation, while no-isolation runs stay safe. This is policy-induced lock-in, dominant in rw_friction+rw_friction cases.",
+ "rule_in_words": "Re-admit an isolated wheel after its uncommanded torque residual stays at or below 0.0003 Nm continuously for 1800 s, freeing the single isolation slot for a later fault.",
+ "rationale": "First mild fault still isolated promptly, preserving current protection. If residual was transient or mild, prolonged healthy uncommanded monitoring returns it to control and restores four-wheel redundancy. When a second hard fault appears, the slot is free to isolate the truly degraded wheel, restoring healthy three-wheel control. Late violations at 7000-11000 s leave time for 1800 s qualification plus re-isolation. This directly addresses lock-in in friction-friction and friction-derate sequences without changing detection thresholds.",
+ "why_no_regressions": "No early behavior changes: detection thresholds, persistence, and first isolation identical to current policy. No swaps to worse wheels and no safe-mode timing changes that regressed before. Re-admission needs 1800 s continuously healthy at 0.0003 Nm, so persistently faulty wheels stay isolated and single-fault clean runs are unchanged. Only long-healthy mild wheels are returned, restoring redundancy.",
+ "ideal_rule_if_unconstrained": "Ideal would continuously rank wheels by filtered residual and always control on healthiest three with unlimited isolations, plus confirmed-fault latching and momentum-based safe entry.",
+ "evidence_rejects": [
+  "r1t1",
+  "r1t2",
+  "r1t3",
+  "r1t4",
+  "r1t5",
+  "r1t6",
+  "r2t1",
+  "r2t2",
+  "r2t3",
+  "r2t4"
+ ],
+ "decision": "reject",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, 663 runs evaluated (stopped early)",
+ "gate": {
+  "evaluated": 663,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 1,
+  "violating_runs": 25,
+  "violating_runs_base": 23,
+  "new_violation_ids": [
+   "cmaes_seed0_158",
+   "cmaes_seed0_169",
+   "cmaes_seed0_176"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_163"
+  ],
+  "complete": false,
+  "eval_s": 252,
+  "mode": "strict",
+  "clean_broken_ids": [
+   "cmaes_seed0_158",
+   "cmaes_seed0_169",
+   "cmaes_seed0_176"
+  ],
+  "net_fixes": -2
+ }
+}

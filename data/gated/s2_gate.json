@@ -1,0 +1,60 @@
+{
+ "name": "s2",
+ "phase": "structural",
+ "base": "v1",
+ "change_proposed": {
+  "fdir_hard_Nm": 0.0005
+ },
+ "change": {
+  "fdir_hard_Nm": 0.0005
+ },
+ "validation_notes": [],
+ "diagnosis": "Dominant pattern is premature FDIR consumption: a mild friction fault around 0.2 severity with residual around 0.46 mNm trips first and consumes the single isolation slot. Later severe friction or derate cannot be isolated, leaving 3-wheel control including the worst wheel. With no isolation 4-wheel pseudo-inverse stays controllable, so violation is policy-induced.",
+ "rule_in_words": "Only isolate a wheel that trips the detector if its residual is at least 0.5 mNm; milder tripping wheels are only flagged and remain in control.",
+ "rationale": "Threshold sits just above observed mild-friction trip residuals 0.455-0.49 mNm and below hard derate and severe residuals 0.52-0.65 mNm. It suppresses the wrong first isolation, keeps 4-wheel control through mild faults, and leaves the single slot free for a later hard fault. That restores control on the three healthiest wheels and addresses both attitude-loss and saturation double-fault patterns without swaps or re-admits.",
+ "why_no_regressions": "Change only removes isolations, never adds isolation, swap, SAFE entry or resume change. Runs with no isolation are bit-identical. Runs with hard failures still exceed 0.5 mNm and still isolate, only slightly deferred. Mild-only runs stay on 4 wheels which no-policy traces show controllable.",
+ "ideal_rule_if_unconstrained": "Rank wheels by continuous health estimate and always control on healthiest three, allowing swap to worse fault and second isolation to under-actuated mode with ground override.",
+ "evidence_rejects": [
+  "r1t1",
+  "r1t2",
+  "r1t3",
+  "r1t4",
+  "r1t5",
+  "r1t6",
+  "r2t1",
+  "r2t2",
+  "r2t3",
+  "r2t4",
+  "s1"
+ ],
+ "decision": "reject",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 3 fixes, 794 runs evaluated (stopped early)",
+ "gate": {
+  "evaluated": 794,
+  "new_violations": 3,
+  "runs_with_new_violations": 3,
+  "clean_to_violating": 3,
+  "fixes": 3,
+  "violating_runs": 73,
+  "violating_runs_base": 73,
+  "new_violation_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294"
+  ],
+  "fix_ids": [
+   "cmaes_seed0_264",
+   "cmaes_seed0_289",
+   "cmaes_seed0_292"
+  ],
+  "complete": false,
+  "eval_s": 1355,
+  "mode": "strict",
+  "clean_broken_ids": [
+   "cmaes_seed0_176",
+   "cmaes_seed0_293",
+   "cmaes_seed0_294"
+  ],
+  "net_fixes": 0
+ }
+}

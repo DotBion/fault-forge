@@ -1,0 +1,27 @@
+{
+ "model": "muse-spark-1.3",
+ "latency_s": 44.19772565399944,
+ "attempts": 2,
+ "usage": {
+  "completion_tokens": 4956,
+  "prompt_tokens": 9760,
+  "total_tokens": 14716,
+  "completion_tokens_details": {
+   "reasoning_tokens": 4599
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "response_verbatim": "{\"diagnosis\": \"Dominant pattern is premature FDIR consumption: a mild friction fault around 0.2 severity with residual around 0.46 mNm trips first and consumes the single isolation slot. Later severe friction or derate cannot be isolated, leaving 3-wheel control including the worst wheel. With no isolation 4-wheel pseudo-inverse stays controllable, so violation is policy-induced.\", \"change\": {\"fdir_hard_Nm\": 0.0005}, \"rule_in_words\": \"Only isolate a wheel that trips the detector if its residual is at least 0.5 mNm; milder tripping wheels are only flagged and remain in control.\", \"rationale\": \"Threshold sits just above observed mild-friction trip residuals 0.455-0.49 mNm and below hard derate and severe residuals 0.52-0.65 mNm. It suppresses the wrong first isolation, keeps 4-wheel control through mild faults, and leaves the single slot free for a later hard fault. That restores control on the three healthiest wheels and addresses both attitude-loss and saturation double-fault patterns without swaps or re-admits.\", \"why_no_regressions\": \"Change only removes isolations, never adds isolation, swap, SAFE entry or resume change. Runs with no isolation are bit-identical. Runs with hard failures still exceed 0.5 mNm and still isolate, only slightly deferred. Mild-only runs stay on 4 wheels which no-policy traces show controllable.\", \"ideal_rule_if_unconstrained\": \"Rank wheels by continuous health estimate and always control on healthiest three, allowing swap to worse fault and second isolation to under-actuated mode with ground override.\"}",
+ "parsed": {
+  "diagnosis": "Dominant pattern is premature FDIR consumption: a mild friction fault around 0.2 severity with residual around 0.46 mNm trips first and consumes the single isolation slot. Later severe friction or derate cannot be isolated, leaving 3-wheel control including the worst wheel. With no isolation 4-wheel pseudo-inverse stays controllable, so violation is policy-induced.",
+  "change": {
+   "fdir_hard_Nm": 0.0005
+  },
+  "rule_in_words": "Only isolate a wheel that trips the detector if its residual is at least 0.5 mNm; milder tripping wheels are only flagged and remain in control.",
+  "rationale": "Threshold sits just above observed mild-friction trip residuals 0.455-0.49 mNm and below hard derate and severe residuals 0.52-0.65 mNm. It suppresses the wrong first isolation, keeps 4-wheel control through mild faults, and leaves the single slot free for a later hard fault. That restores control on the three healthiest wheels and addresses both attitude-loss and saturation double-fault patterns without swaps or re-admits.",
+  "why_no_regressions": "Change only removes isolations, never adds isolation, swap, SAFE entry or resume change. Runs with no isolation are bit-identical. Runs with hard failures still exceed 0.5 mNm and still isolate, only slightly deferred. Mild-only runs stay on 4 wheels which no-policy traces show controllable.",
+  "ideal_rule_if_unconstrained": "Rank wheels by continuous health estimate and always control on healthiest three, allowing swap to worse fault and second isolation to under-actuated mode with ground override."
+ }
+}

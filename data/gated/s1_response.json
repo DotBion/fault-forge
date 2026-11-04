@@ -1,0 +1,27 @@
+{
+ "model": "muse-spark-1.3",
+ "latency_s": 60.81444883899985,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 6678,
+  "prompt_tokens": 10571,
+  "total_tokens": 17249,
+  "completion_tokens_details": {
+   "reasoning_tokens": 6277
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "response_verbatim": "{\"diagnosis\": \"Current FDIR allows only one isolation. Logs show first mild friction fault with residual ~4.5e-04 Nm trips detector and consumes the slot, then a later severe friction or torque-derate fault cannot be isolated. Control remains on three wheels including the badly degraded wheel, leading to attitude loss or wheel saturation, while no-isolation runs stay safe. This is policy-induced lock-in, dominant in rw_friction+rw_friction cases.\", \"change\": {\"fdir_readmit_s\": 1800.0}, \"rule_in_words\": \"Re-admit an isolated wheel after its uncommanded torque residual stays at or below 0.0003 Nm continuously for 1800 s, freeing the single isolation slot for a later fault.\", \"rationale\": \"First mild fault still isolated promptly, preserving current protection. If residual was transient or mild, prolonged healthy uncommanded monitoring returns it to control and restores four-wheel redundancy. When a second hard fault appears, the slot is free to isolate the truly degraded wheel, restoring healthy three-wheel control. Late violations at 7000-11000 s leave time for 1800 s qualification plus re-isolation. This directly addresses lock-in in friction-friction and friction-derate sequences without changing detection thresholds.\", \"why_no_regressions\": \"No early behavior changes: detection thresholds, persistence, and first isolation identical to current policy. No swaps to worse wheels and no safe-mode timing changes that regressed before. Re-admission needs 1800 s continuously healthy at 0.0003 Nm, so persistently faulty wheels stay isolated and single-fault clean runs are unchanged. Only long-healthy mild wheels are returned, restoring redundancy.\", \"ideal_rule_if_unconstrained\": \"Ideal would continuously rank wheels by filtered residual and always control on healthiest three with unlimited isolations, plus confirmed-fault latching and momentum-based safe entry.\"}",
+ "parsed": {
+  "diagnosis": "Current FDIR allows only one isolation. Logs show first mild friction fault with residual ~4.5e-04 Nm trips detector and consumes the slot, then a later severe friction or torque-derate fault cannot be isolated. Control remains on three wheels including the badly degraded wheel, leading to attitude loss or wheel saturation, while no-isolation runs stay safe. This is policy-induced lock-in, dominant in rw_friction+rw_friction cases.",
+  "change": {
+   "fdir_readmit_s": 1800.0
+  },
+  "rule_in_words": "Re-admit an isolated wheel after its uncommanded torque residual stays at or below 0.0003 Nm continuously for 1800 s, freeing the single isolation slot for a later fault.",
+  "rationale": "First mild fault still isolated promptly, preserving current protection. If residual was transient or mild, prolonged healthy uncommanded monitoring returns it to control and restores four-wheel redundancy. When a second hard fault appears, the slot is free to isolate the truly degraded wheel, restoring healthy three-wheel control. Late violations at 7000-11000 s leave time for 1800 s qualification plus re-isolation. This directly addresses lock-in in friction-friction and friction-derate sequences without changing detection thresholds.",
+  "why_no_regressions": "No early behavior changes: detection thresholds, persistence, and first isolation identical to current policy. No swaps to worse wheels and no safe-mode timing changes that regressed before. Re-admission needs 1800 s continuously healthy at 0.0003 Nm, so persistently faulty wheels stay isolated and single-fault clean runs are unchanged. Only long-healthy mild wheels are returned, restoring redundancy.",
+  "ideal_rule_if_unconstrained": "Ideal would continuously rank wheels by filtered residual and always control on healthiest three with unlimited isolations, plus confirmed-fault latching and momentum-based safe entry."
+ }
+}
