@@ -16,7 +16,7 @@
  "rationale": "Enable swap to healthiest 3 wheels: if a second wheel trips while one is isolated and its residual exceeds 2.0x the recorded isolated residual, re-enable the milder wheel and isolate the worse one. This corrects the ordering race where mild trips before severe, without changing first-isolation thresholds, timing, SAFE logic, or allowing under-actuated 2-wheel operation.",
  "why_no_regressions": "First isolation, SAFE entry/resume unchanged, so nominal and single-fault paths unchanged. Swap only acts on a second trip that current policy ignores. Any 3-wheel set remains 3-axis actuated; swap only moves to demonstrably lower disturbance.",
  "decision": "reject",
- "gate_reason": "rejected: 20 new violations in 20 runs (20 previously clean) (evaluation stopped early after 861 runs)",
+ "gate_reason": "rejected (strict): 20 new violations in 20 runs (20 previously clean), 36 fixes, evaluation stopped early after 861 runs",
  "gate": {
   "evaluated": 861,
   "new_violations": 20,
@@ -181,7 +181,8 @@
    "cmaes_seed0_73"
   ],
   "complete": false,
-  "eval_s": 293
+  "eval_s": 293,
+  "gate_reason": "rejected: 20 new violations in 20 runs (20 previously clean) (evaluation stopped early after 861 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

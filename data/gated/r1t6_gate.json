@@ -20,7 +20,7 @@
  "rationale": "Narrow swap to clearly-dead replaces clearly-mild only. Re-enable allowed only if recorded residual <=0.0004 Nm (mild) and new residual >=0.002 Nm with ratio >=5. This targets mild-first/severe-second ordering that dominates rw_friction+rw_friction attitude loss, keeps 3-wheel control on healthiest wheels, and ignores comparable-degradation cases where swap was harmful.",
  "why_no_regressions": "All three listed regressions blocked: case1 old 5.11e-04>0.0004 and ratio 3.9<5; case2 old 5.74e-04>0.0004; case3 new 1.14e-03<0.002 and ratio 3.56<5. Strictly narrower than try5, so fewer triggers.",
  "decision": "reject",
- "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 25 runs)",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 25 runs",
  "gate": {
   "evaluated": 25,
   "new_violations": 3,
@@ -60,7 +60,8 @@
   ],
   "fix_ids": [],
   "complete": false,
-  "eval_s": 14
+  "eval_s": 14,
+  "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 25 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

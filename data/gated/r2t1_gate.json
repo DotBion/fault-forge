@@ -20,7 +20,7 @@
  "rationale": "Enable swap to keep healthiest 3 wheels: if another wheel trips while one is isolated and new residual >2x isolated residual and >=0.8mNm, re-enable mild isolated wheel <=0.6mNm and isolate new worse wheel. This corrects wrong-wheel-first isolation in friction+friction and friction+derate pairs without changing single-fault isolation thresholds or SAFE logic.",
  "why_no_regressions": "Single-fault/nominal behavior unchanged, swap needs second trip. Narrow gates allow swap only from mildly-degraded to clearly-worse wheel, keeping 3-wheel control. Cannot trigger spuriously.",
  "decision": "reject",
- "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 66 runs)",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 66 runs",
  "gate": {
   "evaluated": 66,
   "new_violations": 3,
@@ -60,7 +60,8 @@
   ],
   "fix_ids": [],
   "complete": false,
-  "eval_s": 5
+  "eval_s": 5,
+  "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 66 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

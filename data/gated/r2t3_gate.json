@@ -16,7 +16,7 @@
  "rationale": "Add narrowest momentum guard: if an in-use wheel stays >=97% max for 120s continuous, enter sun-point SAFE and block resume while high. This sheds payload power and holds sun-pointing to stop momentum growth before the 98% for 60s violation. 97% is least sensitive fraction and 120s is longest persistence, so it acts only on prolonged near-saturation that precedes violation.",
  "why_no_regressions": "Strictly narrower than tested 0.97 for 60s which had only 1 regression in 3508 runs. Requires 120s continuous vs 60s, so any run clean under 60s version stays clean, and intermittent high-speed in regressed heater+leak+derate case is less likely to trigger.",
  "decision": "reject",
- "gate_reason": "rejected: 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite",
+ "gate_reason": "rejected (strict): 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite",
  "gate": {
   "evaluated": 3508,
   "new_violations": 2,
@@ -70,7 +70,8 @@
    "random_seed0_9"
   ],
   "complete": true,
-  "eval_s": 1550
+  "eval_s": 1550,
+  "gate_reason": "rejected: 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

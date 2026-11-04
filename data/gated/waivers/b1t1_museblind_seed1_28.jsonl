@@ -1,0 +1,1 @@
+{"id": 0, "suite_id": "museblind_seed1_28", "params": {"orbit": {"beta_deg": 10.0, "f0_deg": 90.0}, "rw_faults": [{"wheel": 2, "onset_s": 0.0, "type": "torque_derate", "severity": 1.0}, {"wheel": 3, "onset_s": 0.0, "type": "torque_derate", "severity": 1.0}], "heater": null, "torque_leak": {"onset_s": 0.0, "mag_Nm": 1.5e-06, "axis": [0.5774, 0.5774, 0.5774]}}, "violations": {}}

@@ -1,0 +1,32 @@
+{
+ "policy": "b1t1",
+ "k": 1,
+ "muse_seed": 301,
+ "muse": {
+  "n": 100,
+  "violating": 31,
+  "rate": 0.31
+ },
+ "random": {
+  "n": 200,
+  "violating": 0,
+  "rate": 0.0
+ },
+ "heldout_fixed": {
+  "all": {
+   "n": 300,
+   "violating": 41,
+   "rate": 0.13666666666666666
+  },
+  "muse": {
+   "n": 100,
+   "violating": 38,
+   "rate": 0.38
+  },
+  "random": {
+   "n": 200,
+   "violating": 3,
+   "rate": 0.015
+  }
+ }
+}

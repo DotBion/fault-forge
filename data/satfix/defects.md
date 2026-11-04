@@ -28,7 +28,12 @@ attitude error, min SoC, policy/fault log). Replay any case and arm: `python3 sr
 Cross-cutting code defect (shows up inside D1 and D2): **in 63 of 276 cases, two wheels crossed the persistence
 threshold in the same 5 s chunk and FDIR isolated the lower-index one, even though the other had a larger residual.**
 The FDIR loop in `src/ff_sim.py` walks wheels in index order and gives the one allowed isolation to the first wheel
-that qualifies. It never compares residuals (59 D1 cases, 4 D2 cases).
+that qualifies. It never compares residuals (59 D1 cases, 4 D2 cases). In all 63 the wheel with the smaller residual was the one
+isolated. Replay: `python3 src/defects.py --tiebreak` (list from `defects.json`) or
+`python3 src/defects.py --tiebreak 059def4e` (one case re-simulated: rw0 friction 0.2 + rw1 friction 0.725 at t=0; at
+t=15 s rw0 4.76e-4 Nm and rw1 8.41e-4 Nm cross together, rw0 is isolated, attitude_loss @3765 s; with `swap` no
+violation, peak 10 deg). This is reported as Defect 4, an implementation bug in the policy; it is not fixed, so all
+results are for the policy as written.
 
 ---
 

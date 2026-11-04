@@ -14,7 +14,7 @@
  "rationale": "Raise absolute residual threshold from 0.30 to 0.60 mNm to sit between lowest-tier friction (0.2*2=0.4 mNm) and next tier (0.35*2=0.7 mNm). This permanently filters 0.2-friction false isolations while larger friction and torque-derate/dead wheels still exceed threshold when commanded torque is large, preserving needed isolations with only added delay.",
  "why_no_regressions": "Mild single faults do not need isolation to stay clean. Severe/dead faults scale with command and still exceed 0.6 mNm, so clean runs relying on isolation still isolate. No change to SAFE, power, or watchdog logic.",
  "decision": "reject",
- "gate_reason": "rejected: 20 new violations in 20 runs (12 previously clean) (evaluation stopped early after 1777 runs)",
+ "gate_reason": "rejected (strict): 14 new violations in 14 runs (11 previously clean), 39 fixes, evaluation stopped early after 1777 runs",
  "gate": {
   "evaluated": 1777,
   "new_violations": 14,
@@ -166,7 +166,8 @@
    "muse_seed1_141"
   ],
   "complete": false,
-  "eval_s": 602
+  "eval_s": 602,
+  "gate_reason": "rejected: 20 new violations in 20 runs (12 previously clean) (evaluation stopped early after 1777 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

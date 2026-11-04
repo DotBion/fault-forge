@@ -2,6 +2,9 @@
 
   python src/defects.py [--workers N]        # all policy-induced, reproducing minimized cases in data/cmp/minimized.jsonl
   python src/defects.py --replay KEY ARM     # replay one minimized case (by key prefix) under one ablation arm, print log
+  python src/defects.py --tiebreak           # count same-chunk threshold crossings resolved by wheel index (defects.json)
+  python src/defects.py --tiebreak KEY       # replay one case: full vs no_isolate, every wheel that crossed in the
+                                             # isolation chunk with its residual (diagnostic only; policy unchanged)
 
 Arms (same faults, same orbit; each changes ONE policy behaviour of v1):
   full        v1 policy
@@ -14,6 +17,7 @@ Writes data/satfix/defects.json.
 """
 import argparse
 import json
+import re
 import os
 import sys
 from multiprocessing import Pool
@@ -65,14 +69,63 @@ def classify(m, R):
     return "D3 safe-mode induced"
 
 
+RX = re.compile(r"wheel (\d+) (?:would be )?isolated \(residual ([0-9.eE+-]+) Nm\)")
+
+
+def tiebreak(R):
+    """Return (t, isolated_wheel, {wheel: residual} crossing in that chunk) when FDIR's one isolation chunk had >= 2
+    wheels crossing the persistence threshold (seen as 'would be isolated' lines under no_isolate), else None."""
+    iso = [(t, m) for t, m in R["full"]["log"] if "FDIR" in m and " isolated (" in m and "would" not in m]
+    if not iso:
+        return None
+    t0, m0 = iso[0]; w0 = int(RX.search(m0).group(1))
+    cross = {int(x.group(1)): float(x.group(2)) for t, m in R["no_isolate"]["log"] if t == t0 and "would be isolated" in m
+             for x in [RX.search(m)] if x}
+    return (t0, w0, cross) if len(cross) >= 2 else None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--replay", nargs=2, metavar=("KEY", "ARM"))
+    ap.add_argument("--tiebreak", nargs="?", const="", metavar="KEY")
     a = ap.parse_args()
+    if a.tiebreak == "":
+        done = json.load(open(OUT)); hits = []
+        for k, d in sorted(done.items()):
+            tb = tiebreak(d["arms"])
+            if tb:
+                t0, w0, cr = tb; worse = max(cr, key=cr.get) != w0
+                hits.append((k, d.get("class", "?"), t0, w0, cr, worse))
+        from collections import Counter
+        print(f"{len(hits)} of {len(done)} cases: >= 2 wheels crossed the FDIR persistence threshold in the isolation "
+              f"chunk; FDIR took the lowest index. Lower-residual wheel isolated in {sum(h[5] for h in hits)}.")
+        print("by class:", dict(Counter(h[1] for h in hits)))
+        for k, c, t0, w0, cr, worse in hits[:12]:
+            print(f"  {k[:8]}  {c:36s} t={t0:6.0f}s isolated rw{w0}  crossing: "
+                  + ", ".join(f"rw{w} {r:.2e}" for w, r in sorted(cr.items())) + ("  <- larger residual lost" if worse else ""))
+        return
     cache = {}
     for l in open(os.path.join(ROOT, "data", "cmp", "minimized.jsonl")):
         d = json.loads(l); cache[d["key"]] = d
+    if a.tiebreak:
+        k = [x for x in cache if x.startswith(a.tiebreak)][0]
+        R = {arm: run(cache[k]["minimized"], arm) for arm in ("full", "no_isolate")}
+        print(json.dumps(cache[k]["minimized"]))
+        tb = tiebreak(R)
+        for arm in ("full", "no_isolate"):
+            print(arm, R[arm]["violations"], "isolated", R[arm]["isolated"], "max_att", R[arm]["max_att_deg"])
+        if not tb:
+            print("no same-chunk tie at the isolation step"); return
+        t0, w0, cr = tb
+        print(f"t={t0:.0f}s: {len(cr)} wheels crossed the persistence threshold in the same 5 s chunk:")
+        for w, r in sorted(cr.items()):
+            print(f"  rw{w}  residual {r:.2e} Nm" + ("   <- isolated (lowest index)" if w == w0 else ""))
+        best = max(cr, key=cr.get)
+        print("FDIR walks wheels in index order and isolates the first that qualifies; residuals are not compared."
+              + (f" The larger residual (rw{best}) was NOT isolated." if best != w0 else " Here the lowest index also "
+                 "had the larger residual."))
+        return
     if a.replay:
         k = [x for x in cache if x.startswith(a.replay[0])][0]
         r = run(cache[k]["minimized"], a.replay[1])

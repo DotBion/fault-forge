@@ -27,7 +27,7 @@
   "r2t4"
  ],
  "decision": "reject",
- "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, 663 runs evaluated (stopped early)",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, evaluation stopped early after 663 runs",
  "gate": {
   "evaluated": 663,
   "new_violations": 3,
@@ -79,7 +79,8 @@
    "cmaes_seed0_169",
    "cmaes_seed0_176"
   ],
-  "net_fixes": -2
+  "net_fixes": -2,
+  "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, 663 runs evaluated (stopped early)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

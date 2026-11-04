@@ -1,0 +1,16 @@
+seed 301 round 0: 8/100 sims, 0 violations, llm 47.3s tok 6642, fallback 0, err 0, 51s
+seed 301 round 1: 16/100 sims, 0 violations, llm 75.9s tok 9980, fallback 0, err 0, 132s
+seed 301 round 2: 24/100 sims, 4 violations, llm 65.7s tok 10714, fallback 0, err 0, 202s
+seed 301 round 3: 32/100 sims, 6 violations, llm 67.0s tok 13273, fallback 0, err 0, 273s
+seed 301 round 4: 40/100 sims, 10 violations, llm 63.6s tok 14882, fallback 0, err 0, 341s
+seed 301 round 5: 48/100 sims, 12 violations, llm 62.0s tok 15041, fallback 0, err 0, 408s
+seed 301 round 6: 56/100 sims, 16 violations, llm 66.8s tok 15996, fallback 0, err 0, 479s
+seed 301 round 7: 64/100 sims, 20 violations, llm 66.3s tok 16787, fallback 0, err 0, 550s
+seed 301 round 8: 72/100 sims, 24 violations, llm 69.7s tok 17316, fallback 0, err 0, 625s
+seed 301 round 9: 80/100 sims, 28 violations, llm 64.3s tok 16622, fallback 0, err 0, 693s
+seed 301 round 10: 88/100 sims, 30 violations, llm 52.2s tok 15782, fallback 0, err 0, 750s
+seed 301 round 11: 96/100 sims, 31 violations, llm 59.0s tok 17848, fallback 0, err 0, 813s
+seed 301 round 12: 100/100 sims, 31 violations, llm 71.0s tok 17205, fallback 0, err 0, 886s
+wrote /workspace/faultforge/data/gated/fresh/muse_b1t1_seed301.jsonl
+    b1t1: 250/300 136s, new viol so far 0
+fresh {"policy": "b1t1", "k": 1, "muse_seed": 301, "muse": {"n": 100, "violating": 31, "rate": 0.31}, "random": {"n": 200, "violating": 0, "rate": 0.0}, "heldout_fixed": {"all": {"n": 300, "violating": 41, "rate": 0.13666666666666666}, "muse": {"n": 100, "violating": 38, "rate": 0.38}, "random": {"n": 200, "violating": 3, "rate": 0.015}}}

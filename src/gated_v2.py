@@ -357,7 +357,7 @@ def cmd_report(a):
         labels.append(lab[:60])
     ax2.bar(xs, [t["suite_violating_runs"] for t in trend], color="0.85", width=0.5, label="gate suite: violating runs (of 3,508)")
     for i, t in enumerate(trend):
-        ax2.text(i, t["suite_violating_runs"], str(t["suite_violating_runs"]), ha="center", va="bottom", fontsize=8, color="0.4")
+        ax2.text(i, t["suite_violating_runs"] * 0.97, str(t["suite_violating_runs"]), ha="center", va="top", fontsize=9, color="0.35")
     def ser(f):
         return [f(t) if t["fresh"] else np.nan for t in trend]
     ax.plot(xs, ser(lambda t: 100 * t["fresh"]["muse"]["rate"]), "o-", color="C3", lw=2, label="FRESH Muse search (new seed/policy, 100 sims)")
@@ -379,7 +379,8 @@ def cmd_report(a):
     ax.set_zorder(ax2.get_zorder() + 1); ax.patch.set_visible(False)
     h1, l1 = ax.get_legend_handles_labels(); h2, l2 = ax2.get_legend_handles_labels()
     ax.legend(h1 + h2, l1 + l2, fontsize=7.5, loc="upper right")
-    ax.set_ylim(bottom=0)
+    top = max([100 * t["fresh"]["muse"]["rate"] for t in trend if t["fresh"]] + [10])
+    ax.set_ylim(0, top * 1.6); ax2.set_ylim(0, max(t["suite_violating_runs"] for t in trend) * 1.6)
     ax.set_title(f"Gated repair: accepted policies ({len(rej)} proposals rejected by the gates)", fontsize=10)
     fig.tight_layout(); fig.subplots_adjust(bottom=0.25)
     fig.savefig(os.path.join(ROOT, "plots", "gated_repair_trend.png"), dpi=130); plt.close(fig)

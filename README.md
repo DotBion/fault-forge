@@ -9,13 +9,15 @@ cp .env.example .env   # put your key in .env, then:  make live   (one live Muse
 ```
 
 FaultForge hands an FDIR team the multi-fault combinations a test campaign would miss, each as a one-command
-replay with a candidate patch the gate has vetted. Meta's Muse Spark model searches a Basilisk CubeSat simulation
-for fault combinations that make a rule-based recovery (safe-mode / FDIR) policy violate its safety constraints;
-every violation is minimized to a small counterexample, re-run with the policy disabled, and replayable with one
-command. Muse then diagnoses the failures and proposes policy patches, which a regression gate it does not control
-accepts or rejects.
+replay. Meta's Muse Spark model searches a Basilisk CubeSat simulation for fault combinations that make a
+rule-based recovery (safe-mode / FDIR) policy violate its safety constraints; every violation is minimized to a
+small counterexample, re-run with the policy disabled, and replayable with one command. Muse then writes a diagnosis
+and selects and parameterizes a repair from an engineer-provided menu of repair options (whitelisted policy keys
+with bounds). A regression gate that Muse does not control re-simulates the full suite and accepts or rejects it.
+The **strict** gate (0 new violations) rejected every proposal; the **budget** gate (net fixes > 0, <= 3 previously
+clean runs broken) accepted one, b1t1 (see [Repair: gates](#repair-gates-strict-vs-budget)).
 
-Before this hackathon week the project had the Basilisk harness and the rule-based FDIR policy. This week:
+Before this hackathon week the project had the Basilisk harness and the rule-based FDIR policy. This week we implemented:
 the Muse-guided search, the rules-blind variant, CMA-ES and random baselines, the minimizer/compare pipeline,
 the Muse repair loop and the regression gate.
 
@@ -28,8 +30,8 @@ One model, **`muse-spark-1.3`**, via the Meta Model API: `POST https://api.meta.
 |---|---|---|---|
 | scenario search | each round reads the fault schema, the policy description, the failures found so far and near-miss margins, and returns 8 new fault scenarios as JSON | `src/llm_search.py`, `src/live_round.py` | `data/cmp/muse_seed*_calls.jsonl` |
 | blind rule inference | same search with the policy thresholds and the one-isolation rule hidden; it must infer the rules from outcomes (by round 4 of seed 1 it wrote "FDIR isolates at most one wheel") | `src/llm_search.py --blind` | `data/cmp/museblind_seed*_calls.jsonl` |
-| diagnosis | reads minimized counterexamples with policy traces and explains the failure mechanism | `src/gated_repair.py`, `src/gated_v2.py` (also `src/repair.py`) | `data/gated/*_response.json` (`diagnosis`) |
-| patch proposal | proposes a bounded policy change (whitelisted keys); the gate re-simulates it on the full suite, and rejections (with regressions + traces) go back to Muse | same | `data/gated/*_response.json` (`change`), `*_gate.json` |
+| diagnosis | reads minimized counterexamples with policy traces and writes a free-text explanation of why the policy failed (not checked by the gate) | `src/gated_repair.py`, `src/gated_v2.py` (also `src/repair.py`) | `data/gated/*_response.json` (`diagnosis`) |
+| repair selection | selects and parameterizes a repair from an engineer-provided menu (whitelisted policy keys with bounds, at most 3 keys); the gate re-simulates it on the full suite, and rejections (with regressions + traces) go back to Muse | same | `data/gated/*_response.json` (`change`), `*_gate.json` |
 
 Provenance: `src/muse_client.py` (used by `make live`) logs, for every call, the timestamp, endpoint, requested and
 returned model id, the response `id` and the `x-request-id` header (`data/live/*.json`). The historical search and
@@ -74,33 +76,85 @@ attempts; budget mode `gated_v2.py budget --tries 4` = up to 4 proposals per rou
 - About 25 % of the Muse arms' minimized cases need two near-dead wheels (beyond single-fault tolerance); they are
   reported separately as "out of scope".
 - The rules-blind prompt was reworded mid-run to get past the provider's content filter (details under Caveats).
-- Repair: as of the last commit no Muse patch passed the **strict** gate (0 new violations on the full suite); see
-  `data/gated/` (`rejects_table.md`, `summary_v2.json`, `waivers.md` when present) for the budget-mode results.
+- **Repair is menu-based.** Muse selects and parameterizes from an engineer-provided menu of repair options; it does
+  not write policy code. No proposal passed the **strict** gate. One (b1t1) passed the **budget** gate, which by
+  design accepts a patch that breaks up to 3 previously clean runs (b1t1 breaks 1). See
+  [Repair: gates](#repair-gates-strict-vs-budget).
+- **The single-fault grid is not independent validation.** 568/576 means the policy passes its own single-fault
+  acceptance test (its thresholds were tuned to it).
+- **Blind vs informed Muse is a hypothesis.** Rules-blind Muse is higher on violations/sim on all 3 seeds but higher on
+  distinct fault-combination signatures on only 2 of 3; 3 seeds do not settle the ordering.
+- **Random baseline is i.i.d. over the whole fault space.** It is not matched to the fault families Muse proposes, so
+  the ~46x violations/sim gap mixes "better search" with "better choice of fault families".
+- **The policy has an implementation bug** (FDIR same-step tie-break by wheel index, see Defect 4). We report it and
+  did not fix it, so every number here is for the policy as written.
 - Request ids exist only for calls made through `src/muse_client.py` (`make live`), not for the historical logs.
 
 ## Results at a glance (3 seeds per arm, equal sim budget, `data/cmp/summary.json`)
 
-| arm | violations / sim | sims to first violation | unique coarse patterns |
+| arm | violations / sim | sims to first violation | distinct fault-combination signatures (coarse) |
 |---|---|---|---|
 | Muse (rules given) | 0.283 | 7.7 | 15.7 |
 | Muse, rules-blind | 0.316 | 6.0 | 16.3 |
 | CMA-ES | 0.077 | 119 | 1.7 |
 | random | 0.006 | 63.7 | 1.3 |
 
-Numbers above and below use the corrected (consecutive) wheel-saturation rule; see the Changelog.
+Muse finds about 46x more violations per sim than random (0.283 vs 0.006; ratio of the unrounded means 45.6) and about 9x more distinct
+fault-combination signatures than CMA-ES (15.7 vs 1.7). A signature is the set of fault kinds in a minimized case;
+it is a count of distinct combinations, not of distinct defects (the defects are below). Numbers above and below use
+the corrected (consecutive) wheel-saturation rule; see the Changelog.
 
-Single-fault grid: 568 of 576 cases (incl. nominal) pass under the v1 policy (unchanged by the saturation fix). The 8
+Single-fault grid: the policy passes its own single-fault acceptance test (its thresholds were tuned to it): 568 of
+576 cases (incl. nominal), unchanged by the saturation fix. This is a sanity check, not independent validation. The 8
 failures are all one single fault: a 1.5 uNm external torque leak on +Z from t = 0 (at beta 5/35/65 deg), which
 saturates a wheel for > 60 s consecutive because the sim has no momentum dumping.
-Headline case `a6e8087b7a52c977` (found by Muse, seed 1 run 173; minimized in 11 sims): rw0 friction 0.2 at 105 s +
-rw1 derate 1.0 at 505 s. With the policy: attitude loss (FDIR spends its one isolation on the mild wheel).
-Without the policy: no violation, peak 16 deg. `make replay` re-simulates it. `make causal` re-runs it with *only*
-wheel isolation suppressed (everything else in the policy unchanged): no violation, so the isolation decision is the
-cause (`data/satfix/causal_replay.md`). `make defects` classifies every in-scope policy-induced case by root-cause
-mechanism (`data/satfix/defects.md`): of 276 cases, 254 (92 %) are isolation
-lock-in (the single isolation is spent on the milder wheel), 19 are isolation of a wheel that is still needed
-(6 of them a healthy wheel), and 3 are safe-mode chattering. In 63 cases FDIR picked between two wheels that crossed
-the threshold in the same 5 s step by wheel index, not by residual size.
+
+Headline **minimized case** `a6e8087b7a52c977` (minimized in 11 sims from Muse seed 1 run 173): rw0 friction 0.2 at
+105 s + rw1 derate 1.0 at 505 s. Note that the *original* run 173 (more faults) also fails with the policy off
+(attitude_loss @3015 s); the minimized case is the one where the policy alone causes the failure. `make causal` re-runs
+it with *only* wheel isolation suppressed (everything else in the policy unchanged). On the safety rule (attitude
+error > 30 deg for more than 1200 s), the longest stretch over 30 deg is **9,645 s with the full policy vs 30 s with
+isolation suppressed** (0 s with the policy off). In a 24-case neighbourhood sweep the full policy violates in 24/24
+and isolation-suppressed in 0/24. The peak error is 179.9 deg vs 136.9 deg: suppressing isolation does not keep the
+craft pointed (it tumbles through safe mode), but it recovers within the limit. Details: `data/satfix/causal_replay.md`.
+`make replay` re-simulates the case with the policy on/off.
+
+## Defects found
+
+`make defects` (`src/defects.py`) re-runs all 276 in-scope, policy-induced minimized cases under single-change
+ablations (`full`, `no_isolate`, `swap`, `no_safe`, `off`) and assigns each to the change that removes the failure.
+Full write-up: `data/satfix/defects.md`; raw: `data/satfix/defects.json`. Replay any case:
+`python3 src/defects.py --replay KEYPREFIX ARM`.
+
+| # | defect | cases | removing the cause fixes it | example key | replay |
+|---|---|---|---|---|---|
+| D1 | isolation lock-in: the one allowed isolation is spent on the milder fault | 254 / 276 | no_isolate 254/254, swap 253/254 | `a6e8087b` | `python3 src/defects.py --replay a6e8087b full` (then `no_isolate`, `swap`) |
+| D2 | isolation removes a wheel that is still needed (13 under a torque leak, 6 a healthy wheel) | 19 / 276 | no_isolate 19/19 | `b8aa55fd` | `python3 src/defects.py --replay b8aa55fd full` (then `no_isolate`) |
+| D3 | safe-mode chattering: no attitude hysteresis, SAFE/NOMINAL re-slews pump a wheel into saturation | 3 / 276 | no_safe 3/3 | `8a5158f3` | `python3 src/defects.py --replay 8a5158f3 full` (then `no_safe`) |
+| D4 | implementation bug in the policy: same-step threshold crossings resolved by wheel index, not residual | 63 / 276 (59 inside D1, 4 inside D2) | (not fixed; reported) | `059def4e` | `python3 src/defects.py --tiebreak 059def4e` |
+
+**D1 causal trace** (`a6e8087b`): t=105 s rw0 friction 0.2 -> t=120 s FDIR isolates rw0 (residual 3.99e-4 Nm, just
+over the 3e-4 threshold), using its only isolation (`min_avail=3`) -> t=505 s rw1 dies (derate 1.0); FDIR detects it
+but may not isolate it, so the controller keeps commanding a dead wheel -> SAFE at 930 s, never recovers ->
+attitude_loss @2915 s. With `no_isolate`: no violation. With `swap` (isolate the worse wheel instead): no violation.
+
+**D2 causal trace** (`b8aa55fd`, healthy-wheel variant): heater 5.2 W @3000 s, rw1 dead @3500 s -> SAFE on low SoC ->
+back to NOMINAL at 5285 s; during the re-slew at t=5300 s FDIR isolates **rw0, which has no fault** (residual 1.09e-3
+Nm), while dead rw1 crossed in the same step with 2.20e-3 Nm -> attitude_loss @6805 s. With `no_isolate`: no violation.
+
+**D3 causal trace** (`8a5158f3`): rw1 dead + rw3 friction 0.35 + 1.0 uNm leak @100 s -> FDIR correctly isolates rw1 ->
+on 3 wheels with a leak the attitude error hovers at 15-19 deg, so SAFE (> 15 deg for 120 s) and NOMINAL (SoC > 70 %
+after 600 s) alternate 13 times; each re-slew adds momentum -> wheel_saturation @10660 s. With `no_safe`: no
+violation, peak 17.1 deg.
+
+**D4: FaultForge surfaced an implementation bug in the policy itself.** The FDIR loop in `src/ff_sim.py` walks the
+wheels in index order and isolates the first one whose residual count reaches the persistence threshold. When two
+wheels cross in the same 5 s step it never compares residuals. This happened in 63 of 276 cases, and in all 63 the
+wheel with the *smaller* residual was isolated. Example `059def4e` (rw0 friction 0.2 and rw1 friction 0.725, both at
+t=0): at t=15 s both cross, rw0 at 4.76e-4 Nm and rw1 at 8.41e-4 Nm; FDIR isolates rw0 (lower index), then cannot
+isolate rw1 -> attitude_loss @3765 s. `python3 src/defects.py --tiebreak 059def4e` replays it and prints both
+residuals; `python3 src/defects.py --tiebreak` lists all 63 from `defects.json`. We did not fix this bug: every result
+in this README is for the policy as written, bug included.
 
 ## Changelog
 
@@ -127,7 +181,7 @@ mostly attitude loss. The arm ordering does not change. Details: `data/satfix/im
 | seed 1 (300 sims) | 95 -> 80 | 126 -> 84 | 12 -> 11 | 2 -> 2 |
 | seed 2 (300 sims) | 94 -> 78 | 138 -> 98 | 4 -> 3 | 1 -> 1 |
 
-| arm (mean of 3 seeds) | violations / sim | sims to 1st | unique fine patterns | unique coarse patterns |
+| arm (mean of 3 seeds) | violations / sim | sims to 1st | fine signatures | coarse signatures |
 |---|---|---|---|---|
 | Muse | 0.339 -> 0.283 | 5.7 -> 7.7 | 39.0 -> 32.0 | 18.7 -> 15.7 |
 | Muse-blind | 0.449 -> 0.316 | 5.0 -> 6.0 | 43.3 -> 33.7 | 21.0 -> 16.3 |
@@ -182,7 +236,7 @@ src/search.py      random | grid | summarize
 src/minimize.py    greedy fault dropping + magnitude bisection
 src/replay.py      one-command replay -> plot + CSV, checks it matches the recorded run
 src/llm_search.py  Muse Spark-guided search (api.meta.ai/v1, model muse-spark-1.3)
-src/compare.py     equal-budget Muse vs random: minimize every violation, dedupe patterns, summary + plot
+src/compare.py     equal-budget Muse vs random: minimize every violation, dedupe signatures, summary + plot
 src/power_demo.py  stock scenarioPowerDemo + CSV/PNG export
 data/              search results (.jsonl), minimal counterexamples (minimal_*.json), replay CSVs
 plots/             replay and demo plots
@@ -259,11 +313,12 @@ Arms (all draw from the same scenario space: <=2 RW faults on distinct wheels, <
 - **Random**: i.i.d. samples from the space.
 
 Every violation from every arm is minimized (`minimize.py`) and re-run with the policy disabled. *Policy-induced* =
-the minimized target violation does not occur without the policy. Fine pattern = violation <- faults with wheel
-index / dominant leak axis; coarse = fault kinds only. *Out of scope* = the minimized case still needs >= 2
+the minimized target violation does not occur without the policy. Distinct fault-combination signatures: fine =
+violation <- faults with wheel index / dominant leak axis; coarse = fault kinds only. Signatures are combinations, not
+defects. *Out of scope* = the minimized case still needs >= 2
 torque-derated wheels with severity >= 0.9 (two near-dead wheels, beyond a single-fault-tolerant 4-wheel design).
 
-| seed | arm | sims | violations/sim | sims to 1st | unique fine | unique coarse | policy-induced fine | ... in scope | out-of-scope share |
+| seed | arm | sims | violations/sim | sims to 1st | fine signatures | coarse signatures | policy-induced fine | ... in scope | out-of-scope share |
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | Muse | 232* | 0.323 (75) | 4 | 31 | 15 | 19 | 15 | 0.24 |
 | 0 | Muse-blind | 232* | 0.341 (79) | 5 | 32 | 16 | 20 | 15 | 0.19 |
@@ -285,17 +340,18 @@ torque-derated wheels with severity >= 0.9 (two near-dead wheels, beyond a singl
 \* Seed 0 Muse was stopped at 232 sims (API call cap). Every arm is truncated to the shortest arm per seed, so the
 budget is equal; over their full 300 sims seed 0 CMA-ES had 71 violations, Muse-blind 99.
 
-Union of fine patterns over seeds: Muse 61 (41 policy-induced), Muse-blind 69 (52), CMA-ES 5 (5), random 5 (2).
-Fine patterns found by only one arm: Muse 25, Muse-blind 32, CMA-ES 0, random 3. Plot: `plots/arms_comparison.png`.
+Union of fine signatures over seeds: Muse 61 (41 policy-induced), Muse-blind 69 (52), CMA-ES 5 (5), random 5 (2).
+Fine signatures found by only one arm: Muse 25, Muse-blind 32, CMA-ES 0, random 3. Plot: `plots/arms_comparison.png`.
 
 Reading the table:
 - Both Muse arms beat CMA-ES and random by a wide margin on *diversity*: 12-25 in-scope policy-induced fine
-  patterns per seed vs 1-4 for CMA-ES. CMA-ES can match Muse on raw violation rate when it converges early (seed 0),
-  but it then refines one mechanism; on seeds 1-2 it took 157-197 sims to find any violation. Its rate varies a lot
+  signatures per seed vs 1-4 for CMA-ES. CMA-ES can match Muse on raw violation rate when it converges early (seed 0),
+  but it then refines one fault combination; on seeds 1-2 it took 157-197 sims to find any violation. Its rate varies a lot
   by seed (71 / 11 / 3 per 300).
-- **Rules-blind Muse is not worse.** It has a higher violation rate than white-box Muse on all 3 seeds
-  (0.341 / 0.280 / 0.327 vs 0.323 / 0.267 / 0.260) and more coarse patterns on seeds 0 and 2 (16 vs 15, 18 vs 14)
-  but fewer on seed 1 (15 vs 18; fine 28 vs 37, in-scope policy-induced 12 vs 16). On seed 1 all 84 of its
+- **Rules-blind vs white-box Muse (hypothesis, not a finding).** Blind has a higher violation rate on all 3 seeds
+  (0.341 / 0.280 / 0.327 vs 0.323 / 0.267 / 0.260) but more coarse signatures on only 2 of 3 (16 vs 15, 18 vs 14;
+  fewer on seed 1, 15 vs 18; fine 28 vs 37, in-scope policy-induced 12 vs 16). Our hypothesis is that hiding the rules
+  does not hurt this search; 3 seeds with small gaps cannot confirm it. On seed 1 all 84 of its
   violations came from its 252 model-proposed sims (the 48 fallback sims had none). From isolated_wheels and
   outcomes alone it inferred by round 4 that FDIR only ever isolates one wheel. The gaps on seeds 0-1 are small,
   so treat the blind-vs-white-box ordering as indicative only.
@@ -306,7 +362,8 @@ LLM cost: white-box Muse 105 rounds, ~1.55M tokens, mean latency ~31 s/call. Bli
 ~27 s/call.
 
 Caveats
-- Fine patterns over-count mechanisms (wheel-index permutations); coarse counts are the conservative number.
+- Fine signatures over-count (wheel-index permutations of one combination); coarse signatures are the conservative
+  number. Neither counts defects: 276 cases with many signatures reduce to the 3 defect classes above.
   ~54 Muse runs (legacy-rule count) repeat one known single-fault weakness (a ~1.1 uNm Z leak saturating wheel 2 with no momentum dumping).
 - "Policy-induced" is target-specific: without the policy some cases fail a *different* constraint.
 - Provider content filter (HTTP 400 `content_policy_violation`, a fast prompt-side classifier). An early wording
@@ -323,7 +380,38 @@ Caveats
   (or BO) could do better; it is a reasonable, not a tuned, baseline.
 - Same simplifications as above (static Sun, 5 s policy steps, no momentum dumping, no thermal/sensor faults).
 
-## Repair loop: Muse proposes a policy change, verified in sim (`src/repair.py`)
+## Repair: gates (strict vs budget)
+
+Muse selects and parameterizes from an engineer-provided menu of repair options: whitelisted policy keys with bounds
+(17 keys in `repair.WHITELIST`, e.g. FDIR thresholds, isolation swap, safe-mode triggers, a wheel-speed SAFE guard), at most 3 keys per proposal. It does not
+write policy code. Each proposal is re-simulated by `src/gated_repair.py` / `src/gated_v2.py` on the full 3,508-run
+suite (576-case grid + 2,932 stored search runs). Two gates, reported separately:
+
+- **Strict gate** (0 new (run, violation) pairs and > 0 fixes): **rejected every proposal** (r1t1-r1t6, r2t1-r2t4,
+  structural s1-s2; 12 proposals). Table: `data/gated/rejects_table.md`.
+- **Budget gate** (net fixes > 0 and <= 3 previously clean runs broken per accepted patch): accepted one patch,
+  **b1t1** = `wheel_safe_frac 0.97, wheel_safe_s 60` (enter SAFE if an in-use wheel stays >= 97 % speed for 60 s):
+  **26 fixes, 2 runs with new violations, net +24; 1 previously clean run broken: `museblind_seed1_28`** (leak + rw2/rw3
+  dead, now wheel_saturation @9290 s; waiver and replay commands in `data/gated/waivers.md`). Round 2 (b2t1, b2t2)
+  was rejected (4 clean runs broken each) and the budget loop was stopped there.
+- **Cumulative effect of the budget across rounds:** only round 1 was accepted, so the accepted chain is v1 -> b1t1
+  with 1 waived clean run in total (budget 3 per patch). Suite violating runs: 415 (v1) -> 390 (b1t1).
+
+**Does b1t1 cut fresh violations?** Modestly, yes (`python3 src/gated_v2.py fresh` then `report`;
+`data/gated/fresh/result_{v1,b1t1}.json`, `data/gated/summary_v2.json`, chart `plots/gated_repair_trend.png`):
+
+| fresh check (consecutive sat rule) | v1 | b1t1 |
+|---|---|---|
+| new Muse search against the policy (100 sims; seed 300 for v1, 301 for b1t1) | 38/100 | 31/100 |
+| uniform random (200 sims; k0 for v1, k1 for b1t1) | 1/200 | 0/200 |
+| fixed held-out set (same 300 scenarios for both, paired) | 45/300 | 41/300 (4 fixed, 0 new) |
+
+The Muse and random rows are **unpaired** (each policy gets its own new search seed, as the gate design intends), and
+100-200 sims are small samples, so the 38 -> 31 drop is suggestive, not significant on its own. The paired held-out
+row is the cleaner evidence: 4 violating runs fixed and none broken. `summary_v2.json` records
+`trend_down_fresh_muse: true`.
+
+## Repair loop (legacy, `src/repair.py`): Muse proposes a policy change, verified in sim
 
 ```bash
 python src/repair.py propose --round 1        # -> data/repair/round1_{prompt.txt,response.json}, policy_v2.json
@@ -386,7 +474,7 @@ Our untested guess is that re-enabling the milder wheel hurts when both faults a
 Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed;
 **legacy cumulative saturation rule**, not re-scored):
 
-| arm | v1 violations | v2 violations | v1 in-scope policy-induced patterns | v2 in-scope policy-induced patterns |
+| arm | v1 violations | v2 violations | v1 in-scope policy-induced signatures | v2 in-scope policy-induced signatures |
 |---|---|---|---|---|
 | Muse | 66 (0.33/sim) | **95 (0.475/sim)** | 15 | **18** |
 | CMA-ES | 2 | 0 | 2 | 0 |
@@ -394,12 +482,24 @@ Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 s
 
 Reading: the round-1 change fixes almost every counterexample it was derived from and is clean on the single-fault
 grid. But a fresh Muse search finds *more* failures against v2 than against v1 (12 new in-scope policy-induced
-patterns). Most are the same root cause one level up: FDIR still commits its single isolation to the wrong
+signatures). Most are the same root cause one level up: FDIR still commits its single isolation to the wrong
 (milder) wheel, now at higher residuals. Random and CMA-ES barely register a difference at this budget. That is
 what motivated round 2 (swap).
 Plots: `plots/repair_before_after.png`, `plots/repair_replay_v2.png` (headline case 0805e05f39e4e419:
 rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses attitude, v2 isolates rw2 and holds
 ~9 deg).
+
+## Related work
+
+- **LLM-Falsifier.** A. ArjomandBigdeli, J. Zhou, S. Bak, "Large Language Models as Falsifiers for Cyber-Physical
+  Systems", arXiv:2609.20752 (Sep 2026). An LLM proposes falsifying inputs that minimize STL robustness, using
+  semantic information (signal names, trajectories, critical-time witnesses), on top of Psi-TaLiRo; it beat ARCH-COMP
+  tools on 14 of 21 specs by simulations to a counterexample. FaultForge applies the same idea to a different
+  object (discrete multi-fault combinations against an FDIR/safe-mode policy in Basilisk) and adds minimization,
+  policy-off attribution, ablation-based defect classes and a gated, menu-based repair step. We implemented this
+  combination; we do not claim it is the first.
+- Simulation-based falsification tools (S-TaLiRo / Psi-TaLiRo, Breach, ARCH-COMP falsification track) and CMA-ES as a
+  black-box optimizer baseline. FDIR design references: `docs/fdir_refs.md`.
 
 ## Demo video
 

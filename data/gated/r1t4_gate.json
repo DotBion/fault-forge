@@ -14,7 +14,7 @@
  "rationale": "Raise attitude watchdog from 15 to 18 deg to filter marginal 15-16 deg nuisance trips. Representative saturation cases trigger SAFE at 15.9, 15.4, 15.2 deg; with 18 deg they stay in NOMINAL like the clean no-policy run and avoid SAFE-induced momentum buildup. True losses with 30-170 deg errors still exceed 18 deg for 120s, so SAFE protection is preserved with only seconds delay, well below the 30-deg requirement.",
  "why_no_regressions": "18 deg remains 12 deg below the 30-deg safety limit and only suppresses SAFE in the 15-18 deg band which is inherently safe. No change to FDIR, battery thresholds, or resume dwell, so single-fault and severe multi-fault behavior is unchanged.",
  "decision": "reject",
- "gate_reason": "rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)",
+ "gate_reason": "rejected (strict): 4 new violations in 3 runs (3 previously clean), 3 fixes, evaluation stopped early after 982 runs",
  "gate": {
   "evaluated": 982,
   "new_violations": 4,
@@ -64,7 +64,8 @@
    "cmaes_seed0_98"
   ],
   "complete": false,
-  "eval_s": 0
+  "eval_s": 0,
+  "gate_reason": "rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

@@ -1,0 +1,254 @@
+{
+ "chain": [
+  {
+   "policy": "v1",
+   "change": null,
+   "phase": null,
+   "suite_violating_runs": 415,
+   "suite_n": 3508,
+   "waivers": [],
+   "gate_reason": null,
+   "fresh": {
+    "policy": "v1",
+    "k": 0,
+    "muse_seed": 300,
+    "muse": {
+     "n": 100,
+     "violating": 38,
+     "rate": 0.38
+    },
+    "random": {
+     "n": 200,
+     "violating": 1,
+     "rate": 0.005
+    },
+    "heldout_fixed": {
+     "all": {
+      "n": 300,
+      "violating": 45,
+      "rate": 0.15
+     },
+     "muse": {
+      "n": 100,
+      "violating": 42,
+      "rate": 0.42
+     },
+     "random": {
+      "n": 200,
+      "violating": 3,
+      "rate": 0.015
+     }
+    },
+    "sat_rule": "consecutive (corrected 2026-11-04)",
+    "legacy_cumulative": {
+     "policy": "v1",
+     "k": 0,
+     "muse_seed": 300,
+     "muse": {
+      "n": 100,
+      "violating": 39,
+      "rate": 0.39
+     },
+     "random": {
+      "n": 200,
+      "violating": 1,
+      "rate": 0.005
+     },
+     "heldout_fixed": {
+      "all": {
+       "n": 300,
+       "violating": 51,
+       "rate": 0.17
+      },
+      "muse": {
+       "n": 100,
+       "violating": 48,
+       "rate": 0.48
+      },
+      "random": {
+       "n": 200,
+       "violating": 3,
+       "rate": 0.015
+      }
+     }
+    }
+   }
+  },
+  {
+   "policy": "b1t1",
+   "change": {
+    "wheel_safe_frac": 0.97,
+    "wheel_safe_s": 60.0
+   },
+   "phase": "budget",
+   "suite_violating_runs": 390,
+   "suite_n": 3508,
+   "waivers": [
+    {
+     "suite_id": "museblind_seed1_28",
+     "file": "data/gated/waivers/b1t1_museblind_seed1_28.jsonl",
+     "violations_new": {
+      "wheel_saturation": 9290.0
+     },
+     "signature": "leak+rw2_torque_derate+rw3_torque_derate",
+     "replay_new": "python3 src/replay.py data/gated/waivers/b1t1_museblind_seed1_28.jsonl 0 --policy data/gated/policy_b1t1.json",
+     "replay_base": "python3 src/replay.py data/gated/waivers/b1t1_museblind_seed1_28.jsonl 0 --policy v1"
+    }
+   ],
+   "gate_reason": "accepted (budget): 26 fixes, 2 runs with new violations (1 previously clean = waived), net +24 on all 3508 runs",
+   "fresh": {
+    "policy": "b1t1",
+    "k": 1,
+    "muse_seed": 301,
+    "muse": {
+     "n": 100,
+     "violating": 31,
+     "rate": 0.31
+    },
+    "random": {
+     "n": 200,
+     "violating": 0,
+     "rate": 0.0
+    },
+    "heldout_fixed": {
+     "all": {
+      "n": 300,
+      "violating": 41,
+      "rate": 0.13666666666666666
+     },
+     "muse": {
+      "n": 100,
+      "violating": 38,
+      "rate": 0.38
+     },
+     "random": {
+      "n": 200,
+      "violating": 3,
+      "rate": 0.015
+     }
+    }
+   }
+  }
+ ],
+ "n_rejected": 14,
+ "rejected": [
+  {
+   "name": "b2t1",
+   "change": {
+    "fdir_hard_Nm": 0.0005
+   },
+   "why": "rejected (budget): 4 previously clean runs broken (max 3), 4 runs with new violations, 3 fixes, net -1, 797 runs evaluated (stopped early)"
+  },
+  {
+   "name": "b2t2",
+   "change": {
+    "isolation_swap": true,
+    "swap_ratio": 3.0,
+    "swap_max_iso_res_Nm": 0.0005
+   },
+   "why": "rejected (budget): 4 previously clean runs broken (max 3), 4 runs with new violations, 2 fixes, net -2, 659 runs evaluated (stopped early)"
+  },
+  {
+   "name": "r1t1",
+   "change": {
+    "isolation_swap": true,
+    "swap_ratio": 2.0
+   },
+   "why": "rejected (strict): 20 new violations in 20 runs (20 previously clean), 36 fixes, evaluation stopped early after 861 runs"
+  },
+  {
+   "name": "r1t2",
+   "change": {
+    "fdir_abs_Nm": 0.0006
+   },
+   "why": "rejected (strict): 14 new violations in 14 runs (11 previously clean), 39 fixes, evaluation stopped early after 1777 runs"
+  },
+  {
+   "name": "r1t3",
+   "change": {
+    "resume_min_s": 900.0
+   },
+   "why": "rejected (strict): 17 new violations in 16 runs (10 previously clean) vs 10 fixes on the full suite"
+  },
+  {
+   "name": "r1t4",
+   "change": {
+    "att_safe_deg": 18.0
+   },
+   "why": "rejected (strict): 4 new violations in 3 runs (3 previously clean), 3 fixes, evaluation stopped early after 982 runs"
+  },
+  {
+   "name": "r1t5",
+   "change": {
+    "isolation_swap": true,
+    "swap_ratio": 2.5,
+    "swap_min_res_Nm": 0.001,
+    "swap_max_iso_res_Nm": 0.0006
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 7 runs"
+  },
+  {
+   "name": "r1t6",
+   "change": {
+    "isolation_swap": true,
+    "swap_ratio": 5.0,
+    "swap_min_res_Nm": 0.002,
+    "swap_max_iso_res_Nm": 0.0004
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 25 runs"
+  },
+  {
+   "name": "r2t1",
+   "change": {
+    "isolation_swap": true,
+    "swap_ratio": 2.0,
+    "swap_min_res_Nm": 0.0008,
+    "swap_max_iso_res_Nm": 0.0006
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 66 runs"
+  },
+  {
+   "name": "r2t2",
+   "change": {
+    "wheel_safe_frac": 0.97,
+    "wheel_safe_s": 60.0
+   },
+   "why": "rejected (strict): 2 new violations in 2 runs (1 previously clean) vs 26 fixes on the full suite"
+  },
+  {
+   "name": "r2t3",
+   "change": {
+    "wheel_safe_frac": 0.97,
+    "wheel_safe_s": 120.0
+   },
+   "why": "rejected (strict): 2 new violations in 2 runs (0 previously clean) vs 9 fixes on the full suite"
+  },
+  {
+   "name": "r2t4",
+   "change": {
+    "fdir_persist": 4
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 13 runs"
+  },
+  {
+   "name": "s1",
+   "change": {
+    "fdir_readmit_s": 1800.0
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 1 fixes, evaluation stopped early after 663 runs"
+  },
+  {
+   "name": "s2",
+   "change": {
+    "fdir_hard_Nm": 0.0005
+   },
+   "why": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 3 fixes, evaluation stopped early after 794 runs"
+  }
+ ],
+ "fresh_muse_rates": [
+  0.38,
+  0.31
+ ],
+ "trend_down_fresh_muse": true,
+ "n_waivers": 1
+}

@@ -14,7 +14,7 @@
  "rationale": "Increase FDIR persistence 3 to 4 consecutive 5s hits. Requires sustained residual, filtering intermittent marginal exceedances from mild Coulomb friction when commanded torque varies, while still isolating solid dead-wheel faults whose residual equals command and persists. Only 5s delay, no threshold or SAFE-logic change.",
  "why_no_regressions": "Only delays isolation by 5s, preserves isolation order and decisions for persistent faults, adds no new SAFE triggers or swaps. Negligible versus 60s saturation and 1200s attitude-loss thresholds.",
  "decision": "reject",
- "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 13 runs)",
+ "gate_reason": "rejected (strict): 3 new violations in 3 runs (3 previously clean), 0 fixes, evaluation stopped early after 13 runs",
  "gate": {
   "evaluated": 13,
   "new_violations": 3,
@@ -54,7 +54,8 @@
   ],
   "fix_ids": [],
   "complete": false,
-  "eval_s": 9
+  "eval_s": 9,
+  "gate_reason": "rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 13 runs)"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

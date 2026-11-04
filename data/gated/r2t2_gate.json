@@ -16,7 +16,7 @@
  "rationale": "Add momentum guard just below violation level: in-use wheel >=97% for 60s forces SAFE sun-point and blocks resume while above. Sun-point needs lower torque than NOMINAL tracking, limiting further momentum buildup and pre-empting the 98% for 60s violation. Mirrors violation definition so only near-saturation runs are affected.",
  "why_no_regressions": "97% for 60s is far above normal operation; nominal and single-fault runs never dwell there. Guard only adds SAFE dwell in runs already near saturation and never forces early NOMINAL, so no new attitude or battery violations.",
  "decision": "reject",
- "gate_reason": "rejected: 1 new violations in 1 runs (0 previously clean) vs 13 fixes on the full suite",
+ "gate_reason": "rejected (strict): 2 new violations in 2 runs (1 previously clean) vs 26 fixes on the full suite",
  "gate": {
   "evaluated": 3508,
   "new_violations": 2,
@@ -92,7 +92,8 @@
    "random_seed0_9"
   ],
   "complete": true,
-  "eval_s": 1835
+  "eval_s": 1835,
+  "gate_reason": "rejected: 1 new violations in 1 runs (0 previously clean) vs 13 fixes on the full suite"
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }

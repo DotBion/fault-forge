@@ -17,7 +17,7 @@
  "rationale": "Add momentum guard: in-use wheel >=97% max speed for 60s triggers SAFE sun-point and blocks resume while above. Triggers only just below the 98% for 60s violation definition, giving controller relief and preventing dwell violation. 0.97 is maximum allowed fraction, most conservative setting, so behavior change is minimal and orthogonal to FDIR isolation logic.",
  "why_no_regressions": "Triggers only when wheel already near limit, rare in clean runs. SAFE preserves power and sun-pointing, battery margins are large, so no new SoC or attitude violations. Prior full 3508-run evaluation showed zero previously-clean breaks.",
  "decision": "accept",
- "gate_reason": "accepted (budget): 13 fixes, 1 runs with new violations (0 previously clean = waived), net +12 on all 3508 runs",
+ "gate_reason": "accepted (budget): 26 fixes, 2 runs with new violations (1 previously clean = waived), net +24 on all 3508 runs",
  "gate": {
   "evaluated": 3508,
   "new_violations": 2,
@@ -67,7 +67,18 @@
   "net_fixes": 24,
   "sat_rule": "consecutive"
  },
- "waivers": [],
+ "waivers": [
+  {
+   "suite_id": "museblind_seed1_28",
+   "file": "data/gated/waivers/b1t1_museblind_seed1_28.jsonl",
+   "violations_new": {
+    "wheel_saturation": 9290.0
+   },
+   "signature": "leak+rw2_torque_derate+rw3_torque_derate",
+   "replay_new": "python3 src/replay.py data/gated/waivers/b1t1_museblind_seed1_28.jsonl 0 --policy data/gated/policy_b1t1.json",
+   "replay_base": "python3 src/replay.py data/gated/waivers/b1t1_museblind_seed1_28.jsonl 0 --policy v1"
+  }
+ ],
  "gate_legacy_cumulative": {
   "evaluated": 3508,
   "new_violations": 1,
@@ -98,7 +109,9 @@
   "eval_s": 1298,
   "mode": "budget",
   "clean_broken_ids": [],
-  "net_fixes": 12
+  "net_fixes": 12,
+  "gate_reason": "accepted (budget): 13 fixes, 1 runs with new violations (0 previously clean = waived), net +12 on all 3508 runs",
+  "waivers": []
  },
  "sat_rule_recheck": "2026-11-04: re-decided on the consecutive-rule-corrected suite (data/satfix/gates_corrected.json); decision unchanged"
 }
