@@ -1,0 +1,57 @@
+{
+ "note": "preliminary, raw runs only (no minimization); equal budget per seed = shortest arm (seed0 232, seeds1-2 300). Pattern counts come from compare.py -> summary.json",
+ "arms": {
+  "muse": {
+   "viol_per_sim_by_seed": [
+    0.388,
+    0.317,
+    0.313
+   ],
+   "viol_per_sim_mean": 0.339,
+   "first_violation_sim_by_seed": [
+    4,
+    3,
+    10
+   ]
+  },
+  "museblind": {
+   "viol_per_sim_by_seed": [
+    0.466,
+    0.42,
+    0.46
+   ],
+   "viol_per_sim_mean": 0.449,
+   "first_violation_sim_by_seed": [
+    5,
+    6,
+    4
+   ]
+  },
+  "cmaes": {
+   "viol_per_sim_by_seed": [
+    0.185,
+    0.04,
+    0.013
+   ],
+   "viol_per_sim_mean": 0.08,
+   "first_violation_sim_by_seed": [
+    4,
+    154,
+    157
+   ]
+  },
+  "random": {
+   "viol_per_sim_by_seed": [
+    0.009,
+    0.007,
+    0.003
+   ],
+   "viol_per_sim_mean": 0.006,
+   "first_violation_sim_by_seed": [
+    10,
+    15,
+    166
+   ]
+  }
+ }
+}
