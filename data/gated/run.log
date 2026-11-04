@@ -1,0 +1,53 @@
+seed 100 round 0: 8/100 sims, 1 violations, llm 42.4s tok 6128, fallback 0, err 0, 47s
+seed 100 round 1: 16/100 sims, 4 violations, llm 57.6s tok 8821, fallback 0, err 0, 109s
+seed 100 round 2: 24/100 sims, 6 violations, llm 45.3s tok 9040, fallback 0, err 0, 158s
+seed 100 round 3: 32/100 sims, 9 violations, llm 58.6s tok 12052, fallback 0, err 0, 221s
+seed 100 round 4: 40/100 sims, 15 violations, llm 45.0s tok 11879, fallback 0, err 0, 271s
+seed 100 round 5: 48/100 sims, 20 violations, llm 64.5s tok 15832, fallback 0, err 0, 341s
+seed 100 round 6: 56/100 sims, 23 violations, llm 67.4s tok 16088, fallback 0, err 0, 413s
+seed 100 round 7: 64/100 sims, 29 violations, llm 57.6s tok 15459, fallback 0, err 0, 475s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 100 round 8: 72/100 sims, 34 violations, llm 64.3s tok 16417, fallback 0, err 0, 786s
+seed 100 round 9: 80/100 sims, 38 violations, llm 66.7s tok 16602, fallback 0, err 0, 857s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 100 round 10: 88/100 sims, 43 violations, llm 54.8s tok 16552, fallback 0, err 0, 1159s
+seed 100 round 11: 96/100 sims, 47 violations, llm 58.4s tok 14890, fallback 0, err 0, 1222s
+seed 100 round 12: 100/100 sims, 48 violations, llm 43.8s tok 13667, fallback 0, err 0, 1269s
+wrote /workspace/faultforge/data/gated/heldout_muse_seed100.jsonl
+    v1: 250/300 530s, new viol so far 0
+held-out v1: 51 / 300
+=== round 1 (current policy v1)
+  r1t1: Muse change {'isolation_swap': True, 'swap_ratio': 2.0} -> valid {'isolation_swap': True, 'swap_ratio': 2.0} []
+    r1t1: 250/3508 85s, new viol so far 0
+    r1t1: 500/3508 171s, new viol so far 1
+    r1t1: 750/3508 257s, new viol so far 10
+  r1t1: reject - rejected: 20 new violations in 20 runs (20 previously clean) (evaluation stopped early after 861 runs)
+  r1t2: Muse change {'fdir_abs_Nm': 0.0006} -> valid {'fdir_abs_Nm': 0.0006} []
+    r1t2: 250/3508 86s, new viol so far 5
+    r1t2: 500/3508 172s, new viol so far 5
+    r1t2: 750/3508 256s, new viol so far 5
+    r1t2: 1000/3508 342s, new viol so far 7
+    r1t2: 1250/3508 425s, new viol so far 10
+    r1t2: 1500/3508 509s, new viol so far 11
+    r1t2: 1750/3508 593s, new viol so far 19
+  r1t2: reject - rejected: 20 new violations in 20 runs (12 previously clean) (evaluation stopped early after 1777 runs)
+  r1t3: Muse change {'resume_min_s': 900.0} -> valid {'resume_min_s': 900.0} []
+    r1t3: 250/3508 86s, new viol so far 1
+    r1t3: 500/3508 172s, new viol so far 1
+    r1t3: 750/3508 257s, new viol so far 1
+    r1t3: 1000/3508 343s, new viol so far 4
+    r1t3: 1250/3508 427s, new viol so far 4
+    r1t3: 1500/3508 512s, new viol so far 5
+    r1t3: 1750/3508 597s, new viol so far 9
+    r1t3: 2000/3508 682s, new viol so far 9
+    r1t3: 2250/3508 766s, new viol so far 15
+    r1t3: 2500/3508 851s, new viol so far 18
+    r1t3: 2750/3508 936s, new viol so far 19
+    r1t3: 3000/3508 1019s, new viol so far 19
+    r1t3: 3250/3508 1108s, new viol so far 19
+    r1t3: 3500/3508 1208s, new viol so far 19
+  r1t3: reject - rejected: 19 new violations in 18 runs (10 previously clean) vs 44 fixes on the full suite
+  r1t4: Muse change {'att_safe_deg': 18.0} -> valid {'att_safe_deg': 18.0} []
+    r1t4: 250/3508 101s, new viol so far 5
+    r1t4: 500/3508 203s, new viol so far 5
+    r1t4: 750/3508 305s, new viol so far 6

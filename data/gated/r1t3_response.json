@@ -1,0 +1,32 @@
+{
+ "round": 1,
+ "try": 3,
+ "model": "muse-spark-1.3",
+ "latency_s": 192.14154044300085,
+ "attempts": 1,
+ "usage": {
+  "completion_tokens": 15886,
+  "prompt_tokens": 8420,
+  "total_tokens": 24306,
+  "completion_tokens_details": {
+   "reasoning_tokens": 15613
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "n_cases": 207,
+ "response_verbatim": "{\"diagnosis\": \"Policy isolates a mildly degraded friction wheel that remains usable, leaving a more degraded wheel in control. Attitude error then trips SAFE, followed by minimum-dwell resume to NOMINAL with the same degraded 3-wheel allocation. Rapid SAFE-NOMINAL cycling pumps momentum and attitude error to violation, while 4-wheel no-policy control rides through.\", \"change\": {\"resume_min_s\": 900.0}, \"rationale\": \"Increase minimum SAFE dwell 600s to 900s to keep sun-point and charging longer. Delays re-exposure to demanding NOMINAL pointing on 3 wheels, breaks rapid 600s resume cycling seen in logs, lets attitude settle and SoC charge higher before resume, and can push late wheel saturations beyond the 2-orbit horizon. Fixes a few cycling cases conservatively.\", \"why_no_regressions\": \"Only delays SAFE to NOMINAL resume, adds no new isolations or SAFE entries. Longer SAFE is power-positive sun-point, far from SoC 0.20 and attitude limits. Single-fault runs still resume 300s later within sim with no new violation.\", \"expected_fixed_patterns\": [\"wheel_saturation <- rw_friction+rw_friction\", \"wheel_saturation <- leak+rw_friction+rw_friction\"]}",
+ "parsed": {
+  "diagnosis": "Policy isolates a mildly degraded friction wheel that remains usable, leaving a more degraded wheel in control. Attitude error then trips SAFE, followed by minimum-dwell resume to NOMINAL with the same degraded 3-wheel allocation. Rapid SAFE-NOMINAL cycling pumps momentum and attitude error to violation, while 4-wheel no-policy control rides through.",
+  "change": {
+   "resume_min_s": 900.0
+  },
+  "rationale": "Increase minimum SAFE dwell 600s to 900s to keep sun-point and charging longer. Delays re-exposure to demanding NOMINAL pointing on 3 wheels, breaks rapid 600s resume cycling seen in logs, lets attitude settle and SoC charge higher before resume, and can push late wheel saturations beyond the 2-orbit horizon. Fixes a few cycling cases conservatively.",
+  "why_no_regressions": "Only delays SAFE to NOMINAL resume, adds no new isolations or SAFE entries. Longer SAFE is power-positive sun-point, far from SoC 0.20 and attitude limits. Single-fault runs still resume 300s later within sim with no new violation.",
+  "expected_fixed_patterns": [
+   "wheel_saturation <- rw_friction+rw_friction",
+   "wheel_saturation <- leak+rw_friction+rw_friction"
+  ]
+ }
+}

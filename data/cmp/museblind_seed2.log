@@ -1,0 +1,45 @@
+seed 2 round 0: 8/300 sims, 2 violations, llm 31.2s tok 4929, fallback 0, err 0, 40s
+seed 2 round 1: 16/300 sims, 4 violations, llm 60.6s tok 8794, fallback 0, err 0, 110s
+seed 2 round 2: 24/300 sims, 7 violations, llm 50.4s tok 9478, fallback 0, err 0, 170s
+seed 2 round 3: 32/300 sims, 10 violations, llm 60.5s tok 11877, fallback 0, err 0, 239s
+seed 2 round 4: 40/300 sims, 13 violations, llm 54.0s tok 13282, fallback 0, err 0, 302s
+seed 2 round 5: 48/300 sims, 16 violations, llm 45.4s tok 12836, fallback 0, err 0, 356s
+seed 2 round 6: 56/300 sims, 20 violations, llm 45.5s tok 14021, fallback 0, err 0, 412s
+seed 2 round 7: 64/300 sims, 22 violations, llm 85.5s tok 18802, fallback 0, err 0, 507s
+seed 2 round 8: 72/300 sims, 27 violations, llm 69.3s tok 16173, fallback 0, err 0, 586s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 2 round 9: 80/300 sims, 32 violations, llm 90.2s tok 15996, fallback 0, err 0, 975s
+seed 2 round 10: 88/300 sims, 33 violations, llm 70.5s tok 17050, fallback 0, err 0, 1054s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 2 round 11: 96/300 sims, 37 violations, llm 46.1s tok 15209, fallback 0, err 0, 1352s
+seed 2 round 12: 104/300 sims, 40 violations, llm 64.6s tok 15738, fallback 0, err 0, 1426s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+  LLM call failed (attempt 2): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 13: 112/300 sims, 44 violations, llm 57.5s tok 11189, fallback 0, err 0, 1791s
+  LLM call failed (attempt 1): HTTP 400: {"error":{"code":"content_policy_violation","message":"The response was filtered due to the prompt triggering our content management policy.","param":"prompt","type":"invalid_request_error"}}
+seed 2 round 14: 120/300 sims, 48 violations, llm 47.7s tok 12315, fallback 0, err 0, 1890s
+seed 2 round 15: 128/300 sims, 54 violations, llm 46.7s tok 16033, fallback 0, err 0, 1945s
+seed 2 round 16: 136/300 sims, 57 violations, llm 58.4s tok 14973, fallback 0, err 0, 2012s
+seed 2 round 17: 144/300 sims, 64 violations, llm 28.8s tok 14074, fallback 0, err 0, 2050s
+seed 2 round 18: 152/300 sims, 68 violations, llm 55.2s tok 16392, fallback 0, err 0, 2114s
+seed 2 round 19: 160/300 sims, 73 violations, llm 93.1s tok 17790, fallback 0, err 0, 2214s
+seed 2 round 20: 168/300 sims, 77 violations, llm 59.5s tok 17075, fallback 0, err 0, 2282s
+seed 2 round 21: 176/300 sims, 82 violations, llm 48.9s tok 16642, fallback 0, err 0, 2339s
+seed 2 round 22: 184/300 sims, 87 violations, llm 63.9s tok 18000, fallback 0, err 0, 2411s
+seed 2 round 23: 192/300 sims, 90 violations, llm 53.5s tok 17354, fallback 0, err 0, 2472s
+seed 2 round 24: 200/300 sims, 94 violations, llm 64.4s tok 16960, fallback 0, err 0, 2544s
+seed 2 round 25: 208/300 sims, 98 violations, llm 58.3s tok 17240, fallback 0, err 0, 2611s
+seed 2 round 26: 216/300 sims, 100 violations, llm 66.8s tok 17055, fallback 0, err 0, 2687s
+seed 2 round 27: 224/300 sims, 102 violations, llm 50.1s tok 16609, fallback 0, err 0, 2746s
+seed 2 round 28: 232/300 sims, 106 violations, llm 45.3s tok 15977, fallback 0, err 0, 2800s
+seed 2 round 29: 240/300 sims, 109 violations, llm 36.7s tok 14495, fallback 0, err 0, 2846s
+seed 2 round 30: 248/300 sims, 113 violations, llm 57.6s tok 17143, fallback 0, err 0, 2911s
+seed 2 round 31: 256/300 sims, 116 violations, llm 54.8s tok 15150, fallback 0, err 0, 2975s
+seed 2 round 32: 264/300 sims, 120 violations, llm 62.2s tok 17059, fallback 0, err 0, 3045s
+seed 2 round 33: 272/300 sims, 124 violations, llm 36.4s tok 15002, fallback 0, err 0, 3089s
+seed 2 round 34: 280/300 sims, 127 violations, llm 40.7s tok 15333, fallback 0, err 0, 3138s
+seed 2 round 35: 288/300 sims, 133 violations, llm 47.4s tok 15822, fallback 0, err 0, 3193s
+seed 2 round 36: 296/300 sims, 136 violations, llm 57.1s tok 16749, fallback 0, err 0, 3258s
+seed 2 round 37: 300/300 sims, 138 violations, llm 68.0s tok 18231, fallback 0, err 0, 3330s
+wrote /workspace/faultforge/data/cmp/museblind_seed2.jsonl
