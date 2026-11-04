@@ -1,0 +1,157 @@
+{
+ "key": "a6e8087b7a52c977",
+ "params": {
+  "orbit": {
+   "beta_deg": 65.0,
+   "f0_deg": 255.0
+  },
+  "rw_faults": [
+   {
+    "wheel": 0,
+    "onset_s": 105.0,
+    "type": "friction",
+    "severity": 0.2
+   },
+   {
+    "wheel": 1,
+    "onset_s": 505.0,
+    "type": "torque_derate",
+    "severity": 1.0
+   }
+  ],
+  "heater": null,
+  "torque_leak": null
+ },
+ "sat_rule": "consecutive",
+ "minimized_record": {
+  "key": "a6e8087b7a52c977",
+  "target": "attitude_loss",
+  "violations": {
+   "attitude_loss": 2915.0
+  },
+  "reproduces": true,
+  "policy_induced": true,
+  "violations_no_policy": {},
+  "n_faults_before": 2,
+  "n_faults_after": 2,
+  "minimization_sims": 11,
+  "pattern_coarse": "attitude_loss <- rw_friction+rw_torque_derate",
+  "pattern_fine": "attitude_loss <- rw0_friction+rw1_torque_derate"
+ },
+ "full": {
+  "violations": {
+   "attitude_loss": 2915.0
+  },
+  "policy_log": [
+   [
+    105.0,
+    "FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 105.0, \"type\": \"friction\", \"severity\": 0.2}"
+   ],
+   [
+    120.0,
+    "POLICY FDIR: wheel 0 isolated (residual 3.99e-04 Nm)"
+   ],
+   [
+    505.0,
+    "FAULT rw1 applied {\"wheel\": 1, \"onset_s\": 505.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+   ],
+   [
+    930.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 138.2 deg > 15.0 for 120s"
+   ],
+   [
+    1530.0,
+    "POLICY -> NOMINAL (SoC 0.80)"
+   ],
+   [
+    1650.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 51.5 deg > 15.0 for 120s"
+   ]
+  ],
+  "max_att_err_after_grace_deg": 179.9026558188772,
+  "margins": {
+   "battery_margin": 0.45028,
+   "att_err_ratio": 5.99676,
+   "att_dur_ratio": 8.0375,
+   "wheel_speed_ratio": 1.03619,
+   "sat_dur_ratio": 0.08333
+  }
+ },
+ "no_isolate": {
+  "violations": {},
+  "policy_log": [
+   [
+    105.0,
+    "FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 105.0, \"type\": \"friction\", \"severity\": 0.2}"
+   ],
+   [
+    120.0,
+    "POLICY FDIR: wheel 0 would be isolated (residual 3.99e-04 Nm) - SUPPRESSED"
+   ],
+   [
+    505.0,
+    "FAULT rw1 applied {\"wheel\": 1, \"onset_s\": 505.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+   ],
+   [
+    530.0,
+    "POLICY FDIR: wheel 1 would be isolated (residual 5.45e-04 Nm) - SUPPRESSED"
+   ],
+   [
+    905.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 15.1 deg > 15.0 for 270s"
+   ],
+   [
+    1505.0,
+    "POLICY -> NOMINAL (SoC 0.82)"
+   ],
+   [
+    2745.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 15.9 deg > 15.0 for 120s"
+   ],
+   [
+    3345.0,
+    "POLICY -> NOMINAL (SoC 0.71)"
+   ],
+   [
+    3590.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 15.4 deg > 15.0 for 120s"
+   ],
+   [
+    3610.0,
+    "POLICY FDIR: wheel 3 would be isolated (residual 3.16e-04 Nm) - SUPPRESSED"
+   ],
+   [
+    4190.0,
+    "POLICY -> NOMINAL (SoC 0.82)"
+   ],
+   [
+    5270.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 16.0 deg > 15.0 for 120s"
+   ],
+   [
+    5870.0,
+    "POLICY -> NOMINAL (SoC 0.93)"
+   ],
+   [
+    6080.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 16.0 deg > 15.0 for 120s"
+   ],
+   [
+    6680.0,
+    "POLICY -> NOMINAL (SoC 1.00)"
+   ],
+   [
+    10935.0,
+    "POLICY -> SAFE (sun-point, payload off): attitude error 16.1 deg > 15.0 for 120s"
+   ]
+  ],
+  "max_att_err_after_grace_deg": 136.911425231383,
+  "margins": {
+   "battery_margin": 0.45028,
+   "att_err_ratio": 4.56371,
+   "att_dur_ratio": 0.025,
+   "wheel_speed_ratio": 1.02111,
+   "sat_dur_ratio": 0.25
+  }
+ }
+}

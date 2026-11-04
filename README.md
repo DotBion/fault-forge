@@ -503,13 +503,19 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 
 ## Demo video
 
-**Current: `demo/faultforge_demo_v3.mp4`** (2:53, 1080p30, narrated). Re-render with `bash demo/render_v3.sh`
-(edge-tts narration from `demo/v3_script.py` -> `demo/vo_v3/`, segments via `demo/make_video_v3.py`; script and
-on-screen data sources in `docs/video_v3_script.md`). Every count is read from the repo at render time, so
-re-rendering picks up new gate results. The live beat is a real, unedited `make live` terminal recording
-(`demo/live/take1.cast`, 2/8 runs violated; second take `take2.cast`, 0/8; records in `data/live/`), converted
-by `demo/cast_to_mp4.sh`. Only the Muse wait is sped up, and it is labelled on screen. Recorded (non-live) Muse calls are
-labelled with the commit time of their data file. Stills: `demo/v3_still_*.png`.
+**Current: `demo/faultforge_demo_v4.mp4`** (172.6 s, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
+(edge-tts narration from `demo/v4_script.py` -> `demo/vo_v4/`, segments via `demo/make_video_v4.py`; timed script and
+on-screen data sources in `docs/video_v4_script.md`). Every number is read from the repo at render time. Order:
+(1) the minimized case `a6e8087b`, full policy vs the same policy with only isolation suppressed (Basilisk replay,
+`demo/replay_causal_v4.py`), ending on the safety-rule metric (longest stretch > 30 deg: 9,645 s vs 30 s; 24/24 vs
+0/24 nearby variants) before the peak-angle context; (2) Muse's four labelled roles, then the real, unedited
+`make live` take (`demo/live/take1.cast`, 2/8 runs violated; only the Muse wait is sped up and labelled; this call's
+request id is shown, recorded calls have none); (3) defect classes D1-D3 and the D4 tie-break bug, with counts and
+replay commands; (4) chart 1, benchmarks, with a marked matched-random slot (shown as PENDING: `data/matched/summary.json` did not exist at render time); (5) the strict gate
+(rejects all) and the budget gate (b1t1, net +24, 1 clean run broken: `museblind_seed1_28`), then chart 2 with the
+fresh-search check; (6) limits and related work. Stills: `demo/v4_still_*.png`.
+
+Previous: `demo/faultforge_demo_v3.mp4` (2:53), `bash demo/render_v3.sh`, script `docs/video_v3_script.md`.
 
 Older version:
 `demo/faultforge_demo_v1.mp4` (2:49, 1080p30, captions only) is rendered entirely from repo data by

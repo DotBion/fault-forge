@@ -1,0 +1,51 @@
+{
+ "s1": {
+  "vo_s": 32.907,
+  "seg_s": 36,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "dce151edc8d1"
+ },
+ "s2": {
+  "vo_s": 13.551,
+  "seg_s": 14.751,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "147afdfdb6ec"
+ },
+ "s3": {
+  "vo_s": 15.627,
+  "seg_s": 21,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "545744f1ad66"
+ },
+ "s4": {
+  "vo_s": 24.714,
+  "seg_s": 26,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "a1db47cf3824"
+ },
+ "s5": {
+  "vo_s": 22.908,
+  "seg_s": 24.108,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "75ed60723ec7"
+ },
+ "s6": {
+  "vo_s": 32.481,
+  "seg_s": 33.681,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "ea572ecb2ed9"
+ },
+ "s7": {
+  "vo_s": 15.821,
+  "seg_s": 17.021,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "2490f60f8802"
+ }
+}

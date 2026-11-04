@@ -14,7 +14,7 @@ import argparse, hashlib, time, json, os, re, subprocess, sys, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import importlib  # noqa: E402
 
-# --script v2 (default, demo/v2_script.py -> demo/vo/) or --script v3 (demo/v3_script.py -> demo/vo_v3/)
+# --script v2 (default, demo/v2_script.py -> demo/vo/), v3 (demo/v3_script.py -> demo/vo_v3/) or v4 (-> demo/vo_v4/)
 _SCRIPT = sys.argv[sys.argv.index("--script") + 1] if "--script" in sys.argv else "v2"
 v2_script = importlib.import_module(f"{_SCRIPT}_script")  # name kept so the code below is unchanged
 VO = os.path.join(HERE, "vo" if _SCRIPT == "v2" else f"vo_{_SCRIPT}"); os.makedirs(VO, exist_ok=True)
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     ap.add_argument("--engine", default="edge", choices=["edge", "piper"])
     ap.add_argument("--voice", default="en-US-AndrewNeural"); ap.add_argument("--rate", default="+0%")
     ap.add_argument("--force", action="store_true")
-    ap.add_argument("--script", default="v2", choices=["v2", "v3"])
+    ap.add_argument("--script", default="v2", choices=["v2", "v3", "v4"])
     a = ap.parse_args()
     dj = os.path.join(VO, "durations.json")
     old = json.load(open(dj)) if os.path.exists(dj) else {}
