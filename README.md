@@ -198,7 +198,7 @@ mostly attitude loss. The arm ordering does not change. Details: `data/satfix/im
 | Held-out set (100 Muse + 200 random, v1) | 51/300 | 45/300 |
 | Regression suite (3508 runs), v1 violating | 505 | 415 |
 | Single-fault grid + nominal, v1 clean | 568/576 | 568/576 |
-| Gate b1t1 (budget mode, `wheel_safe_frac` 0.97 / `wheel_safe_s` 60) | accept: 13 fixes, 0 clean runs broken, net +12 | **accept: 26 fixes, 1 clean run broken (<= 3), net +24** |
+| Gate b1t1 (budget mode, `wheel_safe_frac` 0.97 / `wheel_safe_s` 60) | accept: 13 fixes, 0 clean runs broken, net +12 | **accept: 26 fixes, 2 runs with new violations (1 previously clean, waived; <= 3), net 26 - 2 = +24** |
 
 **Gates.** All gates were re-decided on the corrected suite (`python3 src/satfix.py gates`). No accept/reject
 decision changed: b1t1 still passes the budget gate; b2t1/b2t2 are still rejected (4 clean runs broken); every
