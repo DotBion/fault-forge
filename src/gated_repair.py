@@ -35,7 +35,7 @@ CMP = os.path.join(ROOT, "data", "cmp")
 G = os.path.join(ROOT, "data", "gated")
 os.makedirs(G, exist_ok=True)
 SUITE_FILES = [f"{a}_seed{s}.jsonl" for a in ("cmaes", "muse", "random") for s in (0, 1, 2)] + ["museblind_seed1.jsonl"]
-EARLY_ABORT = 20
+EARLY_ABORT = 20  # default; the loop now uses --abort (3 since the restart, see README_gated note)
 HELDOUT_SEED, HELDOUT_MUSE, HELDOUT_RANDOM = 100, 100, 200
 
 
@@ -153,6 +153,13 @@ def _trace(job):
     return R.trace(params, get_pol(polname))
 
 
+def sig(p):
+    """fault-kind signature of a scenario, e.g. 'leak+rw0_friction+rw1_torque_derate'."""
+    parts = (["heater"] if p.get("heater") else []) + (["leak"] if p.get("torque_leak") else [])
+    parts += sorted(f"rw{f['wheel']}_{f['type']}" for f in p.get("rw_faults") or [])
+    return "+".join(parts) or "nominal"
+
+
 def faults_of(p):
     return {k: p[k] for k in ("orbit", "rw_faults", "heater", "torque_leak")}
 
@@ -166,7 +173,7 @@ SYS = ("You are a spacecraft fault-protection engineer. Simulation-based verific
        + "Write in plain reliability-engineering wording.")
 
 
-def build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, workers):
+def build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, workers, base_tries=99):
     import llm_search as L
     P = get_pol(cur)
     stats = {}
@@ -198,6 +205,23 @@ def build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, workers):
                   "does not have), with policy traces under both policies:\n" + json.dumps(
                       [{"faults": faults_of(params[k]), "with_rejected_proposal": c, "with_current_policy": b}
                        for (k, _), c, b in zip(reg_jobs, rtr_c, rtr_b)], separators=(',', ':')) + "\n")
+    narrow = ""
+    if tri > base_tries and attempts:
+        from collections import Counter
+        lines = []
+        for x in attempts:
+            g = x.get("gate", {})
+            rc = Counter(sig(params[k]) for k in g.get("new_violation_ids", []))
+            fc = Counter(sig(params[k]) for k in g.get("fix_ids", []))
+            lines.append(f"- try {x['try']} {json.dumps(x['change'])}: {g.get('new_violations', 0)} new violations, "
+                         f"{g.get('fixes', 0)} fixes (of {g.get('evaluated', 0)} runs evaluated). Regressed fault "
+                         f"signatures: {json.dumps(dict(rc.most_common(12)))}; fixed signatures: {json.dumps(dict(fc.most_common(12)))}")
+        narrow = ("No single change this round passed the zero-regression gate. For this proposal you may COMBINE "
+                  "changes (up to the key limit) or NARROW one (e.g. keep isolation_swap but restrict it with "
+                  "swap_min_res_Nm / swap_max_iso_res_Nm so it only acts on a clearly dead wheel replacing a mildly "
+                  "degraded one) so that it keeps fixes while avoiding every regression listed below. Summary of all "
+                  "rejected proposals (regression evaluation stops after a few new violations, so regression lists are "
+                  "partial):\n" + "\n".join(lines) + "\n")
     user = L.PREFACE + f"""Round {rnd}, proposal {tri}.
 Spacecraft: 6U CubeSat, 2-orbit sims, 4 reaction wheels, battery 30 Wh. Safety requirements: SoC >= 0.20; attitude
 error <= 30 deg (not > 1200 s continuously after 900 s); no in-use wheel >= 98% max speed for > 60 s.
@@ -208,7 +232,7 @@ Fault types: torque_derate (u_max *= 1-severity), friction (Coulomb += severity*
 {R.whitelist_text()}
 At most {R.MAX_CHANGES} keys (swap_ratio / wheel_safe_s count only as tuning of their rule). Out of scope: cases with two
 nearly dead wheels (already excluded).
-{hist}{tried}
+{hist}{tried}{narrow}
 Remaining in-scope policy-induced minimized failure cases under the current policy: {len(cases)}; count by pattern:
 {json.dumps(stats)}
 Representative cases (minimized; trace = policy actions, violations with times in s, near-miss margins):
@@ -232,7 +256,7 @@ def cmd_loop(a):
         print(f"=== round {rnd} (current policy {cur})", flush=True)
         cases = failing_cases(cur, a.workers)
         attempts, acc = [], None
-        for tri in range(1, a.tries + 1):
+        for tri in range(1, a.tries + a.narrow_tries + 1):
             name = f"r{rnd}t{tri}"
             gp = os.path.join(G, f"{name}_gate.json")
             if os.path.exists(gp):
@@ -243,7 +267,7 @@ def cmd_loop(a):
                 continue
             rp = os.path.join(G, f"{name}_response.json")
             if not os.path.exists(rp):
-                user = build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, a.workers)
+                user = build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, a.workers, base_tries=a.tries)
                 open(os.path.join(G, f"{name}_prompt.txt"), "w").write(SYS + "\n\n" + user)
                 msgs = [{"role": "system", "content": SYS}, {"role": "user", "content": user}]
                 content, usage, lat, att = L.chat(msgs, seed=5000 + 10 * rnd + tri, max_tokens=16000)
@@ -269,7 +293,7 @@ def cmd_loop(a):
                 order = list(dict.fromkeys(prev_ids + grid + keys))
                 t0 = time.time()
                 d, complete = evaluate(name, [(k, params[k]) for k in order], os.path.join(G, f"eval_{name}.jsonl"),
-                                       a.workers, base=base, abort=EARLY_ABORT)
+                                       a.workers, base=base, abort=a.abort)
                 g = compare(base, d, keys)
                 g["complete"] = complete; g["eval_s"] = round(time.time() - t0)
                 if g["new_violations"] == 0 and complete and g["fixes"] > 0:
@@ -377,6 +401,9 @@ def main():
     ap.add_argument("--rounds", type=int, default=3)
     ap.add_argument("--tries", type=int, default=4, help="proposals per round (1 + up to 3 retries)")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--narrow-tries", type=int, default=2,
+                    help="extra proposals when the regular tries fail: Muse may combine or narrow changes")
+    ap.add_argument("--abort", type=int, default=3, help="stop a gate evaluation after this many new violations")
     ap.add_argument("--policy", default=None)
     a = ap.parse_args()
     {"heldout": cmd_heldout, "loop": cmd_loop, "fresh": cmd_fresh, "report": cmd_report}[a.cmd](a)

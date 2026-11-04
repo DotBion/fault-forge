@@ -329,7 +329,9 @@ def run_scenario(params, cfg=CFG, policy=POLICY, telemetry=True, policy_enabled=
                     iso = [k for k in range(nRW) if not st["avail"][k]]
                     if iso:
                         k = min(iso, key=lambda q: st["iso_res"][q])
-                        if res > policy.get("swap_ratio", 2.0) * st["iso_res"][k]:
+                        smin, imax = policy.get("swap_min_res_Nm"), policy.get("swap_max_iso_res_Nm")
+                        if (res > policy.get("swap_ratio", 2.0) * st["iso_res"][k]
+                                and (smin is None or res >= smin) and (imax is None or st["iso_res"][k] <= imax)):
                             st["avail"][k], st["avail"][i] = True, False
                             st["iso_res"][i] = res
                             st["res_cnt"][k] = 0

@@ -35,6 +35,10 @@ WHITELIST = {
                        "residual > swap_ratio x the isolated wheel's recorded residual, re-enable the isolated (milder) wheel and "
                        "isolate the new one (keeps 3-wheel control on the healthiest wheels)"),
     "swap_ratio": ("float", 1.2, 5.0, "residual ratio required for an FDIR swap"),
+    "swap_min_res_Nm": ("float_or_null", 3e-4, 5e-3, "narrows the FDIR swap: the new wheel's residual must also be >= this "
+                        "absolute value, Nm (null = no extra condition)"),
+    "swap_max_iso_res_Nm": ("float_or_null", 3e-4, 5e-3, "narrows the FDIR swap: only an isolated wheel whose recorded residual "
+                            "is <= this value, Nm (i.e. a mildly degraded wheel) may be re-enabled (null = no extra condition)"),
     "min_avail": ("choice", [2, 3], None, "isolation allowed only while more than this many wheels are available "
                   "(3 = at most one isolation; 2 = a second isolation, leaving 2 wheels = under-actuated)"),
     "fdir_persist": ("int", 2, 12, "consecutive 5 s detector hits before isolating (persistence / hysteresis)"),
@@ -74,12 +78,12 @@ def validate_change(ch, base):
             notes.append(f"dropped unparsable {k}={v!r}"); continue
         if base.get(k) != v:
             out[k] = v
-    if sum(1 for k in out if k not in ("swap_ratio", "wheel_safe_s")) > MAX_CHANGES:
+    if sum(1 for k in out if k not in ("swap_ratio", "wheel_safe_s", "swap_min_res_Nm", "swap_max_iso_res_Nm")) > MAX_CHANGES:
         notes.append(f"more than {MAX_CHANGES} rule changes; kept the first {MAX_CHANGES}")
         keep, n = {}, 0
         for k, v in out.items():
             if k in ("swap_ratio", "wheel_safe_s") or n < MAX_CHANGES:
-                keep[k] = v; n += k not in ("swap_ratio", "wheel_safe_s")
+                keep[k] = v; n += k not in ("swap_ratio", "wheel_safe_s", "swap_min_res_Nm", "swap_max_iso_res_Nm")
         out = keep
     return out, notes
 
