@@ -177,9 +177,10 @@ def main():
                 "unique_patterns_policy_induced", "unique_patterns_policy_induced_in_scope", "out_of_scope_share"]
         mean = {k: float(np.nanmean([p[k] if p[k] is not None else np.nan for p in per.values()])) for k in keys}
         mean["seeds"] = sorted(per)
+        std = {k: float(np.nanstd([p[k] if p[k] is not None else np.nan for p in per.values()])) for k in keys}
         union_f = sorted(set().union(*[set(p["patterns_fine"]) for p in per.values()]))
         union_pi = sorted(set().union(*[set(p["patterns_policy_induced"]) for p in per.values()]))
-        summary["arms"][arm] = {"per_seed": per, "mean": mean, "union_patterns_fine": union_f,
+        summary["arms"][arm] = {"per_seed": per, "mean": mean, "std": std, "union_patterns_fine": union_f,
                                 "union_patterns_policy_induced": union_pi}
     summary["patterns"] = allpat
     unions = {n: set(d["union_patterns_fine"]) for n, d in summary["arms"].items()}
@@ -195,32 +196,28 @@ def main():
     json.dump(summary, open(os.path.join(CMP, "summary.json"), "w"), indent=1)
 
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(1, 3, figsize=(17, 4.8))
+    # lead with coarse patterns (distinct failure mechanisms by fault kind); bars = mean over seeds, dots = seeds
     col = {"muse": "tab:blue", "museblind": "tab:purple", "cmaes": "tab:red", "random": "tab:gray"}
-    for arm, seeds in curves.items():
-        for j, (s, (cv, cu, cpi)) in enumerate(sorted(seeds.items())):
-            x = np.arange(1, len(cv) + 1)
-            ax[0].plot(x, cv, color=col.get(arm), alpha=0.8, lw=1.4, label=arm if j == 0 else None)
-            ax[1].plot(x, cu, color=col.get(arm), alpha=0.8, lw=1.4, label=f"{arm}: all" if j == 0 else None)
-            ax[1].plot(x, cpi, color=col.get(arm), alpha=0.8, lw=1.2, ls="--",
-                       label=f"{arm}: policy-induced" if j == 0 else None)
-    ax[0].set(title="Cumulative violating sims (each line = one seed)", xlabel="simulations", ylabel="violations")
-    ax[1].set(title="Unique minimized failure patterns (dashed: policy-induced)", xlabel="simulations", ylabel="patterns")
+    nice = {"muse": "Muse", "museblind": "Muse-blind", "cmaes": "CMA-ES", "random": "random"}
     names = [n for n in ("muse", "museblind", "cmaes", "random") if n in summary["arms"]]
-    m1 = [summary["arms"][n]["mean"]["violations_per_sim"] for n in names]
-    m2 = [summary["arms"][n]["mean"]["unique_patterns_policy_induced"] for n in names]
-    m3 = [summary["arms"][n]["mean"]["unique_patterns_policy_induced_in_scope"] for n in names]
+    panels = [("unique_patterns_coarse", "Unique failure patterns, COARSE\n(violation <- fault kinds)", False),
+              ("unique_patterns_fine", "Unique failure patterns, fine\n(wheel / leak axis)", False),
+              ("violations_per_sim", "Violations per simulation", False),
+              ("sims_to_first_violation", "Sims to first violation (lower = better)", True)]
+    fig, ax = plt.subplots(1, 4, figsize=(18, 4.6))
     xx = np.arange(len(names))
-    ax[2].bar(xx - 0.27, m1, 0.27, color="tab:orange", label="violations / sim")
-    a2 = ax[2].twinx()
-    a2.bar(xx, m2, 0.27, color="tab:green", label="policy-induced patterns")
-    a2.bar(xx + 0.27, m3, 0.27, color="tab:olive", label="... in scope")
-    lab = [f"{n}\n({len(summary['arms'][n]['per_seed'])} seed{'s' if len(summary['arms'][n]['per_seed']) > 1 else ''})" for n in names]
-    ax[2].set_xticks(xx, lab); ax[2].set_ylabel("violations / sim"); a2.set_ylabel("unique patterns (mean per seed)")
-    ax[2].set_title("Mean over seeds (equal budget per seed)")
-    ax[2].legend(loc="upper left"); a2.legend(loc="upper right")
-    for x_ in ax[:2]:
-        x_.legend(fontsize=8); x_.grid(alpha=0.3)
+    for a_, (k, title, _) in zip(ax, panels):
+        mu = [summary["arms"][n]["mean"][k] for n in names]
+        a_.bar(xx, mu, 0.6, color=[col[n] for n in names], alpha=0.85)
+        for x_, n in zip(xx, names):
+            vals = [p[k] for p in summary["arms"][n]["per_seed"].values() if p[k] is not None]
+            a_.scatter([x_] * len(vals), vals, color="k", s=14, zorder=3)
+        for x_, m_ in zip(xx, mu):
+            a_.text(x_, m_, f"{m_:.2f}" if k == "violations_per_sim" else f"{m_:.1f}", ha="center", va="bottom", fontsize=9)
+        a_.set_xticks(xx, [f"{nice[n]}\n({len(summary['arms'][n]['per_seed'])} seeds)" for n in names], fontsize=9)
+        a_.set_title(title, fontsize=10); a_.grid(alpha=0.3, axis="y")
+    fig.suptitle("Equal sim budget per seed (" + ", ".join(f"seed {s}: {len(arms[names[0]][s])} sims" for s in sorted(arms[names[0]])) + "). "
+                 "Bars = mean over seeds, dots = individual seeds", fontsize=10)
     fig.tight_layout()
     out = os.path.join(ROOT, "plots", "arms_comparison.png"); fig.savefig(out, dpi=130)
     print("wrote", out)
