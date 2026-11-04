@@ -1,0 +1,636 @@
+{
+ "provenance": {
+  "ts_utc": "2026-11-04T06:05:16+00:00",
+  "endpoint": "https://api.meta.ai/v1/chat/completions",
+  "model_requested": "muse-spark-1.3",
+  "model": "muse-spark-1.3",
+  "response_id": "chatcmpl-01a1a52a-eae2-736b-8282-cdf1f96ca3a2",
+  "request_id": "7f1e3588-02d1-4cef-b806-f40f651cc87a",
+  "request_id_header": "x-request-id",
+  "http_status": 200,
+  "latency_s": 98.85,
+  "attempts": 1,
+  "usage": {
+   "completion_tokens": 9789,
+   "prompt_tokens": 1044,
+   "total_tokens": 10833,
+   "completion_tokens_details": {
+    "reasoning_tokens": 8799
+   },
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   }
+  },
+  "finish_reason": "stop"
+ },
+ "seed": 72316,
+ "blind": false,
+ "prompt_system": "You are FaultForge, a verification engineer stress-testing spacecraft fault protection in simulation. Your job:\npropose multi-fault test scenarios under which the EXISTING recovery policy fails a safety requirement, and find as many\nphysically DISTINCT failure mechanisms as possible (not repeats of known ones).\n\nSimulator (Basilisk): 10 kg 6U CubeSat, 500 km circular orbit, 2 orbits = 11354 s. Inertia diag [0.12, 0.1, 0.05] kg m^2.\nBody-fixed solar panel on +X_B (zenith in nominal nadir-pointing), 30 Wh battery starting at 65% SoC,\nloads bus 3.0 W + payload 4.0 W + wheels. Solar beta angle sets eclipse fraction (beta>~68 deg: no\neclipse; beta 0: ~37% eclipse); f0 sets initial orbital phase relative to eclipse. Constant disturbance torque\n[2e-07, -1e-07, 1.5e-07] Nm. No momentum dumping. 4 reaction wheels (4 mNm, 15 mNms, 6000 rpm) on axes\nwheel0=+X, wheel1=+Y, wheel2=+Z, wheel3=(1,1,1)/sqrt3, initial rpm [800.0, -600.0, 500.0, -300.0].\nFaults: RW torque_derate (u_max *= 1-severity; severity~1 = dead wheel), RW friction (Coulomb += severity*2 mNm,\nviscous += severity*2e-6), stuck-on heater (extra W), external torque leak (adds mag along axis; secular momentum).\nFaults are applied at onset_s (quantized to 5 s).\n\nRecovery policy under test (runs every 5 s):\n- SoC < 0.4 -> SAFE (payload off, sun-point panel); SAFE -> NOMINAL when SoC > 0.7 and att err < 15.0 deg after >= 600 s in SAFE.\n- NOMINAL attitude error > 15.0 deg for 120 s (after t=900s) -> SAFE.\n- FDIR: a wheel whose |commanded - delivered| torque residual > max(0.25*|cmd|, 3e-04 Nm) for 3\n  consecutive 5 s checks is isolated (removed from control), but ONLY while more than 3 wheels are available\n  (so at most one wheel is ever isolated).\nSafety constraints (violations):\n- battery_floor: SoC < 0.2.\n- attitude_loss: attitude error > 30.0 deg continuously for > 1200 s (after t=900 s).\n- wheel_saturation: any AVAILABLE wheel at >= 98% of max speed for > 60 s.\n\nNear-miss margins reported per run (use them as a gradient): battery_margin = min SoC - floor (<0 violates),\natt_err_ratio = peak attitude error / bound, att_dur_ratio = longest out-of-bound stretch / limit (>1 violates),\nwheel_speed_ratio = peak available-wheel speed / saturation threshold, sat_dur_ratio (>1 violates).\n\nScenario JSON schema (all fields required; use null for absent faults):\n{\"hypothesis\": str (<=20 words, the failure mechanism you are probing),\n  \"orbit\": {\"beta_deg\": float [0.0, 70.0], \"f0_deg\": float [0, 360)},\n  \"rw_faults\": list of 0-2 objects on DISTINCT wheels:\n      {\"wheel\": int 0-3, \"onset_s\": float [0, 9083], \"type\": \"torque_derate\"|\"friction\",\n       \"severity\": float [0.2, 1.0]},\n  \"heater\": null | {\"onset_s\": float [0, 9083], \"power_W\": float [1.0, 6.0]},\n  \"torque_leak\": null | {\"onset_s\": float [0, 9083], \"mag_Nm\": float [3.0e-07, 1.5e-06],\n                         \"axis\": [x, y, z] body-frame direction (normalized by us)}}\n\nWrite analysis and hypotheses in plain reliability-engineering wording (e.g. 'not isolated by FDIR', 'exceeds wheel momentum capacity', 'drains battery'); avoid adversarial or security vocabulary.\nReply with ONLY a JSON object: {\"analysis\": str (<=80 words), \"scenarios\": [ ... exactly N scenario objects ... ]}.",
+ "prompt_user": "Context: offline Basilisk simulation study for verification & validation of a CubeSat fault-protection design (design review input). Simulation results so far follow.\nRound 0. Sim budget left: 8.\nNo scenarios have been run yet.\n\nPropose exactly 8 NEW test scenarios: try distinct failure mechanisms of the recovery policy.",
+ "response_verbatim": "{\"analysis\": \"Probing distinct recovery gaps: power recharge vs eclipse-heater drain, friction power, secular momentum without dumping, reduced redundancy, single-isolation limit, sub-threshold evasion, coupled power-momentum SAFE trap, and degraded sun-pointing. Varying beta, phase, fault type, timing and axis to isolate mechanisms.\", \"scenarios\": [{\"hypothesis\": \"Stuck heater in deep eclipse drains battery faster than SAFE recharge\", \"orbit\": {\"beta_deg\": 0.0, \"f0_deg\": 0.0}, \"rw_faults\": [], \"heater\": {\"onset_s\": 0.0, \"power_W\": 6.0}, \"torque_leak\": null}, {\"hypothesis\": \"Wheel friction power overhead plus heater drains battery in eclipse\", \"orbit\": {\"beta_deg\": 8.0, \"f0_deg\": 180.0}, \"rw_faults\": [{\"wheel\": 0, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 1.0}, {\"wheel\": 1, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 1.0}], \"heater\": {\"onset_s\": 0.0, \"power_W\": 4.0}, \"torque_leak\": null}, {\"hypothesis\": \"Secular external torque exceeds wheel momentum capacity over two orbits\", \"orbit\": {\"beta_deg\": 70.0, \"f0_deg\": 90.0}, \"rw_faults\": [], \"heater\": null, \"torque_leak\": {\"onset_s\": 0.0, \"mag_Nm\": 1.5e-06, \"axis\": [1, 0, 0]}}, {\"hypothesis\": \"Isolated wheel reduces momentum envelope so leak saturates remaining wheels\", \"orbit\": {\"beta_deg\": 60.0, \"f0_deg\": 0.0}, \"rw_faults\": [{\"wheel\": 3, \"onset_s\": 0.0, \"type\": \"torque_derate\", \"severity\": 1.0}], \"heater\": null, \"torque_leak\": {\"onset_s\": 0.0, \"mag_Nm\": 1.2e-06, \"axis\": [0, 1, 0]}}, {\"hypothesis\": \"Second dead wheel not isolated by FDIR causes persistent attitude error\", \"orbit\": {\"beta_deg\": 30.0, \"f0_deg\": 90.0}, \"rw_faults\": [{\"wheel\": 0, \"onset_s\": 100.0, \"type\": \"torque_derate\", \"severity\": 1.0}, {\"wheel\": 1, \"onset_s\": 100.0, \"type\": \"torque_derate\", \"severity\": 1.0}], \"heater\": null, \"torque_leak\": null}, {\"hypothesis\": \"Low friction not isolated by FDIR degrades pointing causing attitude loss\", \"orbit\": {\"beta_deg\": 35.0, \"f0_deg\": 180.0}, \"rw_faults\": [{\"wheel\": 2, \"onset_s\": 500.0, \"type\": \"friction\", \"severity\": 0.2}, {\"wheel\": 3, \"onset_s\": 500.0, \"type\": \"friction\", \"severity\": 0.2}], \"heater\": null, \"torque_leak\": null}, {\"hypothesis\": \"Combined heater drain and momentum buildup traps spacecraft in underpowered SAFE\", \"orbit\": {\"beta_deg\": 5.0, \"f0_deg\": 45.0}, \"rw_faults\": [], \"heater\": {\"onset_s\": 0.0, \"power_W\": 5.0}, \"torque_leak\": {\"onset_s\": 0.0, \"mag_Nm\": 1.0e-06, \"axis\": [0, 0, 1]}}, {\"hypothesis\": \"Failed wheel degrades SAFE sun-pointing so heater drains battery to floor\", \"orbit\": {\"beta_deg\": 12.0, \"f0_deg\": 120.0}, \"rw_faults\": [{\"wheel\": 2, \"onset_s\": 200.0, \"type\": \"torque_derate\", \"severity\": 1.0}], \"heater\": {\"onset_s\": 0.0, \"power_W\": 3.0}, \"torque_leak\": null}]}",
+ "runs": [
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.3475714541845514,
+   "max_att_err_after_grace_deg": 149.93222313829295,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.398460072000489,
+   "margins": {
+    "battery_margin": 0.14757,
+    "att_err_ratio": 4.99774,
+    "att_dur_ratio": 0.01667,
+    "wheel_speed_ratio": 1.0399,
+    "sat_dur_ratio": 0.16667
+   },
+   "n_policy_actions": 4,
+   "id": 0,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT heater0 applied {\"onset_s\": 0.0, \"power_W\": 6.0}"
+    ],
+    [
+     1930.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     4660.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ],
+    [
+     7960.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     10135.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ]
+   ],
+   "hypothesis": "Stuck heater in deep eclipse drains battery faster than SAFE recharge"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 8.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 1.0
+     },
+     {
+      "wheel": 1,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 1.0
+     }
+    ],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 4.0
+    },
+    "torque_leak": null
+   },
+   "violations": {
+    "attitude_loss": 9950.0
+   },
+   "violated": true,
+   "min_soc": 0.6260993738783167,
+   "max_att_err_after_grace_deg": 170.7498872775991,
+   "final_mode": "SAFE",
+   "isolated_wheels": [
+    0
+   ],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.343752785000106,
+   "margins": {
+    "battery_margin": 0.4261,
+    "att_err_ratio": 5.69166,
+    "att_dur_ratio": 1.19167,
+    "wheel_speed_ratio": 1.04545,
+    "sat_dur_ratio": 0.75
+   },
+   "n_policy_actions": 14,
+   "id": 1,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 1.0}"
+    ],
+    [
+     0.0,
+     "FAULT rw1 applied {\"wheel\": 1, \"onset_s\": 0.0, \"type\": \"friction\", \"severity\": 1.0}"
+    ],
+    [
+     0.0,
+     "FAULT heater0 applied {\"onset_s\": 0.0, \"power_W\": 4.0}"
+    ],
+    [
+     15.0,
+     "POLICY FDIR: wheel 0 isolated (residual 1.42e-03 Nm)"
+    ],
+    [
+     905.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 43.0 deg > 15.0 for 900s"
+    ],
+    [
+     1670.0,
+     "POLICY -> NOMINAL (SoC 0.74)"
+    ],
+    [
+     1790.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 41.0 deg > 15.0 for 120s"
+    ],
+    [
+     3055.0,
+     "POLICY -> NOMINAL (SoC 0.92)"
+    ],
+    [
+     3175.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 44.1 deg > 15.0 for 120s"
+    ],
+    [
+     3775.0,
+     "POLICY -> NOMINAL (SoC 0.86)"
+    ],
+    [
+     3895.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 42.0 deg > 15.0 for 120s"
+    ],
+    [
+     4500.0,
+     "POLICY -> NOMINAL (SoC 0.80)"
+    ],
+    [
+     4620.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 41.5 deg > 15.0 for 120s"
+    ],
+    [
+     8565.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     8685.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 42.4 deg > 15.0 for 120s"
+    ],
+    [
+     10505.0,
+     "POLICY -> NOMINAL (SoC 0.88)"
+    ],
+    [
+     10625.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 41.3 deg > 15.0 for 120s"
+    ]
+   ],
+   "hypothesis": "Wheel friction power overhead plus heater drains battery in eclipse"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 70.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.39953663206087636,
+   "max_att_err_after_grace_deg": 87.13106277201733,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.2449836799996774,
+   "margins": {
+    "battery_margin": 0.19954,
+    "att_err_ratio": 2.90437,
+    "att_dur_ratio": 0.0125,
+    "wheel_speed_ratio": 0.69947,
+    "sat_dur_ratio": 0.0
+   },
+   "n_policy_actions": 2,
+   "id": 2,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT leak0 applied {\"onset_s\": 0.0, \"mag_Nm\": 1.5e-06, \"axis\": [1.0, 0.0, 0.0]}"
+    ],
+    [
+     5620.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     7010.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ]
+   ],
+   "hypothesis": "Secular external torque exceeds wheel momentum capacity over two orbits"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 60.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 3,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.2e-06,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.3650613496722688,
+   "max_att_err_after_grace_deg": 90.99099397437305,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.1927576620000764,
+   "margins": {
+    "battery_margin": 0.16506,
+    "att_err_ratio": 3.03303,
+    "att_dur_ratio": 0.0125,
+    "wheel_speed_ratio": 0.5773,
+    "sat_dur_ratio": 0.0
+   },
+   "n_policy_actions": 2,
+   "id": 3,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT rw0 applied {\"wheel\": 3, \"onset_s\": 0.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+    ],
+    [
+     0.0,
+     "FAULT leak0 applied {\"onset_s\": 0.0, \"mag_Nm\": 1.2e-06, \"axis\": [0.0, 1.0, 0.0]}"
+    ],
+    [
+     6365.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     9285.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ]
+   ],
+   "hypothesis": "Isolated wheel reduces momentum envelope so leak saturates remaining wheels"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 30.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 100.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     },
+     {
+      "wheel": 1,
+      "onset_s": 100.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "violations": {
+    "wheel_saturation": 8390.0
+   },
+   "violated": true,
+   "min_soc": 0.5788739544902054,
+   "max_att_err_after_grace_deg": 177.4115189689735,
+   "final_mode": "SAFE",
+   "isolated_wheels": [
+    0
+   ],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.2521836569994775,
+   "margins": {
+    "battery_margin": 0.37887,
+    "att_err_ratio": 5.91372,
+    "att_dur_ratio": 0.47083,
+    "wheel_speed_ratio": 1.04602,
+    "sat_dur_ratio": 1.25
+   },
+   "n_policy_actions": 22,
+   "id": 4,
+   "policy_log": [
+    [
+     100.0,
+     "FAULT rw0 applied {\"wheel\": 0, \"onset_s\": 100.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+    ],
+    [
+     100.0,
+     "FAULT rw1 applied {\"wheel\": 1, \"onset_s\": 100.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+    ],
+    [
+     125.0,
+     "POLICY FDIR: wheel 0 isolated (residual 8.41e-04 Nm)"
+    ],
+    [
+     905.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 97.8 deg > 15.0 for 160s"
+    ],
+    [
+     2695.0,
+     "POLICY -> NOMINAL (SoC 0.90)"
+    ],
+    [
+     2925.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 165.2 deg > 15.0 for 120s"
+    ],
+    [
+     3525.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     3770.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 173.6 deg > 15.0 for 120s"
+    ],
+    [
+     4370.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     4490.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 82.2 deg > 15.0 for 120s"
+    ],
+    [
+     5140.0,
+     "POLICY -> NOMINAL (SoC 0.98)"
+    ],
+    [
+     5260.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 137.1 deg > 15.0 for 120s"
+    ],
+    [
+     5905.0,
+     "POLICY -> NOMINAL (SoC 0.95)"
+    ],
+    [
+     6025.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 177.4 deg > 15.0 for 120s"
+    ],
+    [
+     6730.0,
+     "POLICY -> NOMINAL (SoC 0.92)"
+    ],
+    [
+     6960.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 57.0 deg > 15.0 for 120s"
+    ],
+    [
+     7560.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     7780.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 116.0 deg > 15.0 for 120s"
+    ],
+    [
+     8380.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     8625.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 151.9 deg > 15.0 for 120s"
+    ],
+    [
+     9225.0,
+     "POLICY -> NOMINAL (SoC 1.00)"
+    ],
+    [
+     9345.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 45.2 deg > 15.0 for 120s"
+    ],
+    [
+     10500.0,
+     "POLICY -> NOMINAL (SoC 0.99)"
+    ],
+    [
+     10620.0,
+     "POLICY -> SAFE (sun-point, payload off): attitude error 119.4 deg > 15.0 for 120s"
+    ]
+   ],
+   "hypothesis": "Second dead wheel not isolated by FDIR causes persistent attitude error"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 35.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.2
+     },
+     {
+      "wheel": 3,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.2
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.49064373584438237,
+   "max_att_err_after_grace_deg": 10.437057417838114,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [
+    2
+   ],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.2402043009997215,
+   "margins": {
+    "battery_margin": 0.29064,
+    "att_err_ratio": 0.3479,
+    "att_dur_ratio": 0.0,
+    "wheel_speed_ratio": 0.29848,
+    "sat_dur_ratio": 0.0
+   },
+   "n_policy_actions": 1,
+   "id": 5,
+   "policy_log": [
+    [
+     500.0,
+     "FAULT rw0 applied {\"wheel\": 2, \"onset_s\": 500.0, \"type\": \"friction\", \"severity\": 0.2}"
+    ],
+    [
+     500.0,
+     "FAULT rw1 applied {\"wheel\": 3, \"onset_s\": 500.0, \"type\": \"friction\", \"severity\": 0.2}"
+    ],
+    [
+     515.0,
+     "POLICY FDIR: wheel 2 isolated (residual 4.58e-04 Nm)"
+    ]
+   ],
+   "hypothesis": "Low friction not isolated by FDIR degrades pointing causing attitude loss"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 5.0,
+     "f0_deg": 45.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 5.0
+    },
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.3991941947542008,
+   "max_att_err_after_grace_deg": 75.20174796163104,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.048504931000025,
+   "margins": {
+    "battery_margin": 0.19919,
+    "att_err_ratio": 2.50672,
+    "att_dur_ratio": 0.0125,
+    "wheel_speed_ratio": 0.9527,
+    "sat_dur_ratio": 0.0
+   },
+   "n_policy_actions": 4,
+   "id": 6,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT heater0 applied {\"onset_s\": 0.0, \"power_W\": 5.0}"
+    ],
+    [
+     0.0,
+     "FAULT leak0 applied {\"onset_s\": 0.0, \"mag_Nm\": 1e-06, \"axis\": [0.0, 0.0, 1.0]}"
+    ],
+    [
+     2075.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     3835.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ],
+    [
+     7590.0,
+     "POLICY -> SAFE (sun-point, payload off): SoC 0.40 < 0.4"
+    ],
+    [
+     9355.0,
+     "POLICY -> NOMINAL (SoC 0.70)"
+    ]
+   ],
+   "hypothesis": "Combined heater drain and momentum buildup traps spacecraft in underpowered SAFE"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 12.0,
+     "f0_deg": 120.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 200.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 3.0
+    },
+    "torque_leak": null
+   },
+   "violations": {},
+   "violated": false,
+   "min_soc": 0.4066192691536788,
+   "max_att_err_after_grace_deg": 4.287478710040046,
+   "final_mode": "NOMINAL",
+   "isolated_wheels": [],
+   "sim_time_s": 11355.0,
+   "wall_s": 2.350578706000306,
+   "margins": {
+    "battery_margin": 0.20662,
+    "att_err_ratio": 0.14292,
+    "att_dur_ratio": 0.0,
+    "wheel_speed_ratio": 0.29981,
+    "sat_dur_ratio": 0.0
+   },
+   "n_policy_actions": 0,
+   "id": 7,
+   "policy_log": [
+    [
+     0.0,
+     "FAULT heater0 applied {\"onset_s\": 0.0, \"power_W\": 3.0}"
+    ],
+    [
+     200.0,
+     "FAULT rw0 applied {\"wheel\": 2, \"onset_s\": 200.0, \"type\": \"torque_derate\", \"severity\": 1.0}"
+    ]
+   ],
+   "hypothesis": "Failed wheel degrades SAFE sun-pointing so heater drains battery to floor"
+  }
+ ]
+}

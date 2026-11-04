@@ -1,14 +1,102 @@
 # FaultForge
 
-FaultForge searches for **multi-fault combinations** in a spacecraft simulation that make an existing
-rule-based recovery (safe-mode/FDIR) policy violate explicit safety constraints, then **minimizes**
-each violation to a small, reproducible counterexample with a one-command replay.
+**Quickstart** (Linux x86_64, Python 3.13; no API key needed for the first two lines):
 
-This repo has a Basilisk power + attitude CubeSat harness, a rule-based policy, seeded random/grid search,
-a greedy minimizer and replay, plus a **Muse Spark-guided search** (`src/llm_search.py`) compared against
-random search at equal simulation budget (results below).
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # or: make setup
+make replay                                    # keyless: re-sim headline case policy on/off + recorded Muse calls
+cp .env.example .env   # put your key in .env, then:  make live   (one live Muse Spark search round)
+```
+
+FaultForge hands an FDIR team the multi-fault combinations a test campaign would miss, each as a one-command
+replay with a candidate patch the gate has vetted. Meta's Muse Spark model searches a Basilisk CubeSat simulation
+for fault combinations that make a rule-based recovery (safe-mode / FDIR) policy violate its safety constraints;
+every violation is minimized to a small counterexample, re-run with the policy disabled, and replayable with one
+command. Muse then diagnoses the failures and proposes policy patches, which a regression gate it does not control
+accepts or rejects.
+
+Before this hackathon week the project had the Basilisk harness and the rule-based FDIR policy. This week:
+the Muse-guided search, the rules-blind variant, CMA-ES and random baselines, the minimizer/compare pipeline,
+the Muse repair loop and the regression gate.
+
+## Meta models used
+
+One model, **`muse-spark-1.3`**, via the Meta Model API: `POST https://api.meta.ai/v1/chat/completions`
+(OpenAI-compatible, JSON mode, key in `MUSE_API_KEY`). It is used in four roles:
+
+| role | what Muse does | code | recorded calls |
+|---|---|---|---|
+| scenario search | each round reads the fault schema, the policy description, the failures found so far and near-miss margins, and returns 8 new fault scenarios as JSON | `src/llm_search.py`, `src/live_round.py` | `data/cmp/muse_seed*_calls.jsonl` |
+| blind rule inference | same search with the policy thresholds and the one-isolation rule hidden; it must infer the rules from outcomes (by round 4 of seed 1 it wrote "FDIR isolates at most one wheel") | `src/llm_search.py --blind` | `data/cmp/museblind_seed*_calls.jsonl` |
+| diagnosis | reads minimized counterexamples with policy traces and explains the failure mechanism | `src/gated_repair.py`, `src/gated_v2.py` (also `src/repair.py`) | `data/gated/*_response.json` (`diagnosis`) |
+| patch proposal | proposes a bounded policy change (whitelisted keys); the gate re-simulates it on the full suite, and rejections (with regressions + traces) go back to Muse | same | `data/gated/*_response.json` (`change`), `*_gate.json` |
+
+Provenance: `src/muse_client.py` (used by `make live`) logs, for every call, the timestamp, endpoint, requested and
+returned model id, the response `id` and the `x-request-id` header (`data/live/*.json`). The historical search and
+repair logs were recorded before that wrapper existed: they store the model id (repair), latency, token usage and
+the verbatim response, but **no request ids**. `make replay` prints these and the git commit that first recorded each file.
 
 ## Setup
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt    # bsk==2.12.1 prebuilt wheel, no build
+cp .env.example .env && $EDITOR .env                                     # MUSE_API_KEY=<your key>, no quotes; only for `make live`
+make replay        # ~15 s, no network
+make live          # ~1-2 min: one Muse call (30-100 s) + 8 Basilisk sims; LIVE_ARGS="--workers 2 --n 8 --blind" optional
+```
+
+`make` uses `.venv/bin/python3` if it exists, else `python3`. `MUSE_API_KEY` from the environment wins over `.env`.
+`.env` is git-ignored. Tested on Debian (Python 3.13.5); see `docs/clean_clone_test.md` for a clean-clone transcript.
+
+## Architecture (short)
+
+```
+Muse Spark (api.meta.ai) --scenario JSON--> validate/clamp to shared fault space --> Basilisk sim (src/ff_sim.py:
+   ^                                                                                  power + attitude + 4 RWs + FDIR policy)
+   |                                                                                           |
+   +---- history: failures + near-miss margins <---- safety-constraint checks <----------------+
+violations --> src/minimize.py (drop faults, bisect magnitudes) --> policy-off re-run --> replay file
+minimized failures --> Muse diagnosis + patch --> gate (src/gated_repair.py / gated_v2.py: re-simulate the full
+   suite, 576-case single-fault grid + 2,932 stored search runs; checks outside the model's control) --> accept / reject,
+   rejections fed back to Muse for the next try
+```
+
+Gate retry budgets (true numbers from the code / the runs): strict loop `gated_repair.py loop --tries 4
+--narrow-tries 2` = up to 6 proposals per round (round 1 used all 6; round 2 was stopped by hand after 4 to free time for the structural phase); structural phase = up to 2
+attempts; budget mode `gated_v2.py budget --tries 4` = up to 4 proposals per round.
+
+## Limitations and honest scope
+
+- **Simulation only, one spacecraft.** Static Sun direction, no momentum dumping (no magnetorquers), 5 s policy
+  steps, no thermal model or sensor faults, generic loads. Findings are about this policy in this sim.
+- **The FDIR policy is ours.** Its structure (torque-residual wheel FDIR, one isolation, sun-safe mode on attitude
+  error / low SoC) follows published CubeSat FDIR designs (`docs/fdir_refs.md`); the thresholds are our choices.
+- About 29 % of the Muse arms' minimized cases need two near-dead wheels (beyond single-fault tolerance); they are
+  reported separately as "out of scope".
+- The rules-blind prompt was reworded mid-run to get past the provider's content filter (details under Caveats).
+- Repair: as of the last commit no Muse patch passed the **strict** gate (0 new violations on the full suite); see
+  `data/gated/` (`rejects_table.md`, `summary_v2.json`, `waivers.md` when present) for the budget-mode results.
+- Request ids exist only for calls made through `src/muse_client.py` (`make live`), not for the historical logs.
+
+## Results at a glance (3 seeds per arm, equal sim budget, `data/cmp/summary.json`)
+
+| arm | violations / sim | sims to first violation | unique coarse patterns |
+|---|---|---|---|
+| Muse (rules given) | 0.339 | 5.7 | 18.7 |
+| Muse, rules-blind | 0.449 | 5.0 | 21.0 |
+| CMA-ES | 0.080 | 105 | 2.3 |
+| random | 0.006 | 63.7 | 1.3 |
+
+Single-fault grid: 568 of 576 cases (incl. nominal) pass under the v1 policy; the failures are multi-fault.
+Headline case `a6e8087b7a52c977` (found by Muse, seed 1 run 173; minimized in 11 sims): rw0 friction 0.2 at 105 s +
+rw1 derate 1.0 at 505 s. With the policy: attitude loss (FDIR spends its one isolation on the mild wheel).
+Without the policy: no violation, peak 16 deg. `make replay` re-simulates it.
+
+The rest of this README is the detailed write-up (the per-seed table below predates blind seeds 0 and 2).
+
+---
+
+## Setup details
 
 Python 3.13 on Linux x86_64 (tested with 3.13.5). Basilisk installs as a prebuilt pip wheel, no build needed.
 

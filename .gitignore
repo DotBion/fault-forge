@@ -13,3 +13,6 @@ build/
 demo/build/
 demo/build.log
 demo/__pycache__/
+.env
+demo/build_v2/
+demo/build_v3/
