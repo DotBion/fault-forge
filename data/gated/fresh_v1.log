@@ -1,0 +1,16 @@
+seed 300 round 0: 8/100 sims, 2 violations, llm 46.5s tok 6849, fallback 0, err 0, 62s
+seed 300 round 1: 16/100 sims, 4 violations, llm 55.7s tok 9298, fallback 0, err 0, 130s
+seed 300 round 2: 24/100 sims, 6 violations, llm 63.2s tok 11430, fallback 0, err 0, 205s
+seed 300 round 3: 32/100 sims, 11 violations, llm 62.4s tok 12696, fallback 0, err 0, 280s
+seed 300 round 4: 40/100 sims, 15 violations, llm 81.8s tok 16322, fallback 0, err 0, 375s
+seed 300 round 5: 48/100 sims, 18 violations, llm 61.5s tok 16019, fallback 0, err 0, 448s
+  LLM call failed (attempt 1): TimeoutError: The read operation timed out
+seed 300 round 6: 56/100 sims, 22 violations, llm 89.6s tok 18379, fallback 0, err 0, 790s
+seed 300 round 7: 64/100 sims, 24 violations, llm 53.7s tok 16112, fallback 0, err 0, 856s
+seed 300 round 8: 72/100 sims, 29 violations, llm 89.3s tok 19062, fallback 0, err 0, 957s
+seed 300 round 9: 80/100 sims, 32 violations, llm 56.9s tok 15578, fallback 0, err 0, 1025s
+seed 300 round 10: 88/100 sims, 35 violations, llm 58.0s tok 16117, fallback 0, err 0, 1095s
+seed 300 round 11: 96/100 sims, 38 violations, llm 68.8s tok 17510, fallback 0, err 0, 1173s
+seed 300 round 12: 100/100 sims, 39 violations, llm 37.9s tok 15324, fallback 0, err 0, 1215s
+wrote /workspace/faultforge/data/gated/fresh/muse_v1_seed300.jsonl
+fresh {"policy": "v1", "k": 0, "muse_seed": 300, "muse": {"n": 100, "violating": 39, "rate": 0.39}, "random": {"n": 200, "violating": 1, "rate": 0.005}, "heldout_fixed": {"all": {"n": 300, "violating": 51, "rate": 0.17}, "muse": {"n": 100, "violating": 48, "rate": 0.48}, "random": {"n": 200, "violating": 3, "rate": 0.015}}}

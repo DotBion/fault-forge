@@ -1,0 +1,49 @@
+{
+ "round": 2,
+ "try": 2,
+ "name": "r2t2",
+ "base": "v1",
+ "change_proposed": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ },
+ "change": {
+  "wheel_safe_frac": 0.97,
+  "wheel_safe_s": 60.0
+ },
+ "validation_notes": [],
+ "diagnosis": "Many wheel_saturation policy-induced cases show leak plus friction momentum buildup with SAFE/NOMINAL cycling. Policy resumes to NOMINAL while wheels remain near max, then NOMINAL demand pushes an in-use wheel over 98% for >60s, while no-policy 4-wheel control tolerates it.",
+ "rationale": "Add momentum guard just below violation level: in-use wheel >=97% for 60s forces SAFE sun-point and blocks resume while above. Sun-point needs lower torque than NOMINAL tracking, limiting further momentum buildup and pre-empting the 98% for 60s violation. Mirrors violation definition so only near-saturation runs are affected.",
+ "why_no_regressions": "97% for 60s is far above normal operation; nominal and single-fault runs never dwell there. Guard only adds SAFE dwell in runs already near saturation and never forces early NOMINAL, so no new attitude or battery violations.",
+ "decision": "reject",
+ "gate_reason": "rejected: 1 new violations in 1 runs (0 previously clean) vs 13 fixes on the full suite",
+ "gate": {
+  "evaluated": 3508,
+  "new_violations": 1,
+  "runs_with_new_violations": 1,
+  "clean_to_violating": 0,
+  "fixes": 13,
+  "violating_runs": 492,
+  "violating_runs_base": 505,
+  "new_violation_ids": [
+   "museblind_seed1_121"
+  ],
+  "fix_ids": [
+   "grid_381",
+   "grid_509",
+   "muse_seed0_104",
+   "muse_seed0_40",
+   "muse_seed1_177",
+   "muse_seed1_220",
+   "muse_seed1_53",
+   "muse_seed2_115",
+   "muse_seed2_151",
+   "muse_seed2_34",
+   "muse_seed2_53",
+   "random_seed0_61",
+   "random_seed0_9"
+  ],
+  "complete": true,
+  "eval_s": 1835
+ }
+}
