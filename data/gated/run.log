@@ -51,3 +51,17 @@ held-out v1: 51 / 300
     r1t4: 250/3508 101s, new viol so far 5
     r1t4: 500/3508 203s, new viol so far 5
     r1t4: 750/3508 305s, new viol so far 6
+=== restart Tue Nov  3 23:14:58 EST 2026
+=== round 1 (current policy v1)
+  r1t1: (cached) reject rejected: 20 new violations in 20 runs (20 previously clean) (evaluation stopped early after 861 runs)
+  r1t2: (cached) reject rejected: 20 new violations in 20 runs (12 previously clean) (evaluation stopped early after 1777 runs)
+  r1t3: (cached) reject rejected: 19 new violations in 18 runs (10 previously clean) vs 44 fixes on the full suite
+  r1t4: Muse change {'att_safe_deg': 18.0} -> valid {'att_safe_deg': 18.0} []
+  r1t4: reject - rejected: 6 new violations in 5 runs (4 previously clean) (evaluation stopped early after 982 runs)
+  r1t5: Muse change {'isolation_swap': True, 'swap_ratio': 2.5, 'swap_min_res_Nm': 0.001, 'swap_max_iso_res_Nm': 0.0006} -> valid {'isolation_swap': True, 'swap_ratio': 2.5, 'swap_min_res_Nm': 0.001, 'swap_max_iso_res_Nm': 0.0006} []
+  r1t5: reject - rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 7 runs)
+  r1t6: Muse change {'isolation_swap': True, 'swap_ratio': 5.0, 'swap_min_res_Nm': 0.002, 'swap_max_iso_res_Nm': 0.0004} -> valid {'isolation_swap': True, 'swap_ratio': 5.0, 'swap_min_res_Nm': 0.002, 'swap_max_iso_res_Nm': 0.0004} []
+  r1t6: reject - rejected: 3 new violations in 3 runs (3 previously clean) (evaluation stopped early after 25 runs)
+=== round 1: nothing accepted; policy now v1
+=== round 2 (current policy v1)
+  r2t1: Muse change {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} -> valid {'isolation_swap': True, 'swap_ratio': 2.0, 'swap_min_res_Nm': 0.0008, 'swap_max_iso_res_Nm': 0.0006} []

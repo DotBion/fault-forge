@@ -199,8 +199,8 @@ def build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, workers, base_tr
         hist = ("Changes accepted in earlier rounds (already part of the current policy): " + json.dumps(accepted_hist) + "\n")
     tried = ""
     if attempts:
-        tried = "Proposals already REJECTED this round (do not repeat them):\n" + "\n".join(
-            f"- try {x['try']}: change {json.dumps(x['change'])} -> {x['gate_reason']}" for x in attempts) + "\n"
+        tried = "Proposals already REJECTED on the current policy (do not repeat them):\n" + "\n".join(
+            f"- r{x['round']} try {x['try']}: change {json.dumps(x['change'])} -> {x['gate_reason']}" for x in attempts) + "\n"
         tried += ("Regressions caused by the last rejected proposal (runs where it adds a violation the current policy "
                   "does not have), with policy traces under both policies:\n" + json.dumps(
                       [{"faults": faults_of(params[k]), "with_rejected_proposal": c, "with_current_policy": b}
@@ -252,6 +252,7 @@ def cmd_loop(a):
     keys = sorted(params)
     grid = [k for k in keys if k.startswith("grid_")]
     cur, base, accepted_hist = "v1", v1, []
+    prior = []  # rejected attempts on the same current policy from earlier rounds with nothing accepted
     for rnd in range(1, a.rounds + 1):
         print(f"=== round {rnd} (current policy {cur})", flush=True)
         cases = failing_cases(cur, a.workers)
@@ -267,7 +268,8 @@ def cmd_loop(a):
                 continue
             rp = os.path.join(G, f"{name}_response.json")
             if not os.path.exists(rp):
-                user = build_prompt(rnd, tri, cur, cases, attempts, accepted_hist, a.workers, base_tries=a.tries)
+                user = build_prompt(rnd, tri, cur, cases, prior + attempts, accepted_hist, a.workers,
+                                    base_tries=(0 if prior else a.tries))
                 open(os.path.join(G, f"{name}_prompt.txt"), "w").write(SYS + "\n\n" + user)
                 msgs = [{"role": "system", "content": SYS}, {"role": "user", "content": user}]
                 content, usage, lat, att = L.chat(msgs, seed=5000 + 10 * rnd + tri, max_tokens=16000)
@@ -289,7 +291,7 @@ def cmd_loop(a):
             else:
                 newp = {k: v for k, v in P.items() if k != "name"} | change
                 json.dump({"name": name, "base": cur, "params": newp, "change_vs_base": change}, open(pol_path(name), "w"), indent=1)
-                prev_ids = [k for x in attempts for k in x["gate"]["new_violation_ids"]]
+                prev_ids = [k for x in prior + attempts for k in x["gate"]["new_violation_ids"]]
                 order = list(dict.fromkeys(prev_ids + grid + keys))
                 t0 = time.time()
                 d, complete = evaluate(name, [(k, params[k]) for k in order], os.path.join(G, f"eval_{name}.jsonl"),
@@ -312,6 +314,7 @@ def cmd_loop(a):
             attempts.append(rec)
             if rec["decision"] == "accept":
                 acc = rec; break
+        prior = [] if acc else prior + attempts
         if acc:
             cur = acc["name"]
             base = {r["id"]: r["violations"] for r in jl(os.path.join(G, f"eval_{cur}.jsonl"))}
