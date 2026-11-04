@@ -27,7 +27,8 @@ Honorable mention (dramatic but not clean with the policy off): `505563eb402294c
 ## Muse reasoning: inferring the one-wheel-isolation rule (rules-blind run, seed 1)
 
 In the rules-blind prompt the policy was described only qualitatively ("a wheel ... may be isolated"), with no
-thresholds and no mention of the one-isolation limit (`src/llm_search.py: system_text_blind`).
+thresholds and no mention of the one-isolation limit (`src/llm_search.py` lines 149-160, `system_text_blind`). Per-run
+`isolated_wheels` was reported back, so the rule was inferred from observed outcomes, not given.
 
 - **`data/cmp/museblind_seed1_calls.jsonl`, line 5 (round 4), field `analysis`, verbatim:**
   > "FDIR isolates at most one wheel so dual derates leave a bad wheel active. Friction pair 2/3 looks resilient, 0/1 untested. Battery thinnest for heater plus friction at beta~0. Partial and staggered onsets evade isolation. Probe boundaries and novel no-RW, partial, staggered cases."
