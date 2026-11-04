@@ -30,6 +30,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CMP = os.path.join(ROOT, "data", "cmp")
 
 
+SAT = "wheel_saturation"
+
+
 def phash(p):
     return hashlib.sha1(json.dumps(p, sort_keys=True).encode()).hexdigest()[:16]
 
@@ -62,7 +65,7 @@ def _minimize(job):
     r = ff_sim.run_scenario(m, telemetry=False)
     r_np = ff_sim.run_scenario(m, telemetry=False, policy_enabled=False)
     co, fi = patterns(target, m)
-    return {"key": key, "target": target, "minimized": m, "violations": r["violations"],
+    return {"key": key, "sat_rule": ff_sim.CFG["sat_rule"], "target": target, "minimized": m, "violations": r["violations"],
             "reproduces": target in r["violations"], "policy_induced": target not in r_np["violations"],
             "violations_no_policy": r_np["violations"], "n_faults_before": len(M.components(params)),
             "n_faults_after": len(M.components(m)), "minimization_sims": M.N_SIMS[0] - n0 + 2,
@@ -114,13 +117,21 @@ def main():
     if os.path.exists(cache_p):
         for l in open(cache_p):
             d = json.loads(l); cache[d["key"]] = d
+
+    def stale(d, viol):
+        # 2026-11-04 wheel_saturation fix: entries minimized under the legacy cumulative rule are only reused when the
+        # (corrected) earliest violation is still their target and saturation played no role in them.
+        if d.get("sat_rule") == "consecutive":
+            return d["target"] != min(viol, key=viol.get)
+        return (d["target"] != min(viol, key=viol.get) or SAT in d["violations"]
+                or SAT in d.get("violations_no_policy", {}))
     jobs = {}
     for arm, seeds in arms.items():
         for s, rows in seeds.items():
             for r in rows:
                 if r["violated"]:
                     k = phash(r["params"])
-                    if k not in cache:
+                    if k not in cache or stale(cache[k], r["violations"]):
                         jobs[k] = (k, r["params"], r["violations"])
     print(f"minimizing {len(jobs)} violating runs ({len(cache)} cached)", flush=True)
     with open(cache_p, "a") as f, Pool(a.workers) as pool:

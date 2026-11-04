@@ -71,7 +71,7 @@ attempts; budget mode `gated_v2.py budget --tries 4` = up to 4 proposals per rou
   steps, no thermal model or sensor faults, generic loads. Findings are about this policy in this sim.
 - **The FDIR policy is ours.** Its structure (torque-residual wheel FDIR, one isolation, sun-safe mode on attitude
   error / low SoC) follows published CubeSat FDIR designs (`docs/fdir_refs.md`); the thresholds are our choices.
-- About 29 % of the Muse arms' minimized cases need two near-dead wheels (beyond single-fault tolerance); they are
+- About 25 % of the Muse arms' minimized cases need two near-dead wheels (beyond single-fault tolerance); they are
   reported separately as "out of scope".
 - The rules-blind prompt was reworded mid-run to get past the provider's content filter (details under Caveats).
 - Repair: as of the last commit no Muse patch passed the **strict** gate (0 new violations on the full suite); see
@@ -82,17 +82,77 @@ attempts; budget mode `gated_v2.py budget --tries 4` = up to 4 proposals per rou
 
 | arm | violations / sim | sims to first violation | unique coarse patterns |
 |---|---|---|---|
-| Muse (rules given) | 0.339 | 5.7 | 18.7 |
-| Muse, rules-blind | 0.449 | 5.0 | 21.0 |
-| CMA-ES | 0.080 | 105 | 2.3 |
+| Muse (rules given) | 0.283 | 7.7 | 15.7 |
+| Muse, rules-blind | 0.316 | 6.0 | 16.3 |
+| CMA-ES | 0.077 | 119 | 1.7 |
 | random | 0.006 | 63.7 | 1.3 |
 
-Single-fault grid: 568 of 576 cases (incl. nominal) pass under the v1 policy; the failures are multi-fault.
+Numbers above and below use the corrected (consecutive) wheel-saturation rule; see the Changelog.
+
+Single-fault grid: 568 of 576 cases (incl. nominal) pass under the v1 policy (unchanged by the saturation fix). The 8
+failures are all one single fault: a 1.5 uNm external torque leak on +Z from t = 0 (at beta 5/35/65 deg), which
+saturates a wheel for > 60 s consecutive because the sim has no momentum dumping.
 Headline case `a6e8087b7a52c977` (found by Muse, seed 1 run 173; minimized in 11 sims): rw0 friction 0.2 at 105 s +
 rw1 derate 1.0 at 505 s. With the policy: attitude loss (FDIR spends its one isolation on the mild wheel).
-Without the policy: no violation, peak 16 deg. `make replay` re-simulates it.
+Without the policy: no violation, peak 16 deg. `make replay` re-simulates it. `make causal` re-runs it with *only*
+wheel isolation suppressed (everything else in the policy unchanged): no violation, so the isolation decision is the
+cause (`data/satfix/causal_replay.md`). `make defects` classifies every in-scope policy-induced case by root-cause
+mechanism (`data/satfix/defects.md`): of 276 cases, 254 (92 %) are isolation
+lock-in (the single isolation is spent on the milder wheel), 19 are isolation of a wheel that is still needed
+(6 of them a healthy wheel), and 3 are safe-mode chattering. In 63 cases FDIR picked between two wheels that crossed
+the threshold in the same 5 s step by wheel index, not by residual size.
 
-The rest of this README is the detailed write-up (the per-seed table below predates blind seeds 0 and 2).
+## Changelog
+
+### 2026-11-04: wheel_saturation rule fixed (cumulative -> consecutive)
+
+**Bug.** The documented constraint is "no available wheel at >= 98 % max speed for > 60 s *consecutive*", but
+`src/ff_sim.py` summed each wheel's time above 98 % over the whole run and never reset it. Several short, separate
+saturation episodes adding up to > 60 s were therefore scored as a `wheel_saturation` violation.
+
+**Fix.** The counter now resets whenever the wheel drops below 98 % (`CFG["sat_rule"] = "consecutive"`); the
+`sat_dur_ratio` near-miss margin is consecutive too. The old behaviour is still available with
+`FF_SAT_RULE=cumulative`, and it reproduces the stored results exactly.
+
+**Impact.** The checks are passive and a cumulative counter is always >= a consecutive one, so the fix can only
+remove saturation violations. Every stored run with a legacy saturation hit was re-simulated (`src/satfix.py`,
+1901 unique policy x scenario sims). 768 lose the violation and 665 of those become fully clean. No run gained a
+violation type and no other violation changed. **Part of the Muse and Muse-blind saturation hits came from this bug**:
+Muse loses 15-16 violating runs per seed and Muse-blind 29-42. CMA-ES loses 0-1 and random 0, because their hits are
+mostly attitude loss. The arm ordering does not change. Details: `data/satfix/impact.md`.
+
+| per seed (equal budget) | Muse viol. runs | Muse-blind viol. runs | CMA-ES viol. runs | random viol. runs |
+|---|---|---|---|---|
+| seed 0 (232 sims) | 90 -> 75 | 108 -> 79 | 43 -> 43 | 2 -> 2 |
+| seed 1 (300 sims) | 95 -> 80 | 126 -> 84 | 12 -> 11 | 2 -> 2 |
+| seed 2 (300 sims) | 94 -> 78 | 138 -> 98 | 4 -> 3 | 1 -> 1 |
+
+| arm (mean of 3 seeds) | violations / sim | sims to 1st | unique fine patterns | unique coarse patterns |
+|---|---|---|---|---|
+| Muse | 0.339 -> 0.283 | 5.7 -> 7.7 | 39.0 -> 32.0 | 18.7 -> 15.7 |
+| Muse-blind | 0.449 -> 0.316 | 5.0 -> 6.0 | 43.3 -> 33.7 | 21.0 -> 16.3 |
+| CMA-ES | 0.080 -> 0.077 | 105 -> 119 | 3.3 -> 2.7 | 2.3 -> 1.7 |
+| random | 0.006 -> 0.006 | 63.7 -> 63.7 | 1.7 -> 1.7 | 1.3 -> 1.3 |
+
+| other numbers | old (cumulative) | new (consecutive) |
+|---|---|---|
+| Fresh Muse batch (seed 300, v1) | 39/100 violating | 38/100 |
+| Fresh random batch (v1) | 1/200 | 1/200 |
+| Held-out set (100 Muse + 200 random, v1) | 51/300 | 45/300 |
+| Regression suite (3508 runs), v1 violating | 505 | 415 |
+| Single-fault grid + nominal, v1 clean | 568/576 | 568/576 |
+| Gate b1t1 (budget mode, `wheel_safe_frac` 0.97 / `wheel_safe_s` 60) | accept: 13 fixes, 0 clean runs broken, net +12 | **accept: 26 fixes, 1 clean run broken (<= 3), net +24** |
+
+**Gates.** All gates were re-decided on the corrected suite (`python3 src/satfix.py gates`). No accept/reject
+decision changed: b1t1 still passes the budget gate; b2t1/b2t2 are still rejected (4 clean runs broken); every
+strict-gate try is still rejected (each still has >= 1 new violation). No early-stopped evaluation lost its stop
+condition. The `*_gate.json` files keep the old counts under `gate_legacy_cumulative`.
+
+**Caveat.** The searches ran under the legacy rule: Muse saw the legacy margins, and CMA-ES optimized a margin that
+used the legacy `sat_dur_ratio`. Their stored scenarios were re-scored, not re-searched. Two tables in the repair
+section are still on the legacy rule and are marked that way.
+
+The rest of this README is the detailed write-up.
 
 ---
 
@@ -162,7 +222,8 @@ Replay prints the fault/policy event log, re-checks violations against the recor
   NOMINAL at SoC > 70% after >= 600 s; FDIR isolates a wheel whose torque residual stays high for 3 chunks,
   only while > 3 wheels are available. No momentum dumping.
 - Safety constraints: SoC >= 20%; attitude error <= 30 deg (not sustained > 1200 s after a 900 s grace);
-  no available wheel at >= 98% max speed for > 60 s.
+  no available wheel at >= 98% max speed for > 60 s consecutive (one continuous episode; until 2026-11-04 the
+  code summed all saturated time over the run, see the Changelog).
 
 ## Simplifications
 
@@ -204,38 +265,41 @@ torque-derated wheels with severity >= 0.9 (two near-dead wheels, beyond a singl
 
 | seed | arm | sims | violations/sim | sims to 1st | unique fine | unique coarse | policy-induced fine | ... in scope | out-of-scope share |
 |---|---|---|---|---|---|---|---|---|---|
-| 0 | Muse | 232* | 0.388 (90) | 4 | 40 | 19 | 28 | 19 | 0.28 |
+| 0 | Muse | 232* | 0.323 (75) | 4 | 31 | 15 | 19 | 15 | 0.24 |
+| 0 | Muse-blind | 232* | 0.341 (79) | 5 | 32 | 16 | 20 | 15 | 0.19 |
 | 0 | CMA-ES | 232* | 0.185 (43) | 4 | 4 | 2 | 4 | 4 | 0.00 |
 | 0 | random | 232* | 0.009 (2) | 10 | 2 | 1 | 0 | 0 | 0.00 |
-| 1 | Muse | 300 | 0.317 (95) | 3 | 43 | 20 | 31 | 19 | 0.32 |
-| 1 | Muse-blind | 300 | **0.420 (126)** | 6 | 35 | 19 | 26 | 15 | 0.21 |
-| 1 | CMA-ES | 300 | 0.040 (12) | 154 | 4 | 3 | 4 | 4 | 0.00 |
+| 1 | Muse | 300 | 0.267 (80) | 9 | 37 | 18 | 25 | 16 | 0.30 |
+| 1 | Muse-blind | 300 | 0.280 (84) | 9 | 28 | 15 | 20 | 12 | 0.27 |
+| 1 | CMA-ES | 300 | 0.037 (11) | 197 | 3 | 2 | 3 | 3 | 0.00 |
 | 1 | random | 300 | 0.007 (2) | 15 | 2 | 2 | 2 | 2 | 0.00 |
-| 2 | Muse | 300 | 0.313 (94) | 10 | 34 | 17 | 26 | 17 | 0.28 |
-| 2 | CMA-ES | 300 | 0.013 (4) | 157 | 2 | 2 | 2 | 2 | 0.00 |
+| 2 | Muse | 300 | 0.260 (78) | 10 | 28 | 14 | 19 | 14 | 0.24 |
+| 2 | Muse-blind | 300 | 0.327 (98) | 4 | 41 | 18 | 34 | 25 | 0.26 |
+| 2 | CMA-ES | 300 | 0.010 (3) | 157 | 1 | 1 | 1 | 1 | 0.00 |
 | 2 | random | 300 | 0.003 (1) | 166 | 1 | 1 | 0 | 0 | 0.00 |
-| mean | Muse (3 seeds) | | **0.339** | **5.7** | **39.0** | **18.7** | **28.3** | **18.3** | 0.29 |
-| mean | Muse-blind (1 seed) | | 0.420 | 6.0 | 35.0 | 19.0 | 26.0 | 15.0 | 0.21 |
-| mean | CMA-ES (3 seeds) | | 0.080 | 105.0 | 3.3 | 2.3 | 3.3 | 3.3 | 0.00 |
+| mean | Muse (3 seeds) | | 0.283 | 7.7 | 32.0 | 15.7 | 21.0 | 15.0 | 0.26 |
+| mean | Muse-blind (3 seeds) | | 0.316 | 6.0 | 33.7 | 16.3 | 24.7 | 17.3 | 0.24 |
+| mean | CMA-ES (3 seeds) | | 0.077 | 119.3 | 2.7 | 1.7 | 2.7 | 2.7 | 0.00 |
 | mean | random (3 seeds) | | 0.006 | 63.7 | 1.7 | 1.3 | 0.7 | 0.7 | 0.00 |
 
 \* Seed 0 Muse was stopped at 232 sims (API call cap). Every arm is truncated to the shortest arm per seed, so the
-budget is equal; CMA-ES seed 0 had 71 violations in its full 300.
+budget is equal; over their full 300 sims seed 0 CMA-ES had 71 violations, Muse-blind 99.
 
-Union of fine patterns over seeds: Muse 71 (53 policy-induced), Muse-blind 35 (26), CMA-ES 7 (7), random 5 (2).
-Fine patterns found by only one arm: Muse 43, Muse-blind 9, CMA-ES 3, random 3. Plot: `plots/arms_comparison.png`.
+Union of fine patterns over seeds: Muse 61 (41 policy-induced), Muse-blind 69 (52), CMA-ES 5 (5), random 5 (2).
+Fine patterns found by only one arm: Muse 25, Muse-blind 32, CMA-ES 0, random 3. Plot: `plots/arms_comparison.png`.
 
 Reading the table:
-- Both Muse arms beat CMA-ES and random by a wide margin on *diversity*: 15-19 in-scope policy-induced fine
-  patterns per seed vs 2-4 for CMA-ES. CMA-ES can match Muse on raw violation rate when it converges early (seed 0),
-  but it then refines one mechanism; on seeds 1-2 it took ~155 sims to find any violation. Its rate varies a lot
-  by seed (71 / 12 / 4 per 300).
-- **Rules-blind Muse still wins.** On seed 1 it got more violations than white-box Muse (126 vs 95; all 126 came
-  from its 252 model-proposed sims, the 48 fallback sims had none), with a slightly lower diversity
-  (35 vs 43 fine, 15 vs 19 in-scope policy-induced) and a lower out-of-scope share (0.21 vs 0.32). From
-  isolated_wheels and outcomes alone it inferred by round 4 that FDIR only ever isolates one wheel. This is a
-  single seed, so treat the blind-vs-white-box ordering as indicative only.
-- About 21-32 % of the Muse arms' minimized cases are out of scope (two near-dead wheels). CMA-ES and random found
+- Both Muse arms beat CMA-ES and random by a wide margin on *diversity*: 12-25 in-scope policy-induced fine
+  patterns per seed vs 1-4 for CMA-ES. CMA-ES can match Muse on raw violation rate when it converges early (seed 0),
+  but it then refines one mechanism; on seeds 1-2 it took 157-197 sims to find any violation. Its rate varies a lot
+  by seed (71 / 11 / 3 per 300).
+- **Rules-blind Muse is not worse.** It has a higher violation rate than white-box Muse on all 3 seeds
+  (0.341 / 0.280 / 0.327 vs 0.323 / 0.267 / 0.260) and more coarse patterns on seeds 0 and 2 (16 vs 15, 18 vs 14)
+  but fewer on seed 1 (15 vs 18; fine 28 vs 37, in-scope policy-induced 12 vs 16). On seed 1 all 84 of its
+  violations came from its 252 model-proposed sims (the 48 fallback sims had none). From isolated_wheels and
+  outcomes alone it inferred by round 4 that FDIR only ever isolates one wheel. The gaps on seeds 0-1 are small,
+  so treat the blind-vs-white-box ordering as indicative only.
+- About 19-30 % of the Muse arms' minimized cases are out of scope (two near-dead wheels). CMA-ES and random found
   none, so their few finds are all "in scope", but there are few of them.
 
 LLM cost: white-box Muse 105 rounds, ~1.55M tokens, mean latency ~31 s/call. Blind seed 1: 39 rounds, ~0.44M tokens,
@@ -243,7 +307,7 @@ LLM cost: white-box Muse 105 rounds, ~1.55M tokens, mean latency ~31 s/call. Bli
 
 Caveats
 - Fine patterns over-count mechanisms (wheel-index permutations); coarse counts are the conservative number.
-  ~54 Muse runs repeat one known single-fault weakness (a ~1.1 uNm Z leak saturating wheel 2 with no momentum dumping).
+  ~54 Muse runs (legacy-rule count) repeat one known single-fault weakness (a ~1.1 uNm Z leak saturating wheel 2 with no momentum dumping).
 - "Policy-induced" is target-specific: without the policy some cases fail a *different* constraint.
 - Provider content filter (HTTP 400 `content_policy_violation`, a fast prompt-side classifier). An early wording
   with the word "exploitation" triggered it reliably. White-box Muse: 6 rounds fell back to random (48 sims,
@@ -289,7 +353,8 @@ wheel_saturation that 4 degraded wheels avoid."
 (severity 0.25-0.4) friction wheel; min_avail=3 then blocks isolating the later severe/dead wheel. The swap
 re-enables the milder isolated wheel and isolates the worse one when its residual is >1.5x larger.
 
-Replaying all 460 minimized counterexamples from the v1 searches (target fixed / fully clean):
+Replaying all 460 minimized counterexamples from the v1 searches (target fixed / fully clean; **legacy cumulative
+saturation rule**, not recomputed after the 2026-11-04 fix):
 
 | group | n | v2 target fixed | v2 clean | v3 target fixed | v3 clean |
 |---|---|---|---|---|---|
@@ -304,20 +369,22 @@ Regressions (v1 had no violation, new policy does):
 |---|---|---|---|---|---|---|---|---|
 | single-fault grid + nominal | 576 | 8 | 8 | **0** | 0 | 8 | **0** | 0 |
 | nominal only | 9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| every stored (unminimized) search run, all arms | 2932 | 497 | 458 | **24** | 63 | 523 | **177** | 151 |
+| every stored (unminimized) search run, all arms | 2932 | 407 | 364 | **23** | 66 | 451 | **169** | 125 |
+| ... same, legacy cumulative rule (before the fix) | 2932 | 497 | 458 | 24 | 63 | 523 | 177 | 151 |
 
-v2's 24 regressions are all multi-fault runs. 13 are two heavy friction faults (severity 0.3-1.0; 11 found by
+v2's 23 regressions (24 under the legacy rule; the breakdown below is for those 24) are all multi-fault runs. 13 are two heavy friction faults (severity 0.3-1.0; 11 found by
 CMA-ES, 2 by random) ending in attitude_loss, where v1's earlier isolation happened to help. 7 have two dead wheels
 (out of scope). 4 pair one dead wheel (severity 1.0) with heavy friction and/or the 1.5 uNm leak. So v2 keeps every single-fault and nominal case but does **not** survive everything v1 survived.
 
-v3 (swap) is worse on full runs: 177 regressions against 151 fixes, net 523 violating vs v1's 497 (v2: 458).
-All 177 are multi-fault. 83 are two heavy friction faults (46 from Muse runs, 19 CMA-ES, 12 Muse-blind, 4 random,
+v3 (swap) is worse on full runs: 169 regressions against 125 fixes, net 451 violating vs v1's 407 (v2: 364; legacy
+rule: 177 / 151, 523 vs 497, v2 458). All are multi-fault; legacy breakdown of the 177: 83 are two heavy friction faults (46 from Muse runs, 19 CMA-ES, 12 Muse-blind, 4 random,
 plus 2 with one heavy one), 53 have two dead wheels (out of scope), and 40 pair a dead wheel with heavy friction.
 Our untested guess is that re-enabling the milder wheel hurts when both faults are severe; we have not traced it. On the minimized cases v3 looks better than v2 (98 % vs 96 %); on full runs it is not. So
 **v2 is the better candidate**, and v3 is kept only as a negative result. No fresh Muse search was run against v3
 (call budget), and the v3 random/CMA-ES re-search and paired replay were not run either.
 
-Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed):
+Fresh search against the new policy (seed 1, 200 sims each; v1 = the first 200 sims of the same arm/seed;
+**legacy cumulative saturation rule**, not re-scored):
 
 | arm | v1 violations | v2 violations | v1 in-scope policy-induced patterns | v2 in-scope policy-induced patterns |
 |---|---|---|---|---|

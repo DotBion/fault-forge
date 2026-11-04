@@ -7,10 +7,12 @@ ifeq ($(strip $(MUSE_API_KEY)),)
 endif
 export MUSE_API_KEY
 
-.PHONY: help setup replay live
+.PHONY: help setup replay live causal defects
 help:
 	@echo "make setup   - create .venv and install pinned requirements"
 	@echo "make replay  - keyless: re-simulate headline case a6e8087b policy on/off + replay recorded Muse calls with provenance"
+	@echo "make causal  - keyless: surgical causal replay of a6e8087b (full policy / FDIR isolation suppressed / policy off)"
+	@echo "make defects - keyless: classify policy-induced minimized cases by policy ablation (data/satfix/defects.json)"
 	@echo "make live    - one LIVE Muse Spark search round (needs MUSE_API_KEY), prints model id, endpoint, request id"
 
 setup:
@@ -22,3 +24,9 @@ replay:
 live:
 	@if [ -z "$$MUSE_API_KEY" ]; then echo "MUSE_API_KEY not set: cp .env.example .env and fill it in (or export it)"; exit 2; fi
 	@$(PY) src/live_round.py $(LIVE_ARGS)
+
+causal:
+	@$(PY) src/causal_replay.py $(CAUSAL_ARGS)
+
+defects:
+	@$(PY) src/defects.py $(DEFECTS_ARGS)

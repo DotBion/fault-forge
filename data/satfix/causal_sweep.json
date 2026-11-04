@@ -1,0 +1,254 @@
+[
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.15,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.2,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.3,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": []
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 305.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 505.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 45.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ },
+ {
+  "rw0_friction_sev": 0.5,
+  "rw1_derate_onset_s": 1005.0,
+  "beta_deg": 65.0,
+  "full": [
+   "attitude_loss"
+  ],
+  "no_isolate": [],
+  "off": [
+   "attitude_loss"
+  ]
+ }
+]

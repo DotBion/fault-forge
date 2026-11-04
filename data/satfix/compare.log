@@ -1,0 +1,39 @@
+minimizing 245 violating runs (692 cached)
+  10/245
+  20/245
+  30/245
+  40/245
+  50/245
+  60/245
+  70/245
+  80/245
+  90/245
+  100/245
+  110/245
+  120/245
+  130/245
+  140/245
+  150/245
+  160/245
+  170/245
+  180/245
+  190/245
+  200/245
+  210/245
+  220/245
+  230/245
+  240/245
+wrote /workspace/faultforge/plots/arms_comparison.png
+muse {"violations_per_sim": 0.2833141762452107, "sims_to_first_violation": 7.666666666666667, "unique_patterns_coarse": 15.666666666666666, "unique_patterns_fine": 32.0, "unique_patterns_policy_induced": 21.0, "unique_patterns_policy_induced_in_scope": 15.0, "out_of_scope_share": 0.26119658119658123, "seeds": [0, 1, 2]}
+museblind {"violations_per_sim": 0.315727969348659, "sims_to_first_violation": 6.0, "unique_patterns_coarse": 16.333333333333332, "unique_patterns_fine": 33.666666666666664, "unique_patterns_policy_induced": 24.666666666666668, "unique_patterns_policy_induced_in_scope": 17.333333333333332, "out_of_scope_share": 0.23959499411578977, "seeds": [0, 1, 2]}
+cmaes {"violations_per_sim": 0.07733716475095787, "sims_to_first_violation": 119.33333333333333, "unique_patterns_coarse": 1.6666666666666667, "unique_patterns_fine": 2.6666666666666665, "unique_patterns_policy_induced": 2.6666666666666665, "unique_patterns_policy_induced_in_scope": 2.6666666666666665, "out_of_scope_share": 0.0, "seeds": [0, 1, 2]}
+random {"violations_per_sim": 0.0062068965517241385, "sims_to_first_violation": 63.666666666666664, "unique_patterns_coarse": 1.3333333333333333, "unique_patterns_fine": 1.6666666666666667, "unique_patterns_policy_induced": 0.6666666666666666, "unique_patterns_policy_induced_in_scope": 0.6666666666666666, "out_of_scope_share": 0.0, "seeds": [0, 1, 2]}
+head_to_head seeds [0, 1, 2]
+  muse {"0": {"violations_per_sim": 0.3232758620689655, "sims_to_first_violation": 4, "unique_patterns_coarse": 15, "unique_patterns_fine": 31, "unique_patterns_policy_induced": 19, "unique_patterns_policy_induced_in_scope": 15, "out_of_scope_share": 0.24}, "1": {"violations_per_sim": 0.26666666666666666, "sims_to_first_violation": 9, "unique_patterns_coarse": 18, "unique_patterns_fine": 37, "unique_patterns_policy_induced": 25, "unique_patterns_policy_induced_in_scope": 16, "out_of_scope_share": 0.3}, "2": {"violations_per_sim": 0.26, "sims_to_first_violation": 10, "unique_patterns_coarse": 14, "unique_patterns_fine": 28, "unique_patterns_policy_induced": 19, "unique_patterns_policy_induced_in_scope": 14, "out_of_scope_share": 0.24358974358974358}}
+  museblind {"0": {"violations_per_sim": 0.34051724137931033, "sims_to_first_violation": 5, "unique_patterns_coarse": 16, "unique_patterns_fine": 32, "unique_patterns_policy_induced": 20, "unique_patterns_policy_induced_in_scope": 15, "out_of_scope_share": 0.189873417721519}, "1": {"violations_per_sim": 0.28, "sims_to_first_violation": 9, "unique_patterns_coarse": 15, "unique_patterns_fine": 28, "unique_patterns_policy_induced": 20, "unique_patterns_policy_induced_in_scope": 12, "out_of_scope_share": 0.27380952380952384}, "2": {"violations_per_sim": 0.32666666666666666, "sims_to_first_violation": 4, "unique_patterns_coarse": 18, "unique_patterns_fine": 41, "unique_patterns_policy_induced": 34, "unique_patterns_policy_induced_in_scope": 25, "out_of_scope_share": 0.25510204081632654}}
+  cmaes {"0": {"violations_per_sim": 0.1853448275862069, "sims_to_first_violation": 4, "unique_patterns_coarse": 2, "unique_patterns_fine": 4, "unique_patterns_policy_induced": 4, "unique_patterns_policy_induced_in_scope": 4, "out_of_scope_share": 0.0}, "1": {"violations_per_sim": 0.03666666666666667, "sims_to_first_violation": 197, "unique_patterns_coarse": 2, "unique_patterns_fine": 3, "unique_patterns_policy_induced": 3, "unique_patterns_policy_induced_in_scope": 3, "out_of_scope_share": 0.0}, "2": {"violations_per_sim": 0.01, "sims_to_first_violation": 157, "unique_patterns_coarse": 1, "unique_patterns_fine": 1, "unique_patterns_policy_induced": 1, "unique_patterns_policy_induced_in_scope": 1, "out_of_scope_share": 0.0}}
+  random {"0": {"violations_per_sim": 0.008620689655172414, "sims_to_first_violation": 10, "unique_patterns_coarse": 1, "unique_patterns_fine": 2, "unique_patterns_policy_induced": 0, "unique_patterns_policy_induced_in_scope": 0, "out_of_scope_share": 0.0}, "1": {"violations_per_sim": 0.006666666666666667, "sims_to_first_violation": 15, "unique_patterns_coarse": 2, "unique_patterns_fine": 2, "unique_patterns_policy_induced": 2, "unique_patterns_policy_induced_in_scope": 2, "out_of_scope_share": 0.0}, "2": {"violations_per_sim": 0.0033333333333333335, "sims_to_first_violation": 166, "unique_patterns_coarse": 1, "unique_patterns_fine": 1, "unique_patterns_policy_induced": 0, "unique_patterns_policy_induced_in_scope": 0, "out_of_scope_share": 0.0}}
+only in muse 25 policy-induced: ['attitude_loss <- heater+leak+X+rw3_torque_derate', 'attitude_loss <- heater+leak+Y+rw0_torque_derate+rw1_torque_derate', 'attitude_loss <- heater+leak+Z+rw2_friction', 'attitude_loss <- heater+rw1_torque_derate', 'attitude_loss <- leak+X+rw0_friction+rw1_friction', 'attitude_loss <- leak+X+rw0_torque_derate+rw2_torque_derate', 'attitude_loss <- leak+X+rw2_friction', 'attitude_loss <- leak+Y+rw0_friction+rw1_torque_derate', 'attitude_loss <- leak+Z+rw3_friction', 'wheel_saturation <- heater+leak+X+rw2_friction+rw3_friction', 'wheel_saturation <- heater+leak-Y+rw0_torque_derate', 'wheel_saturation <- heater+leak-Y+rw1_friction', 'wheel_saturation <- leak+Y+rw2_torque_derate+rw3_friction', 'wheel_saturation <- rw1_friction+rw2_torque_derate', 'wheel_saturation <- rw2_torque_derate+rw3_torque_derate']
+only in museblind 32 policy-induced: ['attitude_loss <- heater+leak+X+rw3_friction', 'attitude_loss <- heater+leak+Y+rw1_friction+rw3_torque_derate', 'attitude_loss <- heater+leak+Y+rw1_torque_derate+rw2_torque_derate', 'attitude_loss <- heater+leak+Z+rw0_friction+rw2_friction', 'attitude_loss <- heater+leak+Z+rw1_friction+rw2_friction', 'attitude_loss <- heater+leak+Z+rw1_friction+rw3_friction', 'attitude_loss <- leak+X+rw0_torque_derate+rw3_friction', 'attitude_loss <- leak+X+rw1_friction+rw3_torque_derate', 'attitude_loss <- leak+X+rw2_torque_derate+rw3_torque_derate', 'attitude_loss <- leak+Y+rw0_torque_derate+rw1_torque_derate', 'attitude_loss <- leak+Z+rw0_torque_derate+rw1_torque_derate', 'attitude_loss <- leak-X+rw0_friction+rw3_torque_derate', 'attitude_loss <- rw0_torque_derate+rw1_friction', 'wheel_saturation <- heater+leak+X', 'wheel_saturation <- heater+leak+X+rw0_friction', 'wheel_saturation <- heater+leak+X+rw3_torque_derate', 'wheel_saturation <- heater+leak-Z+rw1_friction', 'wheel_saturation <- leak+X+rw0_friction+rw3_friction', 'wheel_saturation <- leak+X+rw0_torque_derate+rw2_torque_derate', 'wheel_saturation <- leak+X+rw1_friction+rw3_friction', 'wheel_saturation <- leak+Y+rw0_friction+rw2_friction', 'wheel_saturation <- leak+Y+rw2_torque_derate+rw3_torque_derate', 'wheel_saturation <- leak+Z+rw2_torque_derate', 'wheel_saturation <- leak-X+rw0_friction+rw2_friction', 'wheel_saturation <- leak-Y+rw0_torque_derate+rw2_torque_derate']
+only in cmaes 0 policy-induced: []
+only in random 3 policy-induced: ['attitude_loss <- leak-X+rw1_friction+rw2_friction']

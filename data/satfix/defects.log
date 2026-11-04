@@ -1,0 +1,15 @@
+276 policy-induced in-scope cases, 136 to run
+  10/136
+  20/136
+  30/136
+  40/136
+  50/136
+  60/136
+  70/136
+  80/136
+  90/136
+  100/136
+  110/136
+  120/136
+  130/136
+Counter({'D1 isolation lock-in': 254, 'D2 isolation removes needed wheel': 19, 'D3 safe-mode induced': 3})

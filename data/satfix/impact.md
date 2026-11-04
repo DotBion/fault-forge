@@ -87,3 +87,42 @@ Note: the Muse/CMA-ES searches themselves ran with the legacy rule (Muse saw leg
 using the legacy `sat_dur_ratio`). Their stored scenarios were re-scored, not re-searched; a search under the
 corrected rule could explore somewhat differently.
 
+## Arms comparison, old (cumulative) -> new (consecutive)
+
+`src/compare.py` re-run on the re-scored arm files (stale minimized cache entries re-minimized; new entries stamped
+with `sat_rule`). Equal budget per seed (truncated to the shortest arm, 232 sims on seed 0). Source:
+`data/cmp/summary.json` (new), `data/satfix/cmp_summary_legacy_cumulative.json` (old); plot `plots/arms_comparison.png`
+(old plot: `data/satfix/arms_comparison_legacy_cumulative.png`).
+
+| arm | viol/sim old -> new | sims to 1st old -> new | fine old -> new | coarse old -> new | pol-ind fine old -> new | in-scope old -> new | oos share old -> new |
+|---|---|---|---|---|---|---|---|
+| Muse (mean, 3 seeds) | 0.339 -> 0.283 | 5.7 -> 7.7 | 39.0 -> 32.0 | 18.7 -> 15.7 | 28.3 -> 21.0 | 18.3 -> 15.0 | 0.29 -> 0.26 |
+| Muse-blind (mean, 3 seeds) | 0.449 -> 0.316 | 5.0 -> 6.0 | 43.3 -> 33.7 | 21.0 -> 16.3 | 34.7 -> 24.7 | 22.7 -> 17.3 | 0.28 -> 0.24 |
+| CMA-ES (mean, 3 seeds) | 0.080 -> 0.077 | 105.0 -> 119.3 | 3.3 -> 2.7 | 2.3 -> 1.7 | 3.3 -> 2.7 | 3.3 -> 2.7 | 0.00 -> 0.00 |
+| random (mean, 3 seeds) | 0.006 -> 0.006 | 63.7 -> 63.7 | 1.7 -> 1.7 | 1.3 -> 1.3 | 0.7 -> 0.7 | 0.7 -> 0.7 | 0.00 -> 0.00 |
+
+| seed | arm | sims | violations old -> new | viol/sim old -> new | sims to 1st old -> new | fine old -> new | coarse old -> new | in-scope pol-ind old -> new |
+|---|---|---|---|---|---|---|---|---|
+| 0 | Muse | 232 | 90 -> 75 | 0.388 -> 0.323 | 4 -> 4 | 40 -> 31 | 19 -> 15 | 19 -> 15 |
+| 0 | Muse-blind | 232 | 108 -> 79 | 0.466 -> 0.341 | 5 -> 5 | 40 -> 32 | 23 -> 16 | 22 -> 15 |
+| 0 | CMA-ES | 232 | 43 -> 43 | 0.185 -> 0.185 | 4 -> 4 | 4 -> 4 | 2 -> 2 | 4 -> 4 |
+| 0 | random | 232 | 2 -> 2 | 0.009 -> 0.009 | 10 -> 10 | 2 -> 2 | 1 -> 1 | 0 -> 0 |
+| 1 | Muse | 300 | 95 -> 80 | 0.317 -> 0.267 | 3 -> 9 | 43 -> 37 | 20 -> 18 | 19 -> 16 |
+| 1 | Muse-blind | 300 | 126 -> 84 | 0.420 -> 0.280 | 6 -> 9 | 35 -> 28 | 19 -> 15 | 15 -> 12 |
+| 1 | CMA-ES | 300 | 12 -> 11 | 0.040 -> 0.037 | 154 -> 197 | 4 -> 3 | 3 -> 2 | 4 -> 3 |
+| 1 | random | 300 | 2 -> 2 | 0.007 -> 0.007 | 15 -> 15 | 2 -> 2 | 2 -> 2 | 2 -> 2 |
+| 2 | Muse | 300 | 94 -> 78 | 0.313 -> 0.260 | 10 -> 10 | 34 -> 28 | 17 -> 14 | 17 -> 14 |
+| 2 | Muse-blind | 300 | 138 -> 98 | 0.460 -> 0.327 | 4 -> 4 | 55 -> 41 | 21 -> 18 | 31 -> 25 |
+| 2 | CMA-ES | 300 | 4 -> 3 | 0.013 -> 0.010 | 157 -> 157 | 2 -> 1 | 2 -> 1 | 2 -> 1 |
+| 2 | random | 300 | 1 -> 1 | 0.003 -> 0.003 | 166 -> 166 | 1 -> 1 | 1 -> 1 | 0 -> 0 |
+
+Union of fine patterns over seeds (policy-induced in brackets), old -> new: Muse 71 (53) -> 61 (41), Muse-blind 90 (73) -> 69 (52), CMA-ES 7 (7) -> 5 (5), random 5 (2) -> 5 (2).
+Fine patterns found by only one arm, old -> new: Muse 31 -> 25, Muse-blind 49 -> 32, CMA-ES 2 -> 0, random 3 -> 3.
+
+Part of the Muse and Muse-blind saturation hits were produced by the cumulative bug (saturation episodes summed
+across the run instead of one > 60 s episode): Muse loses 15-16 violating runs per seed, Muse-blind 29-42, CMA-ES 0-1,
+random 0. The ordering is unchanged: both Muse arms still lead CMA-ES/random by a wide margin on rate and diversity.
+Muse-blind vs Muse after the fix: higher violations/sim on all 3 seeds (0.341 vs 0.323, 0.280 vs 0.267,
+0.327 vs 0.260); more coarse patterns on seeds 0 and 2 (16 vs 15, 18 vs 14) but not seed 1 (15 vs 18; also not
+before the fix, 19 vs 20).
+
