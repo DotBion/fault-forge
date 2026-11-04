@@ -84,8 +84,11 @@ attempts; budget mode `gated_v2.py budget --tries 4` = up to 4 proposals per rou
   acceptance test (its thresholds were tuned to it).
 - **Blind vs informed Muse is a hypothesis.** Rules-blind Muse is higher on violations/sim on all 3 seeds but higher on
   distinct fault-combination signatures on only 2 of 3; 3 seeds do not settle the ordering.
-- **Random baseline is i.i.d. over the whole fault space.** It is not matched to the fault families Muse proposes, so
-  the ~46x violations/sim gap mixes "better search" with "better choice of fault families".
+- **Most of the gap over plain random is Muse's choice of where to look, and a sampler can copy it in hindsight.**
+  Plain random is i.i.d. over the whole space. Random restricted to Muse's fault families gets only 0.031
+  violations/sim, but random that also samples each parameter from Muse's own proposals gets 0.307, level with Muse
+  (0.283) and with more coarse signatures (17.7 vs 15.7). That baseline exists only because Muse was run first; see
+  [Matched-random baselines](#matched-random-baselines-is-muse-just-picking-the-right-fault-family).
 - **The policy has an implementation bug** (FDIR same-step tie-break by wheel index, see Defect 4). We report it and
   did not fix it, so every number here is for the policy as written.
 - Request ids exist only for calls made through `src/muse_client.py` (`make live`), not for the historical logs.
@@ -380,6 +383,33 @@ Caveats
   (or BO) could do better; it is a reasonable, not a tuned, baseline.
 - Same simplifications as above (static Sun, 5 s policy steps, no momentum dumping, no thermal/sensor faults).
 
+## Matched-random baselines: is Muse just picking the right fault family?
+
+Equal budget, 3 seeds, corrected saturation rule. Full table, arm definitions and Muse call provenance:
+`data/matched/report.md` (`data/matched/summary.json`; plot `plots/arms_comparison_matched.png`).
+
+| arm | violations / sim | coarse signatures | sims to first violation |
+|---|---|---|---|
+| Muse-guided (closed loop) | 0.283 | 15.7 | 7.7 |
+| Muse rules-blind (closed loop) | 0.316 | 16.3 | 6.0 |
+| One-shot Muse bank (40) + random mutations | 0.142 | 6.7 | 10.0 |
+| Matched random: family + Muse's parameter marginals | 0.307 | 17.7 | 2.0 |
+| Matched random: family only | 0.031 | 4.0 | 30.0 |
+| CMA-ES | 0.077 | 1.7 | 119.3 |
+| plain random | 0.006 | 1.3 | 63.7 |
+
+Reading it straight:
+- Fault families alone explain little: random over Muse's fault-kind mix gets 0.031, about 5x plain random but
+  about 9x below Muse.
+- The parameter values carry the effect. Muse converged to severe, early wheel faults (76% of derates and 85% of
+  friction faults at severity 1.0, median onset 0.9% into the run, median beta 5 deg). Random that samples from those marginals matches
+  Muse (0.307 vs 0.283) and slightly exceeds it on signatures. So once you know Muse's distribution, an open-loop
+  sampler is as good; the closed-loop search is not adding much beyond finding that distribution.
+- That baseline is hindsight-informed: its marginals come from Muse's feedback-driven runs. Without feedback, a
+  single 40-scenario Muse call plus random mutations gets 0.142, about half of closed-loop Muse, which suggests
+  the feedback loop is how Muse found the region.
+- 3 seeds per arm; treat the Muse vs matched fam+param ordering as a tie.
+
 ## Repair: gates (strict vs budget)
 
 Muse selects and parameterizes from an engineer-provided menu of repair options: whitelisted policy keys with bounds
@@ -503,7 +533,7 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 
 ## Demo video
 
-**Current: `demo/faultforge_demo_v4.mp4`** (172.6 s, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
+**Current: `demo/faultforge_demo_v4.mp4`** (173.6 s, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
 (edge-tts narration from `demo/v4_script.py` -> `demo/vo_v4/`, segments via `demo/make_video_v4.py`; timed script and
 on-screen data sources in `docs/video_v4_script.md`). Every number is read from the repo at render time. Order:
 (1) the minimized case `a6e8087b`, full policy vs the same policy with only isolation suppressed (Basilisk replay,
@@ -511,7 +541,7 @@ on-screen data sources in `docs/video_v4_script.md`). Every number is read from 
 0/24 nearby variants) before the peak-angle context; (2) Muse's four labelled roles, then the real, unedited
 `make live` take (`demo/live/take1.cast`, 2/8 runs violated; only the Muse wait is sped up and labelled; this call's
 request id is shown, recorded calls have none); (3) defect classes D1-D3 and the D4 tie-break bug, with counts and
-replay commands; (4) chart 1, benchmarks, with a marked matched-random slot (shown as PENDING: `data/matched/summary.json` did not exist at render time); (5) the strict gate
+replay commands; (4) chart 1, benchmarks, including the matched-random and one-shot Muse arms from `data/matched/summary.json` (family-only 0.031, family + Muse's parameter marginals 0.307, one-shot bank 0.142 violations/sim; see [Matched-random baselines](#matched-random-baselines-is-muse-just-picking-the-right-fault-family)); (5) the strict gate
 (rejects all) and the budget gate (b1t1, net +24, 1 clean run broken: `museblind_seed1_28`), then chart 2 with the
 fresh-search check; (6) limits and related work. Stills: `demo/v4_still_*.png`.
 

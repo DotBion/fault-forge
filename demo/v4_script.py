@@ -77,8 +77,11 @@ def bench_facts():
         try:
             M = json.load(open(mp))["arms"]
             arm = "matchfam" if "matchfam" in M else sorted(M)[0]
+            g = lambda a, k: (M[a]["mean"].get(k) if a in M else None)
             out["matched"] = dict(arm=arm, vps=M[arm]["mean"]["violations_per_sim"],
                                   sig=M[arm]["mean"].get("unique_patterns_coarse"),
+                                  arms={a: dict(vps=g(a, "violations_per_sim"), sig=g(a, "unique_patterns_coarse"))
+                                        for a in ("matchfam", "matchall", "oneshot") if a in M},
                                   all={a: M[a]["mean"] for a in M}, src="data/matched/summary.json")
         except Exception:
             out["matched"] = None
@@ -139,11 +142,13 @@ def fresh_sentence():
 
 FRESH_VO, FRESH = fresh_sentence()
 
-if BF["matched"]:
+if BF["matched"] and {"matchfam", "matchall"} <= set(BF["matched"].get("arms", {})):
+    _A = BF["matched"]["arms"]; _f, _a = _A["matchfam"]["vps"], _A["matchall"]["vps"]
+    MATCHED_VO = (f"Random matched to Muse's fault families gets {_f:.3f}; adding Muse's parameter values, {_a:.3f}." +
+                  (" The gain is in Muse's parameter choices." if _a >= 0.9 * BF["muse_vps"] else ""))
+elif BF["matched"]:
     _m = BF["matched"]
-    MATCHED_VO = (f"A random baseline matched to Muse's fault families gets {_m['vps']:.3f} per simulation, so part "
-                  f"of the gap is choosing the right fault families." if _m["vps"] > 0.05 else
-                  f"A random baseline matched to Muse's fault families gets {_m['vps']:.3f} per simulation.")
+    MATCHED_VO = f"A random baseline matched to Muse's fault families gets {_m['vps']:.3f} per simulation."
 else:
     MATCHED_VO = ("A random baseline matched to Muse's fault families is still running; its slot is marked pending.")
 
@@ -196,9 +201,12 @@ SEGMENTS = [
                 "~46x) and distinct fault-combination signatures (coarse; Muse 15.7 vs CMA-ES 1.7). A clearly marked "
                 "MATCHED RANDOM slot: filled from data/matched/summary.json if it exists at render time, else "
                 "'pending'. Blind-vs-informed labelled hypothesis.",
-         vo=f"Against baselines, equal budgets, three seeds: Muse finds {BF['muse_vps']:.3f} violations per simulation, "
-            f"random {BF['rnd_vps']:.3f}, about {RATIO:.0f} times more. Muse finds about "
-            f"{BF['muse_sig']:.0f} distinct fault-combination signatures; CMA-ES under two. " + MATCHED_VO),
+         vo=(f"Equal budgets, three seeds: Muse finds {BF['muse_vps']:.3f} violations per simulation, random "
+             f"{BF['rnd_vps']:.3f}, and about {BF['muse_sig']:.0f} fault-combination signatures; CMA-ES under two. "
+             + MATCHED_VO) if (BF["matched"] and "matchall" in BF["matched"].get("arms", {})) else
+            (f"Against baselines, equal budgets, three seeds: Muse finds {BF['muse_vps']:.3f} violations per simulation, "
+             f"random {BF['rnd_vps']:.3f}, about {RATIO:.0f} times more. Muse finds about "
+             f"{BF['muse_sig']:.0f} distinct fault-combination signatures; CMA-ES under two. " + MATCHED_VO)),
     dict(id="s6", name="The gate: strict rejects all; budget accepts b1t1; fresh result; chart 2", nominal=26,
          visual="Two gates side by side: STRICT (0 new violations) rejected all N; BUDGET (net > 0, <= 3 clean runs "
                 "broken) accepted b1t1 wheel_safe_frac 0.97 / 60 s: 26 fixes, net +24, 1 clean run broken "
@@ -244,7 +252,8 @@ def to_markdown(durs=None):
           "live call has a request id; recorded calls (search/repair logs) have none.",
           "- s4 counts are ablation classes of 276 minimized cases; D4 is a code bug in our policy, reported, not fixed.",
           "- s5 signatures are fault-combination counts, not defects. Random is i.i.d. over the whole space; the matched "
-          "random slot is filled only from data/matched/summary.json.",
+          "random bars are filled only from data/matched/summary.json. MATCHED fam.+params samples each parameter from "
+          "the marginals of Muse's own proposals, so it is a hindsight-informed baseline, not an independent method.",
           "- s6 describes the strict and budget gates separately; the budget gate accepts by design up to 3 broken clean "
           "runs per patch. Only one budget round was accepted (1 waiver in total)."]
     return "\n".join(L) + "\n"

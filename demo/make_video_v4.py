@@ -331,35 +331,45 @@ def s5(D, T):
                f"fault-combination signatures (coarse) {sig['muse']:.1f} vs CMA-ES {sig['cmaes']:.1f}",
                "data/cmp/summary.json" + (" · " + M["src"] if M else " · matched random: data/matched/summary.json "
                                                                     "(not present at render time)"))
-        xs = arms + ["matched"]
+        MA = (M or {}).get("arms") or {}
+        mk = [k for k in ("matchfam", "matchall", "oneshot") if k in MA]
+        mlab = {"matchfam": "MATCHED\nfamilies", "matchall": "MATCHED\nfam+param", "oneshot": "1 Muse\ncall+\nmutate"}
+        mcol = {"matchfam": GREEN, "matchall": GREEN, "oneshot": ORANGE}
         for p, (vals, ttl, fmt) in enumerate([(vps, "violations per simulation", "{:.3f}"),
                                               (sig, "distinct fault-combination signatures (coarse)", "{:.1f}")]):
-            ax = f.add_axes([0.07 + p * 0.48, 0.20, 0.40, 0.58])
+            ax = f.add_axes([0.06 + p * 0.49, 0.25 if MA else 0.20, 0.42, 0.53 if MA else 0.58])
             hs = [vals[a] * g for a in arms]
-            mv_ = None
-            if M:
-                mv_ = M["vps"] if p == 0 else M.get("sig")
+            mvals = [MA[k]["vps" if p == 0 else "sig"] for k in mk]
             ax.bar(range(len(arms)), hs, color=[cols[a] for a in arms], width=0.62)
-            ymax = max(list(vals.values()) + ([mv_] if mv_ else [])) * 1.25
-            if mv_ is not None:
-                ax.bar([len(arms)], [mv_ * g], color=cols["matched"], width=0.62, hatch="//", edgecolor=BG)
-                ax.text(len(arms), mv_ * g + ymax * 0.02, fmt.format(mv_), ha="center", fontsize=16, color=GREEN)
+            ymax = max(list(vals.values()) + [v for v in mvals if v is not None]) * 1.25
+            if mk:
+                for j, (k, v) in enumerate(zip(mk, mvals)):
+                    x = len(arms) + j
+                    ax.bar([x], [(v or 0) * g], color=mcol[k], width=0.62, hatch="//", edgecolor=BG)
+                    ax.text(x, (v or 0) * g + ymax * 0.02, fmt.format(v) if (g > 0.95 and v is not None) else "",
+                            ha="center", fontsize=15, color=mcol[k])
+                xl = [lab[a] for a in arms] + [mlab[k] for k in mk]
             else:
                 ax.bar([len(arms)], [ymax * 0.9], color="none", width=0.62, edgecolor=GREEN, ls="--", lw=2)
                 ax.text(len(arms), ymax * 0.45, "PENDING\nnot run\nin time" if p == 0 else "PENDING", ha="center",
                         va="center", fontsize=14, color=GREEN, weight="bold")
+                xl = [lab[a] for a in arms] + ["MATCHED\nrandom"]
             for k, a in enumerate(arms):
-                ax.text(k, hs[k] + ymax * 0.02, fmt.format(vals[a]) if g > 0.95 else "", ha="center", fontsize=16)
-            ax.set_xticks(range(len(xs))); ax.set_xticklabels([lab[a] for a in arms] + ["MATCHED\nrandom"],
-                                                                 fontsize=13)
-            ax.get_xticklabels()[-1].set_color(GREEN)
+                ax.text(k, hs[k] + ymax * 0.02, fmt.format(vals[a]) if g > 0.95 else "", ha="center", fontsize=15)
+            ax.set_xticks(range(len(xl))); ax.set_xticklabels(xl, fontsize=10 if mk else 13)
+            for j, k in enumerate(mk or ["matchfam"]):
+                ax.get_xticklabels()[len(arms) + j].set_color(mcol.get(k, GREEN))
             ax.set_ylim(0, ymax); ax.set_title(ttl, fontsize=18, color=FG, pad=12); ax.tick_params(labelsize=12)
         a = fade(t, 4.5)
-        f.text(0.07, 0.085, "Signatures are fault-type combinations, not defects (the 276 cases reduce to D1-D4). "
-                            "MATCHED random = random sampling restricted to Muse's fault families.",
-               fontsize=14, color=DIM, alpha=a)
-        f.text(0.07, 0.055, "Hypothesis, not a result: blind Muse beats informed on viol/sim on 3/3 seeds but on "
-                            "coarse signatures on only 2/3.", fontsize=14, color=DIM, alpha=a)
+        notes = ["Signatures are fault-type combinations, not defects (the 276 cases reduce to D1-D4). "
+                 "MATCHED = random restricted to Muse's fault families."]
+        if MA:
+            notes.append("MATCHED fam+param also samples each parameter from Muse's own proposals (a hindsight "
+                         "baseline). 1 Muse call+mutate: one 40-scenario bank, then random mutations.")
+        notes.append("Hypothesis, not a result: blind Muse beats informed on viol/sim on 3/3 seeds but on "
+                     "coarse signatures on only 2/3.")
+        for j, n in enumerate(notes):
+            f.text(0.07, 0.055 + 0.03 * (len(notes) - 1 - j), n, fontsize=13 if MA else 14, color=DIM, alpha=a)
         s.frame()
     return s.close()
 

@@ -1,0 +1,934 @@
+{
+ "seed": 1,
+ "requested": 40,
+ "returned": 40,
+ "valid": 40,
+ "repairs": 0,
+ "analysis": "Systematic coverage of battery drain, momentum saturation and attitude loss including stealth faults not isolated by FDIR, single-isolation limit with dual faults, skew geometry, bias direction, blind-period and late timing, eclipse phase and beta, and combined cascades.",
+ "provenance": {
+  "ts_utc": "2026-11-04T07:07:18+00:00",
+  "endpoint": "https://api.meta.ai/v1/chat/completions",
+  "model_requested": "muse-spark-1.3",
+  "model": "muse-spark-1.3",
+  "response_id": "chatcmpl-01a1a563-8213-7199-bad3-6c1c36d45252",
+  "request_id": "52a20dda-5ee1-4fe6-9566-392ff0c9dc50",
+  "request_id_header": "x-request-id",
+  "http_status": 200,
+  "latency_s": 86.4,
+  "attempts": 1,
+  "usage": {
+   "completion_tokens": 12925,
+   "prompt_tokens": 1053,
+   "total_tokens": 13978,
+   "completion_tokens_details": {
+    "reasoning_tokens": 8409
+   },
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   }
+  },
+  "finish_reason": "stop"
+ },
+ "bank": [
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Maximum heater in longest eclipse drains battery before SAFE recovers"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Same heater opposite orbital phase checks eclipse timing sensitivity"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 70.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Heater without eclipse checks sunlight power-negative budget"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 5.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 0.8
+     }
+    ],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 3.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Moderate heater plus wheel friction jointly drain battery"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 5500.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Late heater in second eclipse leaves insufficient recharge time"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 55.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Secular X leak exceeds wheel momentum capacity without battery effects"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 55.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Secular Y leak exceeds wheel momentum capacity"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 55.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Secular Z leak on lowest inertia axis causes prolonged attitude drift"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 55.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.5774,
+      0.5774,
+      0.5774
+     ]
+    }
+   },
+   "hypothesis": "Diagonal leak distributes momentum to all wheels including skewed wheel"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 50.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      -1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Negative X leak unloads then reverses into opposite saturation"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 50.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 3e-07,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Minimum leak slowly exceeds wheel momentum capacity in second orbit"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 40.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 100.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dead X wheel not fully compensated after FDIR isolation saturates remainder"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 40.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 3,
+      "onset_s": 100.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dead skewed wheel removes null-space margin overloading orthogonal wheels"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 40.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.2
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Low derate not isolated by FDIR silently reduces control margin"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 40.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.2
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Low friction not isolated by FDIR causes hidden drag and drift"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 30.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 300.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     },
+     {
+      "wheel": 1,
+      "onset_s": 300.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Two dead wheels with only one isolated by FDIR leaves reduced control"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 30.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 300.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     },
+     {
+      "wheel": 3,
+      "onset_s": 305.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dead orthogonal plus dead skewed wheel with only one isolated by FDIR"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 30.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 300.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     },
+     {
+      "wheel": 1,
+      "onset_s": 300.0,
+      "type": "friction",
+      "severity": 0.8
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dead wheel plus high friction wheel with only one isolated by FDIR"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 30.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.2
+     },
+     {
+      "wheel": 2,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.25
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dual low derates not isolated by FDIR jointly remove redundancy"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 20.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.5
+     },
+     {
+      "wheel": 2,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.5
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dual moderate frictions increase drag and power without FDIR isolation"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 20.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.6
+     },
+     {
+      "wheel": 1,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.6
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Dual borderline derates cause uncertain isolation leaving degraded survivor"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 45.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 3,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 500.0,
+     "mag_Nm": 1.2e-06,
+     "axis": [
+      0.5774,
+      0.5774,
+      0.5774
+     ]
+    }
+   },
+   "hypothesis": "Skew friction plus skew-aligned leak overloads skewed wheel"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 45.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.9
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 500.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Degraded Z wheel cannot absorb secular Z momentum saturating neighbor"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 45.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.9
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 500.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Degraded X wheel cannot absorb secular X momentum saturating backup"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 45.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 500.0,
+      "type": "friction",
+      "severity": 0.9
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 500.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "High friction Y wheel fighting secular Y leak causes speed runaway"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 35.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Early faults during monitoring blind period build unchecked momentum"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 35.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 4000.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Delayed leak after three-wheel adaptation exceeds remaining momentum capacity"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 35.0,
+     "f0_deg": 90.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 1000.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 1000.0,
+     "mag_Nm": 1.2e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Fault just after monitoring starts outlasts SAFE trigger delay"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 35.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 7500.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 7500.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Very late fault leaves no time for SAFE recovery or desaturation"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 10.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 2,
+      "onset_s": 500.0,
+      "type": "torque_derate",
+      "severity": 0.5
+     }
+    ],
+    "heater": {
+     "onset_s": 500.0,
+     "power_W": 4.0
+    },
+    "torque_leak": {
+     "onset_s": 500.0,
+     "mag_Nm": 1e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Leak saturation degrades sun pointing so heater drains battery"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 5.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 0.25
+     },
+     {
+      "wheel": 2,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 0.25
+     }
+    ],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 2.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Small heater plus dual stealth derates prevent SAFE recharge exit"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 70.0,
+     "f0_deg": 180.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 0.8
+     }
+    ],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "No-eclipse saturation isolates momentum failure from battery effects"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 270.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 2.0
+    },
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 5e-07,
+     "axis": [
+      0.0,
+      1.0,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Small heater plus small leak hold SAFE cycling below exit threshold"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 15.0,
+     "f0_deg": 135.0
+    },
+    "rw_faults": [],
+    "heater": {
+     "onset_s": 1000.0,
+     "power_W": 4.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Eclipse re-entry during SAFE minimum stay prevents reaching exit threshold"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 25.0,
+     "f0_deg": 45.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 800.0,
+      "type": "friction",
+      "severity": 1.0
+     }
+    ],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "Maximum stiction causes limit cycle with poor pointing in both modes"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 10.0,
+     "f0_deg": 225.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 1,
+      "onset_s": 300.0,
+      "type": "torque_derate",
+      "severity": 1.0
+     }
+    ],
+    "heater": {
+     "onset_s": 300.0,
+     "power_W": 6.0
+    },
+    "torque_leak": null
+   },
+   "hypothesis": "Dead wheel reduces solar input while heater drains battery"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 50.0,
+     "f0_deg": 135.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    }
+   },
+   "hypothesis": "Negative Z leak drives healthy wheel toward negative saturation limit"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 50.0,
+     "f0_deg": 315.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.2e-06,
+     "axis": [
+      0.7071,
+      0.7071,
+      0.0
+     ]
+    }
+   },
+   "hypothesis": "Diagonal leak reveals inertia asymmetry overloading one wheel first"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 45.0
+    },
+    "rw_faults": [],
+    "heater": null,
+    "torque_leak": null
+   },
+   "hypothesis": "No-fault long eclipse checks inherent margin without momentum dumping"
+  },
+  {
+   "params": {
+    "orbit": {
+     "beta_deg": 0.0,
+     "f0_deg": 0.0
+    },
+    "rw_faults": [
+     {
+      "wheel": 0,
+      "onset_s": 0.0,
+      "type": "torque_derate",
+      "severity": 0.8
+     },
+     {
+      "wheel": 2,
+      "onset_s": 0.0,
+      "type": "friction",
+      "severity": 0.8
+     }
+    ],
+    "heater": {
+     "onset_s": 0.0,
+     "power_W": 5.0
+    },
+    "torque_leak": {
+     "onset_s": 0.0,
+     "mag_Nm": 1.5e-06,
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ]
+    }
+   },
+   "hypothesis": "Combined wheel heater and leak faults cause cascading battery and momentum failure"
+  }
+ ],
+ "prompt": {
+  "system": "You are FaultForge, a verification engineer stress-testing spacecraft fault protection in simulation. Your job:\npropose multi-fault test scenarios under which the EXISTING recovery policy fails a safety requirement, and find as many\nphysically DISTINCT failure mechanisms as possible (not repeats of known ones).\n\nSimulator (Basilisk): 10 kg 6U CubeSat, 500 km circular orbit, 2 orbits = 11354 s. Inertia diag [0.12, 0.1, 0.05] kg m^2.\nBody-fixed solar panel on +X_B (zenith in nominal nadir-pointing), 30 Wh battery starting at 65% SoC,\nloads bus 3.0 W + payload 4.0 W + wheels. Solar beta angle sets eclipse fraction (beta>~68 deg: no\neclipse; beta 0: ~37% eclipse); f0 sets initial orbital phase relative to eclipse. Constant disturbance torque\n[2e-07, -1e-07, 1.5e-07] Nm. No momentum dumping. 4 reaction wheels (4 mNm, 15 mNms, 6000 rpm) on axes\nwheel0=+X, wheel1=+Y, wheel2=+Z, wheel3=(1,1,1)/sqrt3, initial rpm [800.0, -600.0, 500.0, -300.0].\nFaults: RW torque_derate (u_max *= 1-severity; severity~1 = dead wheel), RW friction (Coulomb += severity*2 mNm,\nviscous += severity*2e-6), stuck-on heater (extra W), external torque leak (adds mag along axis; secular momentum).\nFaults are applied at onset_s (quantized to 5 s).\n\nRecovery policy under test (runs every 5 s):\n- SoC < 0.4 -> SAFE (payload off, sun-point panel); SAFE -> NOMINAL when SoC > 0.7 and att err < 15.0 deg after >= 600 s in SAFE.\n- NOMINAL attitude error > 15.0 deg for 120 s (after t=900s) -> SAFE.\n- FDIR: a wheel whose |commanded - delivered| torque residual > max(0.25*|cmd|, 3e-04 Nm) for 3\n  consecutive 5 s checks is isolated (removed from control), but ONLY while more than 3 wheels are available\n  (so at most one wheel is ever isolated).\nSafety constraints (violations):\n- battery_floor: SoC < 0.2.\n- attitude_loss: attitude error > 30.0 deg continuously for > 1200 s (after t=900 s).\n- wheel_saturation: any AVAILABLE wheel at >= 98% of max speed for > 60 s.\n\nNear-miss margins reported per run (use them as a gradient): battery_margin = min SoC - floor (<0 violates),\natt_err_ratio = peak attitude error / bound, att_dur_ratio = longest out-of-bound stretch / limit (>1 violates),\nwheel_speed_ratio = peak available-wheel speed / saturation threshold, sat_dur_ratio (>1 violates).\n\nScenario JSON schema (all fields required; use null for absent faults):\n{\"hypothesis\": str (<=20 words, the failure mechanism you are probing),\n  \"orbit\": {\"beta_deg\": float [0.0, 70.0], \"f0_deg\": float [0, 360)},\n  \"rw_faults\": list of 0-2 objects on DISTINCT wheels:\n      {\"wheel\": int 0-3, \"onset_s\": float [0, 9083], \"type\": \"torque_derate\"|\"friction\",\n       \"severity\": float [0.2, 1.0]},\n  \"heater\": null | {\"onset_s\": float [0, 9083], \"power_W\": float [1.0, 6.0]},\n  \"torque_leak\": null | {\"onset_s\": float [0, 9083], \"mag_Nm\": float [3.0e-07, 1.5e-06],\n                         \"axis\": [x, y, z] body-frame direction (normalized by us)}}\n\nWrite analysis and hypotheses in plain reliability-engineering wording (e.g. 'not isolated by FDIR', 'exceeds wheel momentum capacity', 'drains battery'); avoid adversarial or security vocabulary.\nReply with ONLY a JSON object: {\"analysis\": str (<=80 words), \"scenarios\": [ ... exactly 40 scenario objects ... ]}.",
+  "user": "Context: offline Basilisk simulation study for verification & validation of a CubeSat fault-protection design (design review input). Simulation results so far follow.\nNo simulations have been run yet and you will receive NO results back: this is your only chance. Propose exactly 40 diverse test scenarios that together cover as many physically distinct failure mechanisms of the recovery policy as possible."
+ }
+}

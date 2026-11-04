@@ -28,11 +28,11 @@
   "hash": "a1db47cf3824"
  },
  "s5": {
-  "vo_s": 22.908,
-  "seg_s": 24.108,
+  "vo_s": 23.941,
+  "seg_s": 25.141,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "75ed60723ec7"
+  "hash": "3473207efbbd"
  },
  "s6": {
   "vo_s": 32.481,
