@@ -533,31 +533,6 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 
 ## Demo video
 
-**Current: `demo/faultforge_demo_v4.mp4`** (177.7 s, 2:57, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
-(edge-tts narration from `demo/v4_script.py` -> `demo/vo_v4/`, segments via `demo/make_video_v4.py`; timed script and
-on-screen data sources in `docs/video_v4_script.md`). Every number is read from the repo at render time. Order, one
-takeaway per scene:
-(0) the problem in plain words, narrated in three beats over a title card ("When a satellite has a problem, its software
-automatically tries to keep it safe. But a response that helps with one failure can make a second failure worse—and the
-satellite can lose control." / "Testing failures one at a time can miss these dangerous interactions." / "FaultForge uses
-AI to find them in simulation, so engineers can investigate them before launch."); (1) the minimized case `a6e8087b`, full policy vs the same policy with only isolation
-suppressed (Basilisk replay, `demo/replay_causal_v4.py`), ending on the safety-rule metric (longest stretch > 30 deg:
-9,645 s vs 30 s; 24/24 vs 0/24 nearby variants) before the peak-angle context; (2) Muse's four labelled roles, then the
-real, unedited `make live` take (`demo/live/take1.cast`; only the Muse wait is sped up and labelled), ending on
-"Muse proposed 8 tests -> sim found 2 failures" with the live call's model, endpoint, response id, x-request-id and
-token counts in a footer (recorded calls have no request id); (3) defect classes D1-D3 and the D4 tie-break bug, with
-counts and replay commands; (4) chart 1, four bars of violations/sim: plain random 0.006, one Muse call + random
-mutations 0.142, Muse closed loop 0.283, and marginals-matched random 0.307 (samples Muse's learned distribution, so it
-needs finished Muse runs); CMA-ES 0.077, family-only random 0.031 and rules-blind Muse 0.316 in the footnote (see
-[Matched-random baselines](#matched-random-baselines-is-muse-just-picking-the-right-fault-family)); (5) repair: held-out
-4 fixed / 0 newly broken (same 300 scenarios, paired), the strict gate (rejects all) and the budget gate (b1t1: 26 suite
-runs fixed, 2 runs with a new violation of which 1 was previously clean -> net 26 - 2 = +24; the clean one,
-`museblind_seed1_28`, is waived). The unpaired fresh-search check (38 -> 31 of 100) is above, not in the video;
-(6) three limits plus a pointer to [Limitations](#limitations-and-honest-scope), related work, and `make replay`. Stills: `demo/v4_still_*.png`.
+**[`demo/faultforge_demo_v4.mp4`](demo/faultforge_demo_v4.mp4)** (2:57, 1080p30, narrated).
 
-Previous: `demo/faultforge_demo_v3.mp4` (2:53), `bash demo/render_v3.sh`, script `docs/video_v3_script.md`.
-
-Older version:
-`demo/faultforge_demo_v1.mp4` (2:49, 1080p30, captions only) is rendered entirely from repo data by
-`demo/make_video.py`; attitude traces for the headline case come from `demo/replay_attitude.py`
-(re-runs `data/repair/headline_v2.json` as v1, v1 with policy disabled, and v2). Stills: `demo/still_*.png`.
+Order: problem framing → minimized failure case → how Muse found it → defect classes → matched baselines → repair gate → limits. Re-render with `bash demo/render_v4.sh`. Scene script and data sources: [`docs/video_v4_script.md`](docs/video_v4_script.md).
