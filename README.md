@@ -537,7 +537,7 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 (edge-tts narration from `demo/v4_script.py` -> `demo/vo_v4/`, segments via `demo/make_video_v4.py`; timed script and
 on-screen data sources in `docs/video_v4_script.md`). Every number is read from the repo at render time. Order, one
 takeaway per scene:
-(0) the problem in plain words, on screen and narrated in three beats ("When a satellite has a problem, its software
+(0) the problem in plain words, narrated in three beats over a title card ("When a satellite has a problem, its software
 automatically tries to keep it safe. But a response that helps with one failure can make a second failure worse—and the
 satellite can lose control." / "Testing failures one at a time can miss these dangerous interactions." / "FaultForge uses
 AI to find them in simulation, so engineers can investigate them before launch."); (1) the minimized case `a6e8087b`, full policy vs the same policy with only isolation
