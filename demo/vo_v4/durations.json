@@ -1,10 +1,17 @@
 {
- "s1": {
-  "vo_s": 35.557,
-  "seg_s": 40,
+ "s0": {
+  "vo_s": 20.979,
+  "seg_s": 22.179,
   "engine": "edge",
   "voice": "en-US-AndrewNeural",
-  "hash": "c83eb4cc4af8"
+  "hash": "1797a8aa1e1f"
+ },
+ "s1": {
+  "vo_s": 27.651,
+  "seg_s": 28.851,
+  "engine": "edge",
+  "voice": "en-US-AndrewNeural",
+  "hash": "09bfacb393bc"
  },
  "s2": {
   "vo_s": 13.551,

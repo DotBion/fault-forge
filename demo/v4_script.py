@@ -17,7 +17,7 @@ import glob, json, os, re
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 P = lambda *a: os.path.join(ROOT, *a)
 VO_LEAD, VO_PAD = 0.5, 0.7
-MAX_TOTAL = 175.0
+MAX_TOTAL = 178.0
 LIVE_CAST = os.path.join(HERE, "live", "take1.cast")
 LIVE_JSON = P("data", "live", "live_2026-11-04T061215Z.json")
 HL_KEY = "a6e8087b7a52c977"
@@ -165,16 +165,21 @@ LIVE_N, LIVE_V = len(_LJ["runs"]), sum(bool(r.get("violated")) for r in _LJ["run
 _MA = (BF["matched"] or {}).get("all", {})
 MV = lambda a: _MA[a]["violations_per_sim"]
 
+OPEN_BEATS = ["When a satellite has a problem, its software automatically tries to keep it safe. But a response that "
+              "helps with one failure can make a second failure worse—and the satellite can lose control.",
+              "Testing failures one at a time can miss these dangerous interactions.",
+              "FaultForge uses AI to find them in simulation, so engineers can investigate them before launch."]
 SEGMENTS = [
-    dict(id="s1", name="The failure: minimized a6e8087b, full policy vs isolation-only suppressed", nominal=40,
-         visual="Opening card (no hash, no 'minimized'): 'A spacecraft's own recovery logic can turn a survivable fault "
-                "combination into a lost one. FaultForge finds those cases.' Then split-screen Basilisk replay of minimized case a6e8087b (demo/data/hl4_*.csv): left full v1 policy "
+    dict(id="s0", name="The problem (owner's framing, verbatim)", nominal=8,
+         visual="Three text beats on a plain card, each fading in as it is spoken (verbatim): " + " / ".join(OPEN_BEATS),
+         vo=" ".join(OPEN_BEATS)),
+    dict(id="s1", name="The failure: minimized a6e8087b, full policy vs isolation-only suppressed", nominal=28,
+         visual="Split-screen Basilisk replay of minimized case a6e8087b (demo/data/hl4_*.csv): left full v1 policy "
                 "(isolates RW0 at 120 s, cannot isolate dead RW1, attitude loss), right same policy with ONLY isolation "
                 "suppressed. End card leads with the safety-rule metric: longest stretch > 30 deg 9,645 s vs 30 s "
                 "(limit 1,200 s); 24-case sweep 24/24 vs 0/24; then peak 180 vs 137 deg with context. Footnote: "
                 "minimized case; original run 173 also fails with the policy off.",
-         vo="A spacecraft's own recovery logic can turn a survivable fault combination into a lost one. FaultForge "
-            "finds those cases. Here's one, minimized to two faults. Wheel zero gets mild friction; the policy isolates "
+         vo="Here's one, minimized to two faults. Wheel zero gets mild friction; the policy isolates "
             "it, spending its only isolation. Then wheel one dies, and can't be isolated. On the right, only isolation "
             "is switched off. The limit: twenty minutes past thirty degrees. Full policy: nine thousand six hundred "
             "forty-five seconds. Isolation off: thirty. Nearby variants: twenty-four of twenty-four fail, versus zero."),

@@ -533,12 +533,14 @@ rw2 friction 0.69 then rw1 friction 0.2; v1 isolates the mild rw1 and loses atti
 
 ## Demo video
 
-**Current: `demo/faultforge_demo_v4.mp4`** (166.6 s, 2:47, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
+**Current: `demo/faultforge_demo_v4.mp4`** (177.7 s, 2:57, 1080p30, narrated). Re-render with `bash demo/render_v4.sh`
 (edge-tts narration from `demo/v4_script.py` -> `demo/vo_v4/`, segments via `demo/make_video_v4.py`; timed script and
 on-screen data sources in `docs/video_v4_script.md`). Every number is read from the repo at render time. Order, one
 takeaway per scene:
-(1) a plain opening line ("A spacecraft's own recovery logic can turn a survivable fault combination into a lost one.
-FaultForge finds those cases."), then the minimized case `a6e8087b`, full policy vs the same policy with only isolation
+(0) the problem in plain words, on screen and narrated in three beats ("When a satellite has a problem, its software
+automatically tries to keep it safe. But a response that helps with one failure can make a second failure worse—and the
+satellite can lose control." / "Testing failures one at a time can miss these dangerous interactions." / "FaultForge uses
+AI to find them in simulation, so engineers can investigate them before launch."); (1) the minimized case `a6e8087b`, full policy vs the same policy with only isolation
 suppressed (Basilisk replay, `demo/replay_causal_v4.py`), ending on the safety-rule metric (longest stretch > 30 deg:
 9,645 s vs 30 s; 24/24 vs 0/24 nearby variants) before the peak-angle context; (2) Muse's four labelled roles, then the
 real, unedited `make live` take (`demo/live/take1.cast`; only the Muse wait is sped up and labelled), ending on

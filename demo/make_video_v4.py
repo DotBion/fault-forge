@@ -9,7 +9,7 @@ Segment ids, lengths and narration live in demo/v4_script.py (lengths: demo/vo_v
       (data/satfix/causal_replay.json, causal_sweep.json), the 137 deg peak only shown with that context.
   s3  real asciinema take demo/live/take1.cast; only the Muse wait is sped up, with a burned-in label.
   s4  defect classes from data/satfix/defects.json (+ tie-break count via src/defects.py).
-  s1  opens on a plain one-sentence card before the hash / the word 'minimized'.
+  s0  the problem framing, three verbatim text beats; s1 then goes straight into the replay.
   s3  ends on 'Muse proposed N tests -> sim found K failures' (counted from the live JSON) + provenance footer.
   s5  chart 1: exactly 4 bars (random, one-shot Muse bank, closed-loop Muse, marginals-matched random); others footnoted.
   s6  repair: held-out paired result first, then strict vs budget gate with net = fixes - runs with new violations.
@@ -88,9 +88,8 @@ def s1(D, T):
     s = mv.Seg("s1", {int(0.55 * T * FPS): STILL("s1_mid"), int((T - 0.6) * FPS): STILL("s1_end")}); f = s.fig
     runs = [("full", "FULL v1 POLICY"), ("no_isolate", "SAME POLICY, ONLY ISOLATION SUPPRESSED")]
     Tend = float(tel["full"].t_s.max())
-    T_OP = 6.0                                             # opening card: plain sentence before hash / 'minimized'
+    T_OP = 0.0                                             # the problem framing is its own segment (s0)
     T0, T1 = T_OP + 1.6, T - 9.5
-    s.stills[int(3.5 * FPS)] = STILL("s1_open")
     for i in range(int(T * FPS)):
         t = i / FPS; f.clf()
         if t < T_OP:
@@ -177,6 +176,28 @@ def s1(D, T):
                                     "RW1 stays in the control loop.", fontsize=19, color=AMBER, alpha=b, weight="bold")
                 ft(0.17, 0.195, "minimized case · the original run 173 also fails with the policy off",
                        fontsize=15, color=DIM, alpha=b, style="italic")
+        s.frame()
+    return s.close()
+
+
+# ------------------------------------------------------------------ s0 problem framing (3 beats, verbatim)
+def s0(D, T):
+    beats = vs.OPEN_BEATS; nw = [len(b.split()) for b in beats]
+    dj = os.path.join(HERE, "vo_v4", "durations.json")
+    vo = json.load(open(dj))["s0"]["vo_s"] if os.path.exists(dj) else T - 1.2
+    starts = [vs.VO_LEAD + vo * sum(nw[:k]) / sum(nw) - 0.2 for k in range(len(beats))]
+    s = mv.Seg("s0", {int((T - 0.5) * FPS): STILL("s0_open")}); f = s.fig
+    ys = [0.70, 0.45, 0.29]; fs = [34, 34, 34]
+    for i in range(int(T * FPS)):
+        t = i / FPS; f.clf()
+        for k, (b, st) in enumerate(zip(beats, starts)):
+            a = fade(t, max(st, 0), 0.5)
+            if a <= 0:
+                continue
+            cur = k == len(beats) - 1 or t < starts[k + 1]
+            col = (AMBER if k == 2 else FG) if cur or k == 2 else DIM
+            f.text(0.5, ys[k], textwrap.fill(b, 62), fontsize=fs[k], ha="center", va="center", color=col, alpha=a,
+                   weight="bold", linespacing=1.45)
         s.frame()
     return s.close()
 
@@ -465,7 +486,7 @@ def s7(D, T):
     return s.close()
 
 
-SEGS = dict(s1=s1, s2=s2, s3=s3, s4=s4, s5=s5, s6=s6, s7=s7)
+SEGS = dict(s0=s0, s1=s1, s2=s2, s3=s3, s4=s4, s5=s5, s6=s6, s7=s7)
 assert list(SEGS) == [s["id"] for s in vs.SEGMENTS]
 
 
