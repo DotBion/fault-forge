@@ -9,7 +9,7 @@ Segment ids, lengths and narration live in demo/v4_script.py (lengths: demo/vo_v
       (data/satfix/causal_replay.json, causal_sweep.json), the 137 deg peak only shown with that context.
   s3  real asciinema take demo/live/take1.cast; only the Muse wait is sped up, with a burned-in label.
   s4  defect classes from data/satfix/defects.json (+ tie-break count via src/defects.py).
-  s0  the problem framing, three verbatim text beats; s1 then goes straight into the replay.
+  s0  narration-only opening (problem framing) over a dimmed Ken-Burns of the s1 replay still + title.
   s3  ends on 'Muse proposed N tests -> sim found K failures' (counted from the live JSON) + provenance footer.
   s5  chart 1: exactly 4 bars (random, one-shot Muse bank, closed-loop Muse, marginals-matched random); others footnoted.
   s6  repair: held-out paired result first, then strict vs budget gate with net = fixes - runs with new violations.
@@ -182,22 +182,23 @@ def s1(D, T):
 
 # ------------------------------------------------------------------ s0 problem framing (3 beats, verbatim)
 def s0(D, T):
-    beats = vs.OPEN_BEATS; nw = [len(b.split()) for b in beats]
-    dj = os.path.join(HERE, "vo_v4", "durations.json")
-    vo = json.load(open(dj))["s0"]["vo_s"] if os.path.exists(dj) else T - 1.2
-    starts = [vs.VO_LEAD + vo * sum(nw[:k]) / sum(nw) - 0.2 for k in range(len(beats))]
-    s = mv.Seg("s0", {int((T - 0.5) * FPS): STILL("s0_open")}); f = s.fig
-    ys = [0.70, 0.45, 0.29]; fs = [34, 34, 34]
+    # Narration-only opening: slow Ken-Burns over the rendered s1 replay still (dimmed), short title, no transcript.
+    img = np.asarray(Image.open(os.path.join(HERE, "v4_still_s1_mid.png")).convert("RGB"))
+    h, w = img.shape[:2]
+    s = mv.Seg("s0", {int(5.0 * FPS): STILL("s0_open")}); f = s.fig
     for i in range(int(T * FPS)):
-        t = i / FPS; f.clf()
-        for k, (b, st) in enumerate(zip(beats, starts)):
-            a = fade(t, max(st, 0), 0.5)
-            if a <= 0:
-                continue
-            cur = k == len(beats) - 1 or t < starts[k + 1]
-            col = (AMBER if k == 2 else FG) if cur or k == 2 else DIM
-            f.text(0.5, ys[k], textwrap.fill(b, 62), fontsize=fs[k], ha="center", va="center", color=col, alpha=a,
-                   weight="bold", linespacing=1.45)
+        t = i / FPS; f.clf(); u = t / T
+        z = 1.0 + 0.30 * u                                  # zoom in slowly toward the left spacecraft
+        cx, cy = w * (0.5 - 0.30 * u), h * (0.5 - 0.10 * u)
+        hw, hh = w / (2 * z), h / (2 * z)
+        cx = min(max(cx, hw), w - hw); cy = min(max(cy, hh), h - hh)
+        ax = f.add_axes([0, 0, 1, 1]); ax.axis("off")
+        ax.imshow(img, interpolation="bilinear"); ax.set_xlim(cx - hw, cx + hw); ax.set_ylim(cy + hh, cy - hh)
+        ax.add_patch(plt.Rectangle((0, 0), w, h, color=BG, alpha=0.55 * fade(t, 0.0, 1.5) + 0.25))
+        a = fade(t, 0.3, 1.2) * (1 - fade(t, T - 0.8))
+        f.text(0.5, 0.52, "FaultForge", fontsize=84, ha="center", va="center", weight="bold", color=FG, alpha=a)
+        f.text(0.5, 0.40, "Basilisk spacecraft simulation  \u00b7  AI-guided fault search", fontsize=26,
+               ha="center", va="center", color=AMBER, alpha=a)
         s.frame()
     return s.close()
 
